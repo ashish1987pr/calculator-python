@@ -2,36 +2,40 @@ import tkinter as tk
 
 ERROR = "Error!"
 
+
 def string_to_double(s):
     try:
-        val = float(s);
-        return val;
+        val = float(s)
+        return val
     except ValueError:
         return None
+
 
 def clear_if_error():
     s = display_str.get()
     if s == ERROR:
         display_str.set("0")
 
+
 def double_to_string(v):
     s = str(v)
     if 'e' in s:
         return ERROR
-    
+
     if '.' in s:
         while s[-1] == '0':
             s = s[0:-1]
-            
+
     while len(s) > 10 and s[-1] != '.':
         s = s[0:-1]
-        
+
     if s[-1] == '.':
         s = s[0:-1]
-        
+
     if len(s) > 10:
         return ERROR
     return s
+
 
 def do_clear():
     global accumulator, last_operation
@@ -110,8 +114,8 @@ def do_equal():
         if value != 0:
             accumulator /= value
         else:
-            display_str.set(ERROR);
-            return;
+            display_str.set(ERROR)
+            return
     display_str.set(double_to_string(accumulator))
 
 
@@ -126,7 +130,8 @@ display_str = tk.StringVar()
 display_str.set("0")
 stick = tk.N + tk.S + tk.E + tk.W
 
-display = tk.Entry(window, width=10, font=("Courier New", "15", "bold"), textvariable=display_str, justify=tk.RIGHT)
+display = tk.Entry(window, width=10, font=(
+    "Courier New", "15", "bold"), textvariable=display_str, justify=tk.RIGHT)
 display.grid(row=0, columnspan=5, sticky=stick)
 
 digit7 = tk.Button(window, text="7", command=lambda: do_digit_x("7"))
