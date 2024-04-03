@@ -1,405 +1,404 @@
+"""
+Calculator Module
+
+This module contains the implementation of a simple calculator GUI application using tkinter.
+It provides classes and functions to create a calculator window with basic arithmetic operations.
+
+Classes:
+    - Calculator: A class to create a calculator that performs basic arithmetic operations.
+
+Functions:
+    - None
+
+Constants:
+    - None
+
+Modules Required:
+    - tkinter: For creating the GUI components of the calculator.
+    - calc_operations: A custom module providing additional arithmetic operations for the calculator.
+
+Example:
+    >>> from calculator import Calculator
+    >>> calc = Calculator()
+    >>> calc.window.mainloop()
+"""
+
+# Importing required modules
 import tkinter as tk
-from tkinter import messagebox
-from decimal import Decimal
+
+from calc_operations import CalcOperations
 
 
-def string_to_double(s):
-    try:
-        value = float(s)
-        return value
-    except ValueError:
-        return None
+class Calculator(CalcOperations):
+    """
+    A class to create a calculator that performs basic calculation operations.
+
+    Attributes:
+    ----------
+        window_title: (str): The title of the calculator window.
+        window_padx (int): Horizontal padding of the calculator window.
+        window_pady (int): Vertical padding of the calculator window.
+        window_bg_color (str): Background color of the calculator window.
+        primary_display_text (tk.StringVar): String variable for primary display.
+        secondary_display_text (tk.StringVar): String variable for secondary display.
+        display_bg (str): Background color of the display area.
+        primary_display_font (tuple): Font for primary display.
+        secondary_display_font (tuple): Font for secondary display.
+        btn_bg (str): Background color of buttons.
+        btn_operator_bg (str): Background color of operator buttons.
+        btn_equal_bg (str): Background color of equal button.
+        btn_active_bg (str): Background color of active buttons.
+        btn_disabled_bg (str): Background color of disabled buttons.
+        btn_padx (tuple): Horizontal padding of buttons.
+        btn_pady (tuple): Vertical padding of buttons.
+        btn_back_pady (tuple): Padding for the 'Back' button.
+        btn_borderwidth (int): Border width of buttons.
+        btn_height (int): Height of buttons.
+        btn_width (int): Width of buttons.
+        btn_digit_font (tuple): Font for digit buttons.
+        btn_operator_font (tuple): Font for operator buttons.
+        stick (str): Sticky parameter for grid layout.
+        last_operation (str): String to store the last operation performed.
+        accumulator (float): Accumulator to store temporary results.
+        flag (int): A variable that ensures that the code inside the operation functions like 'do_plus' works only if there is input in the screen.
+        Error (str): Error message for division by zero.
+
+    Methods:
+        __init__(): Initialize the Calculator class.
+        create_main_window(): Create the main window of the calculator.
+        create_menu(): Create the menu for the calculator.
+        create_display(): Create the display area for the calculator.
+        create_info_label(): Create the information label for the calculator.
+        create_button(): Create buttons for the calculator.
+    """
+
+    def __init__(self):
+        """
+        Initialize the Calculator class.
+
+        Initialize the Calculator class along with necessary method calls
+        to create the calculator.
+
+        Attributes:
+            window_title (str): The title of the calculator window.
+            window_padx (int): Horizontal padding of the calculator window.
+            window_pady (int): Vertical padding of the calculator window.
+            window_bg_color (str): Background color of the calculator window.
+            primary_display_text (tk.StringVar): String variable for primary display.
+            secondary_display_text (tk.StringVar): String variable for secondary display.
+            display_bg (str): Background color of the display area.
+            primary_display_font (tuple): Font for primary display.
+            secondary_display_font (tuple): Font for secondary display.
+            btn_bg (str): Background color of buttons.
+            btn_operator_bg (str): Background color of operator buttons.
+            btn_equal_bg (str): Background color of equal button.
+            btn_active_bg (str): Background color of active buttons.
+            btn_disabled_bg (str): Background color of disabled buttons.
+            btn_padx (tuple): Horizontal padding of buttons.
+            btn_pady (tuple): Vertical padding of buttons.
+            btn_back_pady (tuple): Padding for the 'Back' button.
+            btn_borderwidth (int): Border width of buttons.
+            btn_height (int): Height of buttons.
+            btn_width (int): Width of buttons.
+            btn_digit_font (tuple): Font for digit buttons.
+            btn_operator_font (tuple): Font for operator buttons.
+            stick (str): Sticky parameter for grid layout.
+            last_operation (str): String to store the last operation performed.
+            accumulator (float): Accumulator to store temporary results.
+            flag (int): Flag variable.
+            Error (str): Error message for division by zero.
+
+        Returns:
+            None
+        """
+        self.window_title = 'Calculator'
+        self.window_padx = 20
+        self.window_pady = 20
+        self.window_bg_color = '#ECEFFB'
+
+        # Calling create_main_window create the main window.
+        self.create_main_window()
+        # Calling create_menu create the menu.
+        self.create_menu()
+
+        self.primary_display_text = tk.StringVar()
+        self.primary_display_text.set('0')
+        self.secondary_display_text = tk.StringVar()
+        self.secondary_display_text.set('0')
+        self.display_bg = '#FFFFFF'
+        self.primary_display_font = ('Courier New', '28', 'bold')
+        self.secondary_display_font = ('Courier New', '16', 'bold')
+
+        self.btn_bg = '#FCFDFF'
+        self.btn_operator_bg = '#F8FAFE'
+        self.btn_equal_bg = '#A0D3E7'
+        self.btn_active_bg = '#EAEEFC'
+        self.btn_disabled_bg = '#F5F5F5'
+        self.btn_padx = (1, 1)
+        self.btn_pady = (1, 1)
+        self.btn_back_pady = (10, 1)
+        self.btn_borderwidth = 0
+        self.btn_height = 2
+        self.btn_width = 2
+        self.btn_digit_font = ('', '14', 'bold')
+        self.btn_operator_font = ('', '14', '')
+        self.stick = tk.N + tk.S + tk.E + tk.W
+
+        self.last_operation = ''
+        self.accumulator = 0.
+        self.flag = 0
+        self.Error = 'Div. by 0 Error!'
+
+        # Calling create_display create the calculator display.
+        self.create_display()
+        # Calling create_info_label create the infomation label.
+        self.create_info_label()
+        # Calling create_button create calculator buttons.
+        self.create_button()
+
+    def create_main_window(self):
+        """
+        Create the main window of the calculator.
+
+        This method initializes the main window of the calculator with specific attributes.
+
+        Attributes:
+            self.window (tk.Tk): The main window of the calculator.
+            self.window_title (str): The title of the calculator window.
+            self.window_padx (int): Horizontal padding of the calculator window.
+            self.window_pady (int): Vertical padding of the calculator window.
+            self.window_bg_color (str): Background color of the calculator window.
+
+        Returns:
+            None
+        """
+        self.window = tk.Tk()
+        self.window.title(self.window_title)
+        # Make the window stiff.
+        self.window.resizable(width=False, height=False)
+        self.window.config(padx=self.window_padx,
+                           pady=self.window_padx,
+                           bg=self.window_bg_color)
+        self.window.tk.call('wm', 'iconphoto', self.window._w,
+                            tk.PhotoImage(file='calc_fevicon.png'))     # Set the non-default icon to the window.
+
+    def create_menu(self):
+        """
+        Create the menu for the calculator.
+
+        This method adds menu options to the main menu bar of the calculator window.
+
+        Attributes:
+            self.window (tk.Tk): The main window of the calculator.
+            self.under_maintenace (function): Callback function for the 'Scientific calculator' menu option.
+            self.are_you_sure (function): Callback function for the 'Quit' menu option.
+            self.about_app (function): Callback function for the 'About' menu option.
+
+        Local Variables:
+            main_menu (tk.Menu): The main menu bar of the calculator window.
+            sub_menu_file (tk.Menu): The submenu under the 'File' menu.
+
+        Returns:
+            None
+        """
+        # Adding main menu to the main self.window.
+        main_menu = tk.Menu(self.window)
+        self.window.config(menu=main_menu)
+
+        # Adding options to the main menu bar with empty sub_menu.
+        sub_menu_file = tk.Menu(main_menu, tearoff=0)
+        main_menu.add_cascade(label='File', menu=sub_menu_file, underline=0)
+        # Adding items to the file menu.
+        sub_menu_file.add_command(label='Standard calculator')
+        sub_menu_file.add_command(
+            label='Scientific calculator', command=self.under_maintenace)
+        sub_menu_file.add_separator()    # Add line separator.
+        sub_menu_file.add_command(label='Quit',
+                                  command=self.are_you_sure,
+                                  underline=0,
+                                  accelerator='Ctrl-Q')
+        # Bind Ctr-Q and Ctr-q event to the specified callback.
+        self.window.bind('<Control-Q>', self.are_you_sure)
+        self.window.bind('<Control-q>', self.are_you_sure)
+
+        # Adding options to the main menu bar with callback.
+        main_menu.add_command(label='About',
+                              command=self.about_app,
+                              underline=0)
+
+    def create_display(self):
+        """
+        Create the display area for the calculator.
+
+        This method creates labels for primary and secondary displays.
+
+        Attributes:
+            self.window (tk.Tk): The main window of the calculator.
+            self.under_maintenace (function): Callback function for the 'Scientific calculator' menu option.
+            self.are_you_sure (function): Callback function for the 'Quit' menu option.
+            self.about_app (function): Callback function for the 'About' menu option.
+
+        Local Variables:
+            primary_display (tk.Label): The primary display of the menu.
+            secondary_display (tk.Label): The secondary display of the menu.
+
+        Returns:
+            None
+        """
+        secondary_display = tk.Label(master=self.window,
+                                     width=16,
+                                     font=self.secondary_display_font,
+                                     textvariable=self.secondary_display_text,
+                                     anchor='e',
+                                     bg=self.display_bg)
+        primary_display = tk.Label(master=self.window,
+                                   width=16,
+                                   font=self.primary_display_font,
+                                   textvariable=self.primary_display_text,
+                                   anchor='e',
+                                   bg=self.display_bg)
+
+        secondary_display.grid(row=0, columnspan=4, sticky=self.stick)
+        primary_display.grid(row=1, columnspan=4, sticky=self.stick)
+
+    def create_info_label(self):
+        """
+        Create the information label for the calculator.
+
+        This method creates a label at the bottom of the calculator for additional information
+        such as developer's email.
+
+        Attributes:
+            self.window (tk.Tk): The main window of the calculator.
+            self.window_bg_color (str): Background color of the calculator window.
+
+        Local Variables:
+            company_label (tk.Label): The label widget displaying developer's email.
+
+        Returns:
+            None
+        """
+        company_label = tk.Label(master=self.window,
+                                 text='Developer Email:\nashish.bmistry@gmail.com',
+                                 font=('Arial', '8', ''),
+                                 bg=self.window_bg_color,
+                                 anchor='sw',
+                                 justify=tk.LEFT)
+
+        company_label.grid(row=2, column=0, columnspan=3,
+                           sticky=self.stick, pady=(0, 5))
+
+    def create_button(self):
+        """
+        Create buttons for the calculator.
+
+        This method creates buttons for digits and various operations, places them inside the grid, 
+        and binds them to respective callback functions.
+
+        Attributes:
+            buttons_dict (dict): A dictionary to store button objects with their respective text as keys.
+
+        Local Variables:
+            btn_texts (list): A list of strings representing the text for each button.
+            rows (int): An integer representing the row counter for button placement initialization.
+            cols (int): An integer representing the column counter for button placement initialization.
+
+        Each button is created with specific attributes and configured with appropriate commands and bindings.
+        After creating each button, it is added to the `buttons_dict` dictionary for later access.
+        The buttons are placed inside the main window using the grid layout manager.
+
+        Callbacks (Handler functions):
+            - do_backspace: Handles the Backspace button press event.
+            - do_clear: Handles the Clear (C) button press event.
+            - do_clear_entry: Handles the Clear Entry (CE) button press event.
+            - do_percent: Handles the Percentage (%) button press event.
+            - do_divd: Handles the Division (/) button press event.
+            - do_multi: Handles the Multiplication (x) button press event.
+            - do_minus: Handles the Subtraction (-) button press event.
+            - do_plus: Handles the Addition (+) button press event.
+            - do_equal: Handles the Equal (=) button press event.
+            - do_dot: Handles the Dot (.) button press event.
+            - do_digit_0: Handles the Digit 0 (0) button press event.
+            - do_plusminus: Handles the Plus/Minus (+/-) button press event.
+            - do_digit_x: Handles the Digit buttons (1-9) press event.
+        """
+        # Empty dictionary to store buttons object.
+        self.buttons_dict = {}
+        # List to stores all button's text. Order of the element in the list
+        # decides the way buttons are placed inside the window.
+        btn_texts = ['Back', 'C', 'CE', '%', '/', '7', '8', '9', 'x', '4',
+                     '5', '6', '-', '1', '2', '3', '+', '+/-', '0', '.', '=']
+        rows = 3    # Row counter initialization.
+        cols = 3    # Column counter initialization.
+
+        # Creating button objects with specified properties.
+        for btn_text in btn_texts:
+            btn = tk.Button(master=self.window,
+                            text=btn_text,
+                            height=self.btn_height,
+                            width=self.btn_width,
+                            bg=self.btn_operator_bg,
+                            activebackground=self.btn_active_bg,
+                            font=self.btn_operator_font,
+                            borderwidth=self.btn_borderwidth)
+
+            if btn_text == 'Back':
+                btn.config(command=self.do_backspace)
+                self.window.bind('<BackSpace>', self.do_backspace)
+            elif btn_text == 'C':
+                btn.config(command=self.do_clear)
+                self.window.bind('<Escape>', self.do_clear)
+            elif btn_text == 'CE':
+                btn.config(command=self.do_clear_entry)
+                self.window.bind('<Delete>', self.do_clear_entry)
+            elif btn_text == '%':
+                btn.config(command=self.do_percent)
+                self.window.bind('%', self.do_percent)
+            elif btn_text == '/':
+                btn.config(command=self.do_divd)
+                self.window.bind('/', self.do_divd)
+            elif btn_text == 'x':
+                btn.config(command=self.do_multi)
+                self.window.bind('*', self.do_multi)
+            elif btn_text == '-':
+                btn.config(command=self.do_minus)
+                self.window.bind('-', self.do_minus)
+            elif btn_text == '+':
+                btn.config(command=self.do_plus)
+                self.window.bind('+', self.do_plus)
+            elif btn_text == '=':
+                btn.config(command=self.do_equal,
+                           bg=self.btn_equal_bg)
+                self.window.bind('=', self.do_equal)
+                self.window.bind('<Return>', self.do_equal)
+            elif btn_text == '.':
+                btn.config(command=self.do_dot,
+                           font=self.btn_digit_font)
+                self.window.bind('.', self.do_dot)
+            elif btn_text == '0':
+                btn.config(command=self.do_digit_0,
+                           font=self.btn_digit_font,
+                           bg=self.btn_bg)
+                self.window.bind('0', self.do_digit_0)
+            elif btn_text == '+/-':
+                btn.config(command=self.do_plusminus)
+                self.window.bind('<F9>', self.do_plusminus)
+            elif btn_text in ['1', '2', '3', '4', '5', '6', '7', '8', '9']:
+                btn.config(font=self.btn_digit_font,
+                           bg=self.btn_bg)
+                btn.bind('<Button-1>', self.do_digit_x)
+                self.window.bind(btn_text, self.do_digit_x)
+
+            # Storing each button object to the dictionary to access them later.
+            self.buttons_dict.update([(btn_text, btn)])
+
+            # Placing the buttons into the main window.
+            btn.grid(row=(rows//4) + 2, column=cols % 4, sticky=self.stick,
+                     pady=self.btn_back_pady if btn_text == 'Back' else self.btn_pady,
+                     padx=self.btn_padx)
+            rows += 1
+            cols += 1
 
 
-def double_to_string(val):
-    s = str(val)
-    if '.' in s:
-        while s[-1] == '0':
-            s = s[0:-1]
-    if s[-1] == '.':
-        s = s[0:-1]
-    if len(s) > 16:
-        s = float(s)
-        s = "{:e}".format(s)
-    return s
-
-
-def clear_if_error():
-    s = display_str_main.get()
-    if s == Error:
-        do_clear()
-
-
-def disable_if_error():
-    divd.config(state=tk.DISABLED, bg='#f5f5f5')
-    multi.config(state=tk.DISABLED, bg='#f5f5f5')
-    minus.config(state=tk.DISABLED, bg='#f5f5f5')
-    plus.config(state=tk.DISABLED, bg='#f5f5f5')
-    percent.config(state=tk.DISABLED, bg='#f5f5f5')
-    plusminus.config(state=tk.DISABLED, bg='#f5f5f5')
-    dot.config(state=tk.DISABLED, bg='#f5f5f5')
-    equal.config(state=tk.DISABLED, bg='#f5f5f5')
-
-
-def do_clear():
-    global last_operation, accumulator, flag
-    last_operation = ""
-    accumulator = 0.
-    flag = 0
-    display_str_main.set('0')
-    display_str_secondary.set('0')
-    divd.config(state=tk.NORMAL, bg=btn_bg_color,
-                activebackground=btn_active_color,)
-    multi.config(state=tk.NORMAL, bg=btn_bg_color,
-                 activebackground=btn_active_color,)
-    minus.config(state=tk.NORMAL, bg=btn_bg_color,
-                 activebackground=btn_active_color,)
-    plus.config(state=tk.NORMAL, bg=btn_bg_color,
-                activebackground=btn_active_color,)
-    percent.config(state=tk.NORMAL, bg=btn_bg_color,
-                   activebackground=btn_active_color,)
-    plusminus.config(state=tk.NORMAL, bg=btn_bg_color,
-                     activebackground=btn_active_color,)
-    dot.config(state=tk.NORMAL, bg=btn_bg_color,
-               activebackground=btn_active_color,)
-    equal.config(state=tk.NORMAL, bg=btn_bg_color,
-                 activebackground=btn_active_color,)
-
-
-def do_clear_entry():
-    display_str_main.set('0')
-
-
-def do_digit_x(dig):
-    global flag
-    # flag is variable that ensures that if there is input in the screen then only code inside the operation function like do_plus works, otherwise will not work. this is becuase sometime we may press +, - etc buttons multiple times at the same time.
-    flag = 0
-    clear_if_error()
-    s = display_str_main.get()
-    if len(s) < 16:
-        if s == "0":
-            display_str_main.set(dig)
-        else:
-            display_str_main.set(s+dig)
-
-
-def do_dot():
-    global flag
-    # flag is variable that ensures that if there is input in the screen then only code inside the operation function like do_plus works, otherwise will not work. this is becuase sometime we may press +, - etc buttons multiple times at the same time.
-    flag = 0
-    clear_if_error()
-    s = display_str_main.get()
-    if len(s) < 16 and '.' not in s:
-        display_str_main.set(s+'.')
-
-
-def do_digit_0():
-    global flag
-    # flag is variable that ensures that if there is input in the screen then only code inside the operation function like do_plus works, otherwise will not work. this is becuase sometime we may press +, - etc buttons multiple times at the same time.
-    flag = 0
-    clear_if_error()
-    s = display_str_main.get()
-
-    if len(s) < 16 and s != '0':
-        display_str_main.set(s+'0')
-
-
-def do_plus():
-    global last_operation, accumulator, flag
-    clear_if_error()
-    if flag == 0:  # this ensures that pressing plus button multiple times has no effect as flag is set to 1 below.
-        if last_operation == '':
-            accumulator = string_to_double(display_str_main.get())
-            last_operation = '+'
-            display_str_main.set('0')
-            display_str_secondary.set(
-                double_to_string(accumulator)+last_operation)
-        else:
-            do_equal('+')
-            last_operation = '+'
-
-    # This condition sets last_operation when user changes operation from one to another(eg. + to *) at the same time without entrying current value.
-    if flag == 1:
-        last_operation = '+'
-        display_str_secondary.set(double_to_string(accumulator)+last_operation)
-
-    flag = 1
-
-
-def do_minus(event=None):
-    global last_operation, accumulator, flag
-    clear_if_error()
-    if flag == 0:  # this ensures that pressing minus button multiple times has no effect as flag is set to 1 below.
-        if last_operation == '':
-            accumulator = string_to_double(display_str_main.get())
-            last_operation = '-'
-            display_str_main.set('0')
-            display_str_secondary.set(
-                double_to_string(accumulator)+last_operation)
-        else:
-            do_equal('-')
-            last_operation = '-'
-    if flag == 1:
-        last_operation = '-'
-        display_str_secondary.set(double_to_string(accumulator)+last_operation)
-    flag = 1
-
-
-def do_multi():
-    global last_operation, accumulator, flag
-    clear_if_error()
-    if flag == 0:  # this ensures that pressing multi button multiple times has no effect as flag is set to 1 below.
-        if last_operation == '':
-            accumulator = string_to_double(display_str_main.get())
-            last_operation = '*'
-            display_str_main.set('0')
-            display_str_secondary.set(
-                double_to_string(accumulator)+last_operation)
-        else:
-            do_equal('*')
-            last_operation = '*'
-    if flag == 1:
-        last_operation = '*'
-        display_str_secondary.set(double_to_string(accumulator)+last_operation)
-    flag = 1
-
-
-def do_divd():
-    global last_operation, accumulator, flag
-    clear_if_error()
-    if flag == 0:
-        if last_operation == '':
-            accumulator = string_to_double(display_str_main.get())
-            last_operation = '/'
-            display_str_main.set('0')
-            display_str_secondary.set(
-                double_to_string(accumulator)+last_operation)
-        else:
-            do_equal('/')
-            last_operation = '/'
-    if flag == 1:
-        last_operation = '/'
-        display_str_secondary.set(double_to_string(accumulator)+last_operation)
-    flag = 1
-
-
-def do_percent():
-    global last_operation, accumulator, flag
-    clear_if_error()
-    if last_operation == '':
-        accumulator = string_to_double(display_str_main.get())
-        do_equal('%')
-        last_operation = ''
-    else:
-        do_equal('%')
-        last_operation = ''
-
-
-def do_equal(symbol='='):
-    global last_operation, accumulator, flag
-    # this ensures that nothing is done if = button is pressed before any operation that +, -, etc.
-    if last_operation == '' and symbol != '%':
-        # this also allow below code to be executed if last_operation is '' but symbol is %.
-        return None
-
-    curr_value = string_to_double(display_str_main.get())
-
-    flag = 0
-    clear_if_error()
-
-    # these code sets secondary display
-    if symbol == '=':
-        display_str_secondary.set(double_to_string(
-            accumulator)+last_operation+double_to_string(curr_value)+'=')
-    elif last_operation == '' and symbol == '%':
-        display_str_secondary.set(double_to_string(accumulator)+symbol)
-    elif last_operation != '' and symbol == '%':
-        display_str_secondary.set(double_to_string(
-            accumulator)+last_operation+double_to_string(curr_value)+symbol+'=')
-
-    # thsese code perform calculations
-    if last_operation == '*' and symbol != '%':
-        accumulator *= curr_value
-    elif last_operation == "-" and symbol != '%':
-        accumulator -= curr_value
-    elif last_operation == "+" and symbol != '%':
-        accumulator += curr_value
-    elif last_operation == "/" and symbol != '%':
-        if curr_value != 0:
-            accumulator /= curr_value
-        else:
-            display_str_main.set(Error)
-            disable_if_error()
-            return None
-    elif last_operation == '' and symbol == '%':
-        accumulator /= 100
-    elif last_operation == '*' and symbol == '%':
-        accumulator = accumulator * (curr_value/100)
-    elif last_operation == '/' and symbol == '%':
-        accumulator = accumulator / (curr_value/100)
-    elif last_operation == '+' and symbol == '%':
-        accumulator += (accumulator * (curr_value/100))
-    elif last_operation == '-' and symbol == '%':
-        accumulator -= (accumulator * (curr_value/100))
-
-    # these code sets main display.
-    if symbol == '=':  # this is excecuted when uses presses = button.
-        display_str_main.set(double_to_string(accumulator))
-        last_operation = ''
-    elif symbol == '%':  # this sets main display value when symbol is %.
-        display_str_main.set(double_to_string(accumulator))
-    # this is executed when user want to calculated series of more than two like 10 + 20 + 30 etc.
-    else:
-        display_str_main.set('0')
-        display_str_secondary.set(double_to_string(accumulator)+symbol)
-
-
-def do_plusminus():
-    clear_if_error()
-    display_str_main.set(
-        double_to_string(-string_to_double(display_str_main.get())))
-
-
-def do_backspace():
-    clear_if_error()
-    s = display_str_main.get()
-    if s != '0':
-        display_str_main.set(s[0:-1])
-        if len(s) == 1:
-            display_str_main.set('0')
-
-
-# Callback definition for main menu option named About.
-def about_app():
-    messagebox.showinfo('About us', 'Developed by Ashish B. Mistry')
-
-
-# Callback definition for sub file menu option named Quit.
-def are_you_sure(event=None):
-    reply = messagebox.askyesno(
-        title='Quit?', message='Are you sure you want to quit the app?')
-    if reply:
-        window.destroy()
-
-
-window = tk.Tk()
-window.title("Calculator")
-window.resizable(width=False, height=False)
-window.config(padx=10, pady=10, bg='#F0F3FF')
-
-# Adding main menu to the main window.
-main_menu = tk.Menu(window)
-window.config(menu=main_menu)
-
-# Adding options to the main menu bar with empty sub_menu.
-sub_menu_file = tk.Menu(main_menu, tearoff=0)
-main_menu.add_cascade(label='File', menu=sub_menu_file, underline=0)
-
-sub_menu_file.add_command(label='Regular calculator')
-sub_menu_file.add_command(label='Scientific calculator')
-sub_menu_file.add_separator()
-sub_menu_file.add_command(
-    label='Quit', command=are_you_sure, underline=0, accelerator='Ctrl-Q')
-window.bind('<Control-Q>', are_you_sure)
-window.bind('<Control-q>', are_you_sure)
-
-main_menu.add_command(label='About', command=about_app, underline=0)
-
-
-display_str_main = tk.StringVar()
-display_str_secondary = tk.StringVar()
-display_str_main.set("0")
-display_str_secondary.set("0")
-
-display_bg_color = '#FFFFFF'
-btn_bg_color = "#FCFDFF"
-btn_active_color = "#EAEEFC"
-borderwidth = 0
-btn_pady = (1, 1)
-btn_padx = (1, 1)
-stick = tk.N + tk.S + tk.E + tk.W
-
-display_secondary = tk.Label(master=window, width=16, font=(
-    "Courier New", "16", "bold"), textvariable=display_str_secondary, anchor='e', bg=display_bg_color)
-display_secondary.grid(row=0, columnspan=4, sticky=stick)
-display_main = tk.Label(master=window, width=16, font=(
-    "Courier New", "28", "bold"), textvariable=display_str_main, anchor='e', bg=display_bg_color)
-display_main.grid(row=1, columnspan=4, sticky=stick)
-
-company_label = tk.Label(master=window, text='Developed By Ashish B. Mistry\nE-Mail: enquiry@ruchiez.in\nMob: +91 8502025686',
-                         font=("Arial", "8", ""), bg='#F0F3FF', anchor='sw', justify=tk.LEFT)
-company_label.grid(row=2, column=0, columnspan=3, sticky=stick, pady=(0, 5))
-backspace = tk.Button(master=window, text="Back", command=do_backspace, height=2, width=2,
-                      bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-backspace.grid(row=2, column=3, sticky=stick, pady=(10, 1), padx=btn_padx)
-
-clear = tk.Button(window, text="C", command=do_clear, height=2, width=2, bg=btn_bg_color,
-                  activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-clear.grid(row=3, column=0, sticky=stick, pady=btn_pady, padx=btn_padx)
-clear_entry = tk.Button(window, text="CE", command=do_clear_entry, height=2, width=2,
-                        bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-clear_entry.grid(row=3, column=1, sticky=stick, pady=btn_pady, padx=btn_padx)
-percent = tk.Button(master=window, text='%', command=do_percent, height=2, bg=btn_bg_color,
-                    activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-percent.grid(row=3, column=2, sticky=stick, pady=btn_pady, padx=btn_padx)
-divd = tk.Button(master=window, text="/", command=do_divd, height=2, bg=btn_bg_color,
-                 activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-divd.grid(row=3, column=3, sticky=stick, pady=btn_pady, padx=btn_padx)
-
-digit7 = tk.Button(master=window, text='7', command=lambda: do_digit_x("7"), height=2, width=2, bg=btn_bg_color, activebackground=btn_active_color, font=(
-    '', '14', 'bold'), borderwidth=0)  # By this ways of using lambda, we can send arguments to the callback function.
-digit7.grid(row=4, column=0, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit8 = tk.Button(master=window, text='8', command=lambda: do_digit_x("8"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit8.grid(row=4, column=1, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit9 = tk.Button(master=window, text='9', command=lambda: do_digit_x("9"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit9.grid(row=4, column=2, sticky=stick, pady=btn_pady, padx=btn_padx)
-multi = tk.Button(master=window, text="x", command=do_multi, height=2, bg=btn_bg_color,
-                  activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-multi.grid(row=4, column=3, sticky=stick, pady=btn_pady, padx=btn_padx)
-
-digit4 = tk.Button(master=window, text='4', command=lambda: do_digit_x("4"), height=2, width=2, bg=btn_bg_color, activebackground=btn_active_color, font=(
-    '', '14', 'bold'), borderwidth=0)  # By this ways of using lambda, we can send arguments to the callback function.
-digit4.grid(row=5, column=0, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit5 = tk.Button(master=window, text='5', command=lambda: do_digit_x("5"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit5.grid(row=5, column=1, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit6 = tk.Button(master=window, text='6', command=lambda: do_digit_x("6"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit6.grid(row=5, column=2, sticky=stick, pady=btn_pady, padx=btn_padx)
-minus = tk.Button(master=window, text="-", command=do_minus, height=2, bg=btn_bg_color,
-                  activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-minus.grid(row=5, column=3, sticky=stick, pady=btn_pady, padx=btn_padx)
-
-digit1 = tk.Button(master=window, text='1', command=lambda: do_digit_x("1"), height=2, width=2, bg=btn_bg_color, activebackground=btn_active_color, font=(
-    '', '14', 'bold'), borderwidth=0)  # By this ways of using lambda, we can send arguments to the callback function.
-digit1.grid(row=6, column=0, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit2 = tk.Button(master=window, text='2', command=lambda: do_digit_x("2"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit2.grid(row=6, column=1, sticky=stick, pady=btn_pady, padx=btn_padx)
-digit3 = tk.Button(master=window, text='3', command=lambda: do_digit_x("3"), height=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit3.grid(row=6, column=2, sticky=stick, pady=btn_pady, padx=btn_padx)
-plus = tk.Button(master=window, text="+", command=do_plus, height=2, bg=btn_bg_color,
-                 activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-plus.grid(row=6, column=3, sticky=stick, pady=btn_pady, padx=btn_padx)
-
-digit0 = tk.Button(master=window, text='0', command=do_digit_0, height=2, width=2,
-                   bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-digit0.grid(row=7, column=1, sticky=stick, pady=btn_pady, padx=btn_padx)
-dot = tk.Button(master=window, text=" . ", command=do_dot, height=2, bg=btn_bg_color,
-                activebackground=btn_active_color, font=('', '14', 'bold'), borderwidth=0)
-dot.grid(row=7, column=2, sticky=stick, pady=btn_pady, padx=btn_padx)
-plusminus = tk.Button(master=window, text='+/-', command=do_plusminus, height=2,
-                      bg=btn_bg_color, activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-plusminus.grid(row=7, column=0, sticky=stick, pady=btn_pady, padx=btn_padx)
-equal = tk.Button(master=window, text="=", command=do_equal, height=2, bg=btn_bg_color,
-                  activebackground=btn_active_color, font=('', '14', ''), borderwidth=0)
-equal.grid(row=7, column=3, sticky=stick, pady=btn_pady, padx=btn_padx)
-
-last_operation = ""
-accumulator = 0.
-flag = 0
-Error = "Div. by 0 Error!"
-window.mainloop()
+calc = Calculator()
+calc.window.mainloop()
