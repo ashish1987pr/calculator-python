@@ -2,7 +2,7 @@
 Calculator Module
 
 This module contains the implementation of a simple calculator GUI
-application using tkinter. It provides classes and functions to create
+application using tkinter. It provides classes and methods to create
 a calculator window with basic arithmetic operations.
 
 Classes:
@@ -101,7 +101,7 @@ class Calculator(CalcOperations):
         are_you_sure(self, event=None):
             Ask the user for confirmation before quitting the application.
 
-    Not e:
+    Note:
         - Calculator class inherits attributes and methods from its parent
           class CalsOperations responsible for various arithmetic operations.
         - Calculator class is also composed of either StandardCalc or
@@ -117,7 +117,7 @@ class Calculator(CalcOperations):
         to create the calculator.
 
         Args:
-            calc_types (StandardCalc or ScientificCalc): Instance of either
+            calc_types (StandardCalc | ScientificCalc): Instance of either
             StandardCalc or ScientificCalc class.
 
         Returns:
@@ -230,10 +230,12 @@ class Calculator(CalcOperations):
         sub_menu_file = tk.Menu(main_menu, tearoff=0)
         main_menu.add_cascade(label='File', menu=sub_menu_file, underline=0)
         # Adding items to the file menu.
-        sub_menu_file.add_command(label='Standard calculator',
-                                  command=lambda: self.calc_type_switch("stand_calc"))
-        sub_menu_file.add_command(label='Scientific calculator',
-                                  command=lambda: self.calc_type_switch("sci_calc"))
+        sub_menu_file.add_command(
+            label='Standard calculator',
+            command=lambda: self.calc_type_switch("stand_calc"))
+        sub_menu_file.add_command(
+            label='Scientific calculator',
+            command=lambda: self.calc_type_switch("sci_calc"))
         sub_menu_file.add_separator()    # Add line separator.
         sub_menu_file.add_command(label='Quit',
                                   command=self.are_you_sure,
@@ -332,20 +334,29 @@ class Calculator(CalcOperations):
             btn_font (tuple: self.btn_digit_font | self.btn_operator_font):
             Font for buttons.
             btn (tk.Button): Button widget object.
+            btn_text (str): A string representing button's text from
+            self.btn_callbacks dictionary.
+            callback (callback function): Name reference to the callback
+            function for each button respectively. It is accessed from
+            self.btn_callbacks dictionary.
 
         Callbacks Binds:
             - do_backspace (function): Handle Backspace button press event.
             - do_clear (function): Handle Clear (C) button press event.
-            - do_clear_entry (function): Handle Clear Entry (CE) button press event.
+            - do_clear_entry (function): Handle Clear Entry (CE) button press
+              event.
             - do_percent (function): Handle Percentage (%) button press event.
             - do_divd (function): Handle Division (/) button press event.
-            - do_multi (function): Handle Multiplication (x) button press event.
-            - do_minus (function): Handle the Subtraction (-) button press event.
+            - do_multi (function): Handle Multiplication (x) button press
+              event.
+            - do_minus (function): Handle the Subtraction (-) button press
+              event.
             - do_plus (function): Handle Addition (+) button press event.
             - do_equal (function): Handle Equal (=) button press event.
             - do_dot (function): Handle Dot (.) button press event.
             - do_digit_0 (function): Handle Digit 0 (0) button press event.
-            - do_plusminus (function): Handle Plus/Minus (+/-) button press event.
+            - do_plusminus (function): Handle Plus/Minus (+/-) button press
+              event.
             - do_digit_x (function): Handle Digit buttons (1-9) press event.
         """
         # Each time create_buttons() is called to create buttons for standard
@@ -396,6 +407,10 @@ class Calculator(CalcOperations):
         """
         A callback designed to switch between standard and scientific
         calculator.
+
+        Args:
+            symbol (str: stand_calc | sci_calc): A string representing type of
+            calculator.
 
         Functionality:
         - Set title of the main window depending selected type of calculator
@@ -509,6 +524,11 @@ class StandardCalc():
 
         Args:
             calc (Calcualator): An instance of Calculator class.
+
+        Local Variable:
+            btn_text (str): A string representing button's text from
+            buttons_dict dictionary of Calculator class.
+            btn (tk.Button): Button widget object.
 
         Returns:
             None

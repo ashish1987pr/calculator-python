@@ -22,6 +22,8 @@ Constants:
 
 Modules Required:
     - tkinter: For creating the GUI components of the calculator.
+    - decimal: This module provides functionality for precise arithmetic
+      operations using the Decimal data type from the decimal module.
 
 Author: Ashish Kumar
 Contact: ashish.bmistry@gmail.com
@@ -208,7 +210,6 @@ class CalcOperations:
             None otherwise.
         """
         try:
-            # num_value = float(str_value)
             num_value = Decimal(str_value)
 
             return num_value
@@ -220,7 +221,9 @@ class CalcOperations:
         Convert a floating-point number to a string.
 
         Depending on length of the num_value and presence of '.', it convert
-        the floating-point number to a string.
+        the floating-point number to a string. Depending on the context, It
+        also converts the floating-point number to a string representing
+        scientific notation.
 
         Args:
             num_value (float): The number to convert.
@@ -253,14 +256,16 @@ class CalcOperations:
             # If '.' is present in the str_value, split the str_value into
             # integer and decimal part.
             if '.' in str_value:
-                int_part, deci_part = str_value.split('.')
+                # Split the string into two part and storing integer part
+                # into int_part variable.
+                int_part = str_value.split('.')[0]
                 str_value = Decimal(str_value)
 
                 # If lenght of integer part is greater than primary display
                 # width, conver the integer part into scientific notation and
                 # set it to str_value.
                 if len(int_part) > self.pri_display_width:
-                    str_value = f"{str_value:.10e}"
+                    str_value = f"{str_value:.10E}"
                 else:
                     # If length of integer parts is less than or equal to
                     # primary display width, round off the str_value upto
@@ -274,13 +279,13 @@ class CalcOperations:
                     # 10000000000000000), which may not fit into primary
                     # display, so convert it into scientific notation.
                     if len(str_value) > self.pri_display_width:
-                        str_value = f"{Decimal(str_value):.10e}"
+                        str_value = f"{Decimal(str_value):.10E}"
             else:
                 str_value = Decimal(str_value)
                 # When lenght of str_value is greater than primary display
                 # width and '.' is not present into str_value then directly
                 # convert it into scientific notation.
-                str_value = f"{str_value:.10e}"
+                str_value = f"{str_value:.10E}"
 
         return str_value
 
@@ -306,12 +311,12 @@ class CalcOperations:
         message is present in the display.
 
         Local Variable:
-            btn_texts (list): A list to store text of the buttons that are to
-            be disabled if error message is present in the display.
+            btn_texts (str): A string representing button text from
+            disabled_btn_texts list.
 
         Note:
             This method relies on the 'buttons_dict' attribute of the
-            Calculator class to access the buttons.
+            CalcOperations class to access the buttons.
 
         Returns:
             None
@@ -345,13 +350,17 @@ class CalcOperations:
             provided when the method is called as a callback for a clear
             display event. Defaults to None.
 
+       Local Variable:
+            btn_texts (str): A string representing button text from
+            disabled_btn_texts list.
+
         Notes:
             - This method affects the appearance and behavior of certain
               calculator buttons, such as resetting their state and background
               color to default values.
             - It relies on the 'buttons_dict', 'last_operation', 'accumulator',
               'flag', 'pri_display_text', and 'sec_display_text'
-              attributes of the Calculator class to perform its operation.
+              attributes of the CalcOperations class to perform its operation.
 
         Returns:1
             None
@@ -423,6 +432,8 @@ class CalcOperations:
 
         Local Variables:
             str_value (str): The current value displayed on the calculator.
+            digit (str): The pressed (by mouse or keyboard) numerical buttons'
+            text (0 to 9).
 
         Returns:
             None
@@ -438,7 +449,7 @@ class CalcOperations:
             digit = event.keysym
 
         # Set the input value to the display.
-        if len(str_value) < 16:
+        if len(str_value) < self.pri_display_width:
             if str_value == "0":
                 self.pri_display_text.set(digit)
             else:
@@ -469,7 +480,7 @@ class CalcOperations:
         self.clear_if_error()
         str_value = self.pri_display_text.get()
 
-        if len(str_value) < 16 and '.' not in str_value:
+        if len(str_value) < self.pri_display_width and '.' not in str_value:
             self.pri_display_text.set(str_value + '.')
 
     def do_digit_0(self, event=None):
@@ -495,7 +506,7 @@ class CalcOperations:
         self.clear_if_error()
         str_value = self.pri_display_text.get()
 
-        if len(str_value) < 16 and str_value != '0':
+        if len(str_value) < self.pri_display_width and str_value != '0':
             self.pri_display_text.set(str_value + '0')
 
     def do_plus(self, event=None):
