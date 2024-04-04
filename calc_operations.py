@@ -365,7 +365,6 @@ class CalcOperations:
         Returns:1
             None
         """
-        global last_operation, accumulator, flag
         self.last_operation = ""
         self.accumulator = 0.
         self.flag = 0
@@ -438,7 +437,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global flag
         self.flag = 0
         self.clear_if_error()
         str_value = self.pri_display_text.get()
@@ -473,7 +471,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global flag
         # flag (int): A variable that ensures that code inside the operation
         # functions like 'do_plus' works only if there is input in the screen.
         self.flag = 0
@@ -501,7 +498,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global flag
         self.flag = 0
         self.clear_if_error()
         str_value = self.pri_display_text.get()
@@ -524,7 +520,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
         # If here is an error in the display we need to clear the error and do
         # nothing.
         if self.clear_if_error():
@@ -568,7 +563,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
         # If here is an error in the display we need to clear the error and do
         # nothing.
         if self.clear_if_error():
@@ -612,7 +606,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
         # If here is an error in the display we need to clear the error and do
         # nothing.
         if self.clear_if_error():
@@ -656,7 +649,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
         # If here is an error in the display we need to clear the error and do
         # nothing.
         if self.clear_if_error():
@@ -702,7 +694,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
         # If here is an error in the display we need to clear the error and do
         # nothing.
         if self.clear_if_error():
@@ -741,8 +732,6 @@ class CalcOperations:
         Returns:
             None
         """
-        global last_operation, accumulator, flag
-
         self.clear_if_error()
 
         # If last_operaton is set to '' and symbol is not set to '%', then do
@@ -806,7 +795,7 @@ class CalcOperations:
             # Handle ZeroDivsionError that may occur during percentage
             # operation.
             try:
-                self.accumulator = self.accumulator / (self.curr_value/100)
+                self.accumulator = self.accumulator / self.curr_value * 100
             except ZeroDivisionError:
                 self.pri_display_text.set(self.ERROR)
                 self.disable_if_error()
