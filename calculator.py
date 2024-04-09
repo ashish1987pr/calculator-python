@@ -390,7 +390,8 @@ class Calculator(CalcOperations):
             self.window.bind(self.btn_key_events[btn_text], callback)
 
             if btn_text == '=':
-                btn.config(bg=self.btn_equal_bg)
+                btn.config(bg=self.btn_equal_bg,
+                           fg=self.btn_equal_fg)
                 # Bind callback for Enter key additionally which is already
                 # assigned for <KeyPress-equal> event.
                 self.window.bind('<Return>', self.do_equal)

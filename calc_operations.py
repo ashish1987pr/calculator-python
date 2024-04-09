@@ -52,6 +52,7 @@ class CalcOperations:
         btn_disabled_bg (str): Background color of disabled buttons.
         btn_operator_bg (str): Background color of operator buttons.
         btn_equal_bg (str): Background color of equal button.
+        btn_equal_fg (str): Foreground color of equal button.
         buttons_dict (dict): A dictionary to store button objects with their
         respective text as keys.
         btn_key_events (dict): A dictionary representing button's text and
@@ -129,7 +130,8 @@ class CalcOperations:
         self.sec_display_width = 34
         self.btn_disabled_bg = '#F1F1F1'
         self.btn_operator_bg = '#F3FAFE'
-        self.btn_equal_bg = '#A0D3E7'
+        self.btn_equal_bg = '#7DB8FF'
+        self.btn_equal_fg = '#FFFFFF'
         # Empty dictionary to store buttons object.
         self.buttons_dict = {}
         # A dictionary containing all button's text and their respective
