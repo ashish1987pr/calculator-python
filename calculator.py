@@ -53,7 +53,7 @@ class Calculator(CalcOperations):
     Attributes:
         self.window (tk.Tk): The main window of the calculator.
         self.frame (tk.Frame): The frame widget which is master widget of
-        info_label and button widgets.
+            info_label and button widgets.
         win_title_st_calc (str): Title of the standard calculator window.
         win_title_sci_calc (str): Title of scientific calculator window.
         win_padx (int): Horizontal padding of the calculator window.
@@ -75,7 +75,7 @@ class Calculator(CalcOperations):
         btn_operator_font (tuple): Font for operator buttons.
         stick (str): Sticky parameter for grid layout.
         calc_type (object: StandardCalc | ScientificCalc): Stores instance of
-        either StandardCalc or ScientificCalc class.
+            either StandardCalc or ScientificCalc class.
 
     Methods:
         __init__(self, calc_type: StandardCalc or ScientificCalc):
@@ -118,7 +118,7 @@ class Calculator(CalcOperations):
 
         Args:
             calc_types (StandardCalc | ScientificCalc): Instance of either
-            StandardCalc or ScientificCalc class.
+                StandardCalc or ScientificCalc class.
 
         Returns:
             None
@@ -330,15 +330,15 @@ class Calculator(CalcOperations):
 
         Local Variable:
             btn_bg_color (str: self.btn_bg | self.btn_operator_bg): background
-            color for buttons.
+                color for buttons.
             btn_font (tuple: self.btn_digit_font | self.btn_operator_font):
-            Font for buttons.
+                Font for buttons.
             btn (tk.Button): Button widget object.
             btn_text (str): A string representing button's text from
-            self.btn_callbacks dictionary.
+                self.btn_callbacks dictionary.
             callback (callback function): Name reference to the callback
-            function for each button respectively. It is accessed from
-            self.btn_callbacks dictionary.
+                function for each button respectively. It is accessed from
+                self.btn_callbacks dictionary.
 
         Callbacks Binds:
             - do_backspace (function): Handle Backspace button press event.
@@ -411,7 +411,7 @@ class Calculator(CalcOperations):
 
         Args:
             symbol (str: stand_calc | sci_calc): A string representing type of
-            calculator.
+                calculator.
 
         Functionality:
         - Set title of the main window depending selected type of calculator
@@ -477,9 +477,9 @@ class Calculator(CalcOperations):
         is destroyed.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for quit event.
-            Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for quit event.
+                Defaults to None.
 
         Returns:
             None
@@ -510,6 +510,7 @@ class StandardCalc():
         """
         Initialize the StandardCalc class along with necessary method calls
         to creating calculator.
+
         Returns:
             None
         """
@@ -528,7 +529,7 @@ class StandardCalc():
 
         Local Variable:
             btn_text (str): A string representing button's text from
-            buttons_dict dictionary of Calculator class.
+                buttons_dict dictionary of Calculator class.
             btn (tk.Button): Button widget object.
 
         Returns:
@@ -610,8 +611,9 @@ class ScientificCalc():
             calc (Calcualator): An instance of Calculator class.
 
         Temporary Local Variable:
-            under_develop: Temporary tk.Label widget representing text that
-            'Scientific calculator is under development'. It is placed inside
+            under_develop (tk.Label): Temporary tk.Label widget representing
+                text that 'Scientific calculator is under development'. It is
+                placed inside the frame widget of Calculator class.
 
         Returns:
             None

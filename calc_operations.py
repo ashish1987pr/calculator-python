@@ -54,22 +54,35 @@ class CalcOperations:
         btn_equal_bg (str): Background color of equal button.
         btn_equal_fg (str): Foreground color of equal button.
         buttons_dict (dict): A dictionary to store button objects with their
-        respective text as keys.
+            respective text as keys.
         btn_key_events (dict): A dictionary representing button's text and
-        their respective keyboard event name.
+            their respective keyboard event name.
         btn_callbacks (dict): A dictionary representing button's text and
-        reference to their respective callback.
+            reference to their respective callback.
         disabled_btn_texts (list): A list of text of buttons which are to be
-        disabled when error message is present in the display.
+            disabled when error message is present in the display.
         btn_state (str: tk.DISABLED | tk.NORMAL = tk.NORMAL): Represents
-        certain button widgets state which changes when error message is
-        present in the display.
+            certain button widgets state which changes when error message is
+            present in the display.
         last_operation (str): String to store the last operation performed.
         accumulator (float): Accumulator to store temporary results.
-        flag (int): A variable that ensures that the code inside the operation
-        functions like 'do_plus' works only if there is input in the screen.
+        switch (boolean): A switch variable to track the state of operator
+            buttons. By default, the switch is set to False. When a user
+            presses an operator button (e.g., +, -, *, /), the switch
+            transitions to True. Once in the True state, subsequent presses
+            of operator buttons merely switch the operator sign without
+            executing additional code associated with the operation (e.g., the
+            do_plus method). This design ensures seamless handling of
+            consecutive operator inputs while maintaining the expected
+            functionality of the calculator. Defaults to False.
+        last_oper_eq_state (boolean): A boolean variable to track whether the
+            last operation performed was the equals (=) operation. This is
+            used to control the behavior of the calculator after the equals
+            operation, ensuring that subsequent numerical inputs after
+            pressing equals don't append to the previous result. Defaults to
+            False.
         curr_value (float): Represent the current value displayed on the
-        primary display.
+            primary display.
 
     Constants:
         ERROR (str): Error message for division by zero.
@@ -83,7 +96,11 @@ class CalcOperations:
             Convert a float to a string representation with appropriate
             formatting.
         clear_if_error(self):
-            Clear the display if an error message is currently being shown.
+            Reset the calculator state if an error message is present in the
+            dipslay.
+        clear_if_last_oper_equal(self):
+            Reset the calculator state if the last operation performed was the
+            equals (=) operation and subsequent numerical key pressed.
         disable_if_error(self):
             Disable operator buttons if an error message is currently being
             shown.
@@ -97,18 +114,22 @@ class CalcOperations:
             Handle input of the decimal point (.) on the calculator display.
         do_digit_0(self, event=None):
             Handle input of the digit 0 on the calculator display.
+        do_operation(self, curr_operation):
+            Handle addition, subtraction, multiplication and division
+            operation for the calculator.
         do_plus(self, event=None):
-            Perform addition operation.
+            Handle addition operation.
         do_minus(self, event=None):
-            Perform subtraction operation.
+            Handle subtraction operation.
         do_multi(self, event=None):
-            Perform multiplication operation.
+            Handle multiplication operation.
         do_divd(self, event=None):
-            Perform division operation.
+            Handle division operation.
         do_percent(self, event=None):
-            Calculate the percentage of a number.
-        do_equal(self, event=None, symbol='='):
-            Perform the calculation when the equal button is pressed.
+            Handle the percentage operation.
+        do_equal(self, event=None, curr_operation='='):
+            Handle calculation operations based on the last_operation and
+            curr_operation.
         do_plusminus(self, event=None):
             Toggle the sign of the current number.
         do_backspace(self, event=None):
@@ -189,7 +210,8 @@ class CalcOperations:
 
         self.last_operation = ''
         self.accumulator = 0.
-        self.flag = 0
+        self.switch = False
+        self.last_oper_eq_state = False
         self.curr_value = 0.0
 
         self.ERROR = 'Div. by 0 Error!'
@@ -232,16 +254,33 @@ class CalcOperations:
 
         Local Variable:
             str_value (str): The converted string value.
+            sci_notation_len (int): The desired length of the scientific
+                notation string representation. The resulting string length
+                may vary depending on whether the number is negative or
+                positive, as the representation includes a sign for negative
+                numbers.
             int_part (str): String representing integer part of the str_value
-            when lenght of the str_value is greater than primary display width
-            and '.' is present.
+                when lenght of the str_value is greater than primary display
+                width and '.' is present.
             n_digits (int): Remaining number of digits after duducting (lenght
-            of int_part + 1 for dot) from primary display width.
+                of int_part + 1 for dot) from primary display width.
 
         Returns:
             str: The converted string representation of the number.
         """
         str_value = str(num_value)
+
+        # Sometimes, in the % operations, when digits after decimal point
+        # are more than 6 in the accumulator, python converts it to the
+        # scientific notation (like 0.00000008 becomes 8E-8), but since we
+        # want to convert only when length of the whole value becomes more
+        # than primary display width, so we check the presence of 'E' in the
+        # num_value and format it to the regular decimal number. After
+        # converting it back to the regular decimal number, if length of the
+        # value becomes greater than the primary display size, futher
+        # operations are performed below.
+        if 'E' in str(num_value):
+            str_value = f'{num_value:f}'
 
         # Remove all trailing zero when '.' is present in the string str_value.
         if '.' in str_value:
@@ -255,6 +294,8 @@ class CalcOperations:
 
         # If length of str_value is greater than primary display width.
         if len(str_value) > self.pri_display_width:
+            sci_notation_len = 9 if '-' in str_value else 10
+
             # If '.' is present in the str_value, split the str_value into
             # integer and decimal part.
             if '.' in str_value:
@@ -263,11 +304,14 @@ class CalcOperations:
                 int_part = str_value.split('.')[0]
                 str_value = Decimal(str_value)
 
+                # If integer part is equal to the zero then convert the
+                # str_value to the scientific notation.
+                if int_part == '0':
+                    str_value = f"{str_value:.{sci_notation_len}E}"
                 # If lenght of integer part is greater than primary display
-                # width, conver the integer part into scientific notation and
-                # set it to str_value.
-                if len(int_part) > self.pri_display_width:
-                    str_value = f"{str_value:.10E}"
+                # width, convert the str_value into scientific notation.
+                elif len(int_part) > self.pri_display_width:
+                    str_value = f"{str_value:.{sci_notation_len}E}"
                 else:
                     # If length of integer parts is less than or equal to
                     # primary display width, round off the str_value upto
@@ -281,13 +325,13 @@ class CalcOperations:
                     # 10000000000000000), which may not fit into primary
                     # display, so convert it into scientific notation.
                     if len(str_value) > self.pri_display_width:
-                        str_value = f"{Decimal(str_value):.10E}"
+                        str_value = f"{Decimal(str_value):.{sci_notation_len}E}"
             else:
                 str_value = Decimal(str_value)
                 # When lenght of str_value is greater than primary display
                 # width and '.' is not present into str_value then directly
                 # convert it into scientific notation.
-                str_value = f"{str_value:.10E}"
+                str_value = f"{str_value:.{sci_notation_len}E}"
 
         return str_value
 
@@ -307,14 +351,34 @@ class CalcOperations:
             self.do_clear()
             return True
 
+    def clear_if_last_oper_equal(self):
+        """
+        Reset the calculator state if the last operation performed was the
+        equals (=) operation and subsequent numerical key is pressed.
+
+        This method checks if the last operation performed was the equals
+        operation (=) (Note: last_operation is always equal when = button is
+        pressed or % operation is performed). It is used to control the
+        behavior of the calculator after the equals operation, ensuring that
+        subsequent numerical inputs after pressing equals don't append to the
+        previous result.
+
+        Returns:
+            None
+        """
+        if self.last_operation == '' and self.last_oper_eq_state is True:
+            self.do_clear()
+            self.last_oper_eq_state = False
+            return True
+
     def disable_if_error(self):
         """
-        Disable certain calculator buttons (operator buttons) if an error
+        Disable certain calculator buttons(operator buttons) if an error
         message is present in the display.
 
         Local Variable:
-            btn_texts (str): A string representing button text from
-            disabled_btn_texts list.
+            btn_texts(str): A string representing button text from
+                disabled_btn_texts list.
 
         Note:
             This method relies on the 'buttons_dict' attribute of the
@@ -345,31 +409,33 @@ class CalcOperations:
         This method clears primary and secondary displays of the calculator,
         resetting them to '0'. Additionally, it resets the internal state of
         the calculator by initializing the 'last_operation' to an empty string,
-        resetting the 'accumulator' to 0, and setting the 'flag' to 0.
+        resetting the 'accumulator' to 0, and setting the 'switch' and
+        'last_oper_eq_state' to False.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for a clear
-            display event. Defaults to None.
+            event(tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for a clear display
+                event. Defaults to None.
 
        Local Variable:
             btn_texts (str): A string representing button text from
-            disabled_btn_texts list.
+                disabled_btn_texts list.
 
         Notes:
             - This method affects the appearance and behavior of certain
               calculator buttons, such as resetting their state and background
               color to default values.
             - It relies on the 'buttons_dict', 'last_operation', 'accumulator',
-              'flag', 'pri_display_text', and 'sec_display_text'
-              attributes of the CalcOperations class to perform its operation.
+              'switch', 'pri_display_text', and 'sec_display_text' attributes
+              of the CalcOperations class to perform its operation.
 
-        Returns:1
+        Returns:
             None
         """
         self.last_operation = ""
         self.accumulator = 0.
-        self.flag = 0
+        self.switch = False
+        self.last_oper_eq_state = False
         self.pri_display_text.set('0')
         self.sec_display_text.set('0')
 
@@ -408,15 +474,23 @@ class CalcOperations:
         present in the dipslay otherwise reset the calculator's internal state
         to initial state.
 
+        Note: It also reset the calculator state if error is present in the
+        primary display or the last_operation is = (equal) (last_operation is
+        always equal when =  button is pressed or % operation is performed).
+
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for a clear entry
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for a clear entry
+                event. Defaults to None.
 
         Returns:
             None
         """
-        self.clear_if_error()
+        # If here is an error in the display or last performed operation was
+        # equal (=), reset the caculator's state and do nothing.
+        if self.clear_if_error() or self.clear_if_last_oper_equal():
+            return None
+
         self.pri_display_text.set('0')
 
     def do_digit_x(self, event=None):
@@ -427,20 +501,23 @@ class CalcOperations:
         display accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for digit input
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for digit input event.
+                Defaults to None.
 
         Local Variables:
             str_value (str): The current value displayed on the calculator.
             digit (str): The pressed (by mouse or keyboard) numerical buttons'
-            text (0 to 9).
+                text (0 to 9).
 
         Returns:
             None
         """
-        self.flag = 0
+        self.switch = False
+
         self.clear_if_error()
+        self.clear_if_last_oper_equal()
+
         str_value = self.pri_display_text.get()
 
         if event.type == '4':   # If mouse click event is triggerred.
@@ -463,9 +540,9 @@ class CalcOperations:
         updating the display accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for dot event.
-            Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for dot event. Defaults
+                to None.
 
         Local Variables:
             str_value (str): The current value displayed on the calculator.
@@ -473,10 +550,14 @@ class CalcOperations:
         Returns:
             None
         """
-        # flag (int): A variable that ensures that code inside the operation
-        # functions like 'do_plus' works only if there is input in the screen.
-        self.flag = 0
+        # switch (boolean): A variable that ensures that code inside the
+        # operation functions like 'do_plus' works only if there is input in
+        # the screen.
+        self.switch = False
+
         self.clear_if_error()
+        self.clear_if_last_oper_equal()
+
         str_value = self.pri_display_text.get()
 
         if len(str_value) < self.pri_display_width and '.' not in str_value:
@@ -490,9 +571,9 @@ class CalcOperations:
         updating the display accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for an zero digit
-            input event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for an zero digit input
+                event. Defaults to None.
 
         Local Variables:
             str_value (str): The current value displayed on the calculator.
@@ -500,184 +581,120 @@ class CalcOperations:
         Returns:
             None
         """
-        self.flag = 0
+        self.switch = False
+
         self.clear_if_error()
+        self.clear_if_last_oper_equal()
+
         str_value = self.pri_display_text.get()
 
         if len(str_value) < self.pri_display_width and str_value != '0':
             self.pri_display_text.set(str_value + '0')
 
-    def do_plus(self, event=None):
+    def do_operation(self, curr_operation):
         """
-        Handle addition operation for the calculator.
+        Handle addition, subtraction, multiplication and division operation
+        for the calculator.
 
-        This method handles the addition operation for the calculator,
-        updating the display and internal state accordingly.
+        This method handles the addition, subtraction, multiplication and
+        division operation for the calculator, updating the display and
+        internal state accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for an addition
-            event. Defaults to None.
+            curr_operation (str): A string representing current operation.
 
         Returns:
             None
         """
-        # If here is an error in the display we need to clear the error and do
+        # If here is an error in the display, reset the calculator state and do
         # nothing.
         if self.clear_if_error():
             return None
 
-        # Ensures that pressing plus button multiple times has no effect as
-        # flag is set to 1 once the plus button is clicked.
-        if self.flag == 0:
+        # Ensures that pressing + or - or x or / button subsequently has no
+        # effect as switch is set to True once any of the above mentioned
+        # button is clicked. It only helps to replace current operation to be
+        # performed.
+        if self.switch is False:
             if self.last_operation == '':
                 self.accumulator = self.str_to_float(
                     self.pri_display_text.get())
-                self.last_operation = '+'
+                # Current operation becomes the last operation for any
+                # subsequent operation.
+                self.last_operation = curr_operation
                 self.pri_display_text.set('0')
                 self.sec_display_text.set(self.float_to_str(
                     self.accumulator) + self.last_operation)
             else:
-                self.do_equal(symbol='+')
-                self.last_operation = '+'
+                self.do_equal(curr_operation=curr_operation)
+                # Current operation becomes the last operation for any
+                # subsequent operation.
+                self.last_operation = curr_operation
 
-        # This condition sets last_operation when user shift operations
-        # (eg. + to *) without entrying current value.
-        if self.flag == 1:
-            self.last_operation = '+'
+        # This condition sets last_operation when user switch operations
+        # (eg. from + to *, etc) without any current value as input.
+        if self.switch is True:
+            self.last_operation = curr_operation
             self.sec_display_text.set(self.float_to_str(
                 self.accumulator) + self.last_operation)
 
-        self.flag = 1
+        self.switch = True
+
+    def do_plus(self, event=None):
+        """
+        Handle addition operation for the calculator.
+
+        Args:
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for an addition event.
+                Defaults to None.
+
+        Returns:
+            None
+        """
+        self.do_operation(curr_operation='+')
 
     def do_minus(self, event=None):
         """
         Handle subtraction operation for the calculator.
 
-        This method handles the subtraction operation for the calculator,
-        updating the display and internal state accordingly.
-
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for substraction
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for substraction event.
+                Defaults to None.
 
         Returns:
             None
         """
-        # If here is an error in the display we need to clear the error and do
-        # nothing.
-        if self.clear_if_error():
-            return None
-
-        # Ensures that pressing minus button multiple times has no effect as
-        # flag is set to 1 once the minus button is clicked.
-        if self.flag == 0:
-            if self.last_operation == '':
-                self.accumulator = self.str_to_float(
-                    self.pri_display_text.get())
-                self.last_operation = '-'
-                self.pri_display_text.set('0')
-                self.sec_display_text.set(self.float_to_str(
-                    self.accumulator) + self.last_operation)
-            else:
-                self.do_equal(symbol='-')
-                self.last_operation = '-'
-
-        # This condition sets last_operation when user shift operations
-        # (eg. - to *) without entrying current value.
-        if self.flag == 1:
-            self.last_operation = '-'
-            self.sec_display_text.set(self.float_to_str(
-                self.accumulator) + self.last_operation)
-
-        self.flag = 1
+        self.do_operation(curr_operation='-')
 
     def do_multi(self, event=None):
         """
         Handle multiplication operation for the calculator.
 
-        This method handles the multiplication operation for the calculator,
-        updating the display and internal state accordingly.
-
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for
-            multiplication event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for multiplication
+                event. Defaults to None.
 
         Returns:
             None
         """
-        # If here is an error in the display we need to clear the error and do
-        # nothing.
-        if self.clear_if_error():
-            return None
-
-        # Ensures that pressing multiply button multiple times has no effect
-        # as flag is set to 1 once the multiply button is clicked.
-        if self.flag == 0:
-            if self.last_operation == '':
-                self.accumulator = self.str_to_float(
-                    self.pri_display_text.get())
-                self.last_operation = '*'
-                self.pri_display_text.set('0')
-                self.sec_display_text.set(self.float_to_str(
-                    self.accumulator) + self.last_operation)
-            else:
-                self.do_equal(symbol='*')
-                self.last_operation = '*'
-
-        # This condition sets last_operation when user shift operations
-        # (eg. * to +) without entrying current value.
-        if self.flag == 1:
-            self.last_operation = '*'
-            self.sec_display_text.set(self.float_to_str(
-                self.accumulator) + self.last_operation)
-
-        self.flag = 1
+        self.do_operation(curr_operation='*')
 
     def do_divd(self, event=None):
         """
         Handle division operation for the calculator.
 
-        This method handles the division operation for the calculator,
-        updating the display and internal state accordingly.
-
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for division
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for division event.
+                Defaults to None.
 
         Returns:
             None
         """
-        # If here is an error in the display we need to clear the error and do
-        # nothing.
-        if self.clear_if_error():
-            return None
-
-        # Ensures that pressing division button multiple times has no effect
-        # as flag is set to 1 once the division button is clicked.
-        if self.flag == 0:
-            if self.last_operation == '':
-                self.accumulator = self.str_to_float(
-                    self.pri_display_text.get())
-                self.last_operation = '/'
-                self.pri_display_text.set('0')
-                self.sec_display_text.set(self.float_to_str(
-                    self.accumulator) + self.last_operation)
-            else:
-                self.do_equal(symbol='/')
-                self.last_operation = '/'
-
-        # This condition sets last_operation when user shift operations
-        # (eg. / to +) without entrying current value.
-        if self.flag == 1:
-            self.last_operation = '/'
-            self.sec_display_text.set(self.float_to_str(
-                self.accumulator) + self.last_operation)
-
-        self.flag = 1
+        self.do_operation(curr_operation='/')
 
     def do_percent(self, event=None):
         """
@@ -689,14 +706,14 @@ class CalcOperations:
         then updates the display and internal state accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for percentage
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for percentage event.
+                Defaults to None.
 
         Returns:
             None
         """
-        # If here is an error in the display we need to clear the error and do
+        # If here is an error in the display, reset the calculator state and do
         # nothing.
         if self.clear_if_error():
             return None
@@ -704,13 +721,11 @@ class CalcOperations:
         if self.last_operation == '':
             self.accumulator = self.str_to_float(
                 self.pri_display_text.get())
-            self.do_equal(symbol='%')
-            self.last_operation = ''
-        else:
-            self.do_equal(symbol='%')
-            self.last_operation = ''
 
-    def do_equal(self, event=None, symbol='='):
+        self.do_equal(curr_operation='%')
+        self.last_operation = ''
+
+    def do_equal(self, event=None, curr_operation='='):
         """
         Handle the equal sign button press to perform arithmetic calculations.
 
@@ -721,57 +736,71 @@ class CalcOperations:
         resets the internal state accordingly.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for equal event.
-            Defaults to None.
-            symbol (str, optional): The symbol representing the operation.
-            Defaults to '='.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for equal event.
+                Defaults to None.
+            curr_operation (str, optional): A string representing the
+                curr_operation. Defaults to '='.
 
         Raises:
             ZeroDivisionError: If division by zero occur during division and
-            percentage operation.
+                percentage operation.
 
         Returns:
             None
         """
-        self.clear_if_error()
+        # If here is an error in the display, reset the calculator state and do
+        # nothing.
+        if self.clear_if_error():
+            return None
 
-        # If last_operaton is set to '' and symbol is not set to '%', then do
-        # nothing. It also works when there is an error in the display which is
-        # cleared by above clear_if_error() call.
-        if self.last_operation == '' and symbol != '%':
+        # If last_operaton is set to '' and curr_operation is not set to '%',
+        # then do nothing. It also works when there is an error in the display
+        # which is reset by clear_if_error() as the same has been called above.
+        if self.last_operation == '' and curr_operation != '%':
             return None
 
         self.curr_value = self.str_to_float(
             self.pri_display_text.get())
 
-        self.flag = 0.
+        self.switch = False
 
         # Set secondary display for three different conditions i.e. 5+8=, 5%,
         # and 100*5% or 100/5% or 100-5% or 100+5%.
-        if symbol == '=':
-            self.sec_display_text.set(self.float_to_str(self.accumulator)
-                                      + self.last_operation
-                                      + self.float_to_str(self.curr_value)
-                                      + '=')
-        elif self.last_operation == '' and symbol == '%':
-            self.sec_display_text.set(self.float_to_str(self.accumulator)
-                                      + symbol)
-        elif self.last_operation != '' and symbol == '%':
-            self.sec_display_text.set(self.float_to_str(self.accumulator)
-                                      + self.last_operation
-                                      + self.float_to_str(self.curr_value)
-                                      + symbol
-                                      + '=')
 
-        # Below code perform calculation based on last_operatin & symbols.
-        if self.last_operation == '*' and symbol != '%':
+        # Set the last_oper_eq_state to True if the last operation performed
+        # was the equals operation(=) (last_operation is always equal when =
+        # button is pressed or % operation is performed). It is used to
+        # control the behavior of the calculator after the equals operation,
+        # ensuring that subsequent numerical inputs after pressing equals don't
+        # append to the previous result.
+        if curr_operation == '=':
+            self.sec_display_text.set(self.float_to_str(self.accumulator)
+                                      + self.last_operation
+                                      + self.float_to_str(self.curr_value)
+                                      + '=')
+            self.last_oper_eq_state = True
+        elif self.last_operation == '' and curr_operation == '%':
+            self.sec_display_text.set(self.float_to_str(self.accumulator)
+                                      + curr_operation)
+            self.last_oper_eq_state = True
+        elif self.last_operation != '' and curr_operation == '%':
+            self.sec_display_text.set(self.float_to_str(self.accumulator)
+                                      + self.last_operation
+                                      + self.float_to_str(self.curr_value)
+                                      + curr_operation
+                                      + '=')
+            self.last_oper_eq_state = True
+
+        # Below code perform calculation based on last_operation &
+        # curr_operation.
+        if self.last_operation == '*' and curr_operation != '%':
             self.accumulator *= self.curr_value
-        elif self.last_operation == "-" and symbol != '%':
+        elif self.last_operation == "-" and curr_operation != '%':
             self.accumulator -= self.curr_value
-        elif self.last_operation == "+" and symbol != '%':
+        elif self.last_operation == "+" and curr_operation != '%':
             self.accumulator += self.curr_value
-        elif self.last_operation == "/" and symbol != '%':
+        elif self.last_operation == "/" and curr_operation != '%':
 
             # Handle ZeroDivsionError that may occur during division operation.
             try:
@@ -780,7 +809,7 @@ class CalcOperations:
                 self.pri_display_text.set(self.ERROR)
                 # Set secondary display in case of ZeroDivisionError occurred
                 # during series of operations like (5+8)/0+.
-                if symbol != '=':
+                if curr_operation != '=':
                     self.sec_display_text.set(self.float_to_str(self.accumulator)
                                               + self.last_operation
                                               + self.float_to_str(self.curr_value)
@@ -788,11 +817,11 @@ class CalcOperations:
                 self.disable_if_error()
                 return None
 
-        elif self.last_operation == '' and symbol == '%':
+        elif self.last_operation == '' and curr_operation == '%':
             self.accumulator /= 100
-        elif self.last_operation == '*' and symbol == '%':
+        elif self.last_operation == '*' and curr_operation == '%':
             self.accumulator = self.accumulator * (self.curr_value/100)
-        elif self.last_operation == '/' and symbol == '%':
+        elif self.last_operation == '/' and curr_operation == '%':
 
             # Handle ZeroDivsionError that may occur during percentage
             # operation.
@@ -803,25 +832,27 @@ class CalcOperations:
                 self.disable_if_error()
                 return None
 
-        elif self.last_operation == '+' and symbol == '%':
+        elif self.last_operation == '+' and curr_operation == '%':
             self.accumulator += (self.accumulator * (self.curr_value/100))
-        elif self.last_operation == '-' and symbol == '%':
+        elif self.last_operation == '-' and curr_operation == '%':
             self.accumulator -= (self.accumulator * (self.curr_value/100))
 
         # Set primary display.
-        if symbol == '=':  # Excecuted when uses presses equal (=) button.
+        # Excecuted when user presses equal (=) button.
+        if curr_operation == '=':
             self.pri_display_text.set(
                 self.float_to_str(self.accumulator))
             self.last_operation = ''
-        elif symbol == '%':  # Set primary display when symbol is %.
+        # Set primary display when curr_operation is %.
+        elif curr_operation == '%':
             self.pri_display_text.set(
                 self.float_to_str(self.accumulator))
-        # Executed when user want to calculated series of operations such as
-        # 10 + 20 + 30 - 23 * 4 etc.
         else:
+            # Executed when user want to calculated series of operations such
+            # as 10 + 20 + 30 - 23 * 4 etc.
             self.pri_display_text.set('0')
             self.sec_display_text.set(
-                self.float_to_str(self.accumulator)+symbol)
+                self.float_to_str(self.accumulator)+curr_operation)
 
     def do_plusminus(self, event=None):
         """
@@ -832,33 +863,37 @@ class CalcOperations:
         vice versa.
 
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for plusminus
-            (+/-) event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for plusminus (+/-)
+                event. Defaults to None.
 
         Returns:
             None
         """
-        # No need to call clear_if_error() as '+/-' button is already disabled
-        # and callback is unbound for the button when error message is present
-        # in the display.
-        # self.clear_if_error()
+        # If here is an error in the display we need to clear the error and do
+        # nothing.
+        if self.clear_if_error():
+            return None
 
         self.pri_display_text.set(
             self.float_to_str(-self.str_to_float(self.pri_display_text.get())))
 
     def do_backspace(self, event=None):
-        """1
+        """
         Perform backspace operation on the calculator display.
 
         This method removes the last character from the number displayed on
         the calculator's primary display. If the displayed number has only one
         digit after backspacing, it sets the display to '0'.
 
+        Note: It also reset the calculator state if error is present in the
+        primary display or the last_operation is = (equal) (last_operation is
+        always equal when =  button is pressed or % operation is performed).
+
         Args:
-            event (tk.Event, optional): An event parameter that can be
-            provided when the method is called as a callback for backspace
-            event. Defaults to None.
+            event (tk.Event, optional): An event parameter that can be provided
+                when the method is called as a callback for backspace event.
+                Defaults to None.
 
         Local Variable:
             str_value (str): A string variable to store primary display value.
@@ -866,8 +901,15 @@ class CalcOperations:
         Returns:
             None
         """
-        self.clear_if_error()
+        # If here is an error in the display or last performed operation was
+        # equal (=), reset the caculator's state and do nothing.
+        if self.clear_if_error() or self.clear_if_last_oper_equal():
+            return None
+
+        self.clear_if_last_oper_equal()
+
         str_value = self.pri_display_text.get()
+
         if str_value != '0':
             self.pri_display_text.set(str_value[0:-1])
             if len(str_value) == 1:
