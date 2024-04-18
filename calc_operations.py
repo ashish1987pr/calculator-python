@@ -1,9 +1,11 @@
 """
-calc_operations.py - Module containing the CalcOperations class for basic
-calculator operations.
+calc_operations module
+
+This module contains the CalcOperations class and its methods for calculator
+operations.
 
 This module provides the CalcOperations class, which implements methods for
-performing basic calculator operations such as addition, subtraction,
+Standard and Scientifc calculator operations such as addition, subtraction,
 multiplication, division, percentage calculations, and more.
 
 The CalcOperations class handle internal logic of the calculator, including
@@ -11,22 +13,15 @@ parsing user input, performing calculations, handling errors, and updating
 the calculator's display.
 
 Classes:
-    - CalcOperations: A class containing methods for basic calculator
-      operations.
+    CalcOperations: A class containing methods for calculator operations.
 
-Functions:
-    - None
-
-Constants:
-    - None
-
-Modules Required:
-    - tkinter: For creating the GUI components of the calculator.
-    - decimal: This module provides functionality for precise arithmetic
+Imports:
+    tkinter: For creating the GUI components of the calculator.
+    decimal: This module provides functionality for precise arithmetic
       operations using the Decimal data type from the decimal module.
 
-Author: Ashish Kumar
-Contact: ashish.bmistry@gmail.com
+Author:
+    Ashish Kumar (ashish.bmistry@gmail.com)
 """
 
 # Importing required modules
@@ -36,15 +31,15 @@ from decimal import Decimal
 
 class CalcOperations:
     """
-    A class to perform basic & scientific calculator operations.
+    A class to perform Standard & Scientific calculator operations.
 
-    This class provides methods for various arithmetic operations such as
+    This class defines methods for various arithmetic operations such as
     addition, subtraction, multiplication, and division. It also include
     methods for handling user input and error conditions. In future
     development, it will also have methods for scientific calculation
     operations.
 
-    Attribute:
+    Attributes:
         pri_display_text (tk.StringVar): String var for primary display.
         sec_display_text (tk.StringVar): String var for secondary display.
         pri_display_width (int): Width of primary display.
@@ -61,14 +56,13 @@ class CalcOperations:
             reference to their respective callback.
         disabled_btn_texts (list): A list of text of buttons which are to be
             disabled when error message is present in the display.
-        btn_state (str: tk.DISABLED | tk.NORMAL = tk.NORMAL): Represents
-            certain button widgets state which changes when error message is
-            present in the display.
+        btn_state (str): Represents certain button widgets state which changes
+            when error message is present in the display.
         last_operation (str): String to store the last operation performed.
         accumulator (float): Accumulator to store temporary results.
         switch (boolean): A switch variable to track the state of operator
             buttons. By default, the switch is set to False. When a user
-            presses an operator button (e.g., +, -, *, /), the switch
+            presses an operator button (e.g., +, -, x, /), the switch
             transitions to True. Once in the True state, subsequent presses
             of operator buttons merely switch the operator sign without
             executing additional code associated with the operation (e.g., the
@@ -83,57 +77,12 @@ class CalcOperations:
             False.
         curr_value (float): Represent the current value displayed on the
             primary display.
+        error (str): Error message for division by zero.
 
-    Constants:
-        ERROR (str): Error message for division by zero.
-
-    Methods:
-        __init__(self):
-            Initialize the CalcOperations class.
-        str_to_float(self, str_value):
-            Convert a string representation of a number to a float.
-        float_to_str(self, num_value):
-            Convert a float to a string representation with appropriate
-            formatting.
-        clear_if_error(self):
-            Reset the calculator state if an error message is present in the
-            dipslay.
-        clear_if_last_oper_equal(self):
-            Reset the calculator state if the last operation performed was the
-            equals (=) operation and subsequent numerical key pressed.
-        disable_if_error(self):
-            Disable operator buttons if an error message is currently being
-            shown.
-        do_clear(self, event=None):
-            Reset the calculator's state to its initial state.
-        do_clear_entry(self, event=None):
-            Clear the current entry on the calculator display.
-        do_digit_x(self, event=None):
-            Handle input of digit characters (0-9) on the calculator display.
-        do_dot(self, event=None):
-            Handle input of the decimal point (.) on the calculator display.
-        do_digit_0(self, event=None):
-            Handle input of the digit 0 on the calculator display.
-        do_operation(self, curr_operation):
-            Handle addition, subtraction, multiplication and division
-            operation for the calculator.
-        do_plus(self, event=None):
-            Handle addition operation.
-        do_minus(self, event=None):
-            Handle subtraction operation.
-        do_multi(self, event=None):
-            Handle multiplication operation.
-        do_divd(self, event=None):
-            Handle division operation.
-        do_percent(self, event=None):
-            Handle the percentage operation.
-        do_equal(self, event=None, curr_operation='='):
-            Handle calculation operations based on the last_operation and
-            curr_operation.
-        do_plusminus(self, event=None):
-            Toggle the sign of the current number.
-        do_backspace(self, event=None):
-            Remove the last character from the calculator display.
+    Note:
+        - This class defines methods that can be bound as callbacks with
+          widgets created in its subclass named Calculator of calculator
+          module.
         """
 
     def __init__(self):
@@ -213,8 +162,7 @@ class CalcOperations:
         self.switch = False
         self.last_oper_eq_state = False
         self.curr_value = 0.0
-
-        self.ERROR = 'Div. by 0 Error!'
+        self.error = 'Div. by 0 Error!'
 
     def str_to_float(self, str_value):
         """
@@ -223,11 +171,14 @@ class CalcOperations:
         Args:
             str_value (str): The string value to convert.
 
-        Local Variable:
-            num_value (float): Stores the converted float value.
-
         Raises:
             ValueError: If the input parameters are not valid.
+
+        Note:
+            - This method utilizes the following locally declared variables:
+                - num_value (float): Stores the converted float value.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             float or None: The converted floating-point number if successful,
@@ -244,26 +195,29 @@ class CalcOperations:
         """
         Convert a floating-point number to a string.
 
-        Depending on length of the num_value and presence of '.', it convert
-        the floating-point number to a string. Depending on the context, It
-        also converts the floating-point number to a string representing
-        scientific notation.
+        Depending on length of the num_value, and presence of 'E' & '.', it
+        convert the floating-point number to a string. Depending on the
+        context, It also converts the floating-point number to a string
+        representing scientific notation.
 
         Args:
             num_value (float): The number to convert.
 
-        Local Variable:
-            str_value (str): The converted string value.
-            sci_notation_len (int): The desired length of the scientific
-                notation string representation. The resulting string length
-                may vary depending on whether the number is negative or
-                positive, as the representation includes a sign for negative
-                numbers.
-            int_part (str): String representing integer part of the str_value
-                when lenght of the str_value is greater than primary display
-                width and '.' is present.
-            n_digits (int): Remaining number of digits after duducting (lenght
-                of int_part + 1 for dot) from primary display width.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): The converted string value.
+                - sci_notation_len (int): The desired length of the scientific
+                  notation string representation. The resulting string length
+                  may vary depending on whether the number is negative or
+                  positive, as the representation includes a sign for
+                  negative numbers.
+                - int_part (str): String representing integer part of the
+                  str_value when lenght of the str_value is greater than
+                  primary display width and '.' is present.
+                - n_digits (int): Remaining number of digits after duducting
+                  (lenght of int_part + 1 for dot) from primary display width.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             str: The converted string representation of the number.
@@ -339,15 +293,19 @@ class CalcOperations:
         """
         Clear the display if an error message is present in the display.
 
-        Local Variable:
-           str_value (str): The current string stored into primary display.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): The current string retrieved from primary
+                  display.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
         """
         str_value = self.pri_display_text.get()
 
-        if str_value == self.ERROR:
+        if str_value == self.error:
             self.do_clear()
             return True
 
@@ -376,13 +334,16 @@ class CalcOperations:
         Disable certain calculator buttons(operator buttons) if an error
         message is present in the display.
 
-        Local Variable:
-            btn_texts(str): A string representing button text from
-                disabled_btn_texts list.
+        Note:
+            - This method relies on the 'buttons_dict' attribute of the
+              this class to access the buttons.
 
         Note:
-            This method relies on the 'buttons_dict' attribute of the
-            CalcOperations class to access the buttons.
+            - This method utilizes the following locally declared variables:
+                - btn_texts(str): A string representing button text from
+                  disabled_btn_texts list.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -414,20 +375,23 @@ class CalcOperations:
 
         Args:
             event(tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for a clear display
+                when the method is called as a callback for the clear display
                 event. Defaults to None.
 
-       Local Variable:
-            btn_texts (str): A string representing button text from
-                disabled_btn_texts list.
-
-        Notes:
+        Note:
             - This method affects the appearance and behavior of certain
               calculator buttons, such as resetting their state and background
               color to default values.
             - It relies on the 'buttons_dict', 'last_operation', 'accumulator',
               'switch', 'pri_display_text', and 'sec_display_text' attributes
               of the CalcOperations class to perform its operation.
+
+        Note:
+            - This method utilizes the following locally declared variables:
+                - btn_texts (str): A string representing button text from
+                  disabled_btn_texts list.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -474,14 +438,16 @@ class CalcOperations:
         present in the dipslay otherwise reset the calculator's internal state
         to initial state.
 
-        Note: It also reset the calculator state if error is present in the
-        primary display or the last_operation is = (equal) (last_operation is
-        always equal when =  button is pressed or % operation is performed).
-
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for a clear entry
+                when the method is called as a callback for the clear entry
                 event. Defaults to None.
+
+        Note:
+            - It also reset the calculator state if error is present in the
+              primary display or the last_operation is = (equal)
+              (last_operation is always equal when =  button is pressed or %
+              operation is performed).
 
         Returns:
             None
@@ -502,13 +468,17 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for digit input event.
-                Defaults to None.
+                when the method is called as a callback for the digit input
+                event. Defaults to None.
 
-        Local Variables:
-            str_value (str): The current value displayed on the calculator.
-            digit (str): The pressed (by mouse or keyboard) numerical buttons'
-                text (0 to 9).
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): The current value displayed on the
+                  calculator.
+                - digit (str): The pressed (by mouse or keyboard) numerical
+                  button's text (0 to 9).
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -536,16 +506,20 @@ class CalcOperations:
         """
         Handle decimal point input for the calculator.
 
-        This method handles the input of a decimal point for the calculator,
-        updating the display accordingly.
+        This method handles decimal point input for the calculator, updating
+        the display accordingly.
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for dot event. Defaults
-                to None.
+                when the method is called as a callback for the decimal point
+                event. Defaults to None.
 
-        Local Variables:
-            str_value (str): The current value displayed on the calculator.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): The current value displayed on the
+                  calculator.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -567,16 +541,20 @@ class CalcOperations:
         """
         Handle zero digit input for the calculator.
 
-        This method handles the input of zero digit ('0') for the calculator,
+        This method handles zero digit ('0') input for the calculator,
         updating the display accordingly.
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for an zero digit input
-                event. Defaults to None.
+                when the method is called as a callback for the zero digit
+                input event. Defaults to None.
 
-        Local Variables:
-            str_value (str): The current value displayed on the calculator.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): The current value displayed on the
+                  calculator.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -632,7 +610,7 @@ class CalcOperations:
                 self.last_operation = curr_operation
 
         # This condition sets last_operation when user switch operations
-        # (eg. from + to *, etc) without any current value as input.
+        # (eg. from + to x, etc) without any current value as input.
         if self.switch is True:
             self.last_operation = curr_operation
             self.sec_display_text.set(self.float_to_str(
@@ -646,7 +624,7 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for an addition event.
+                when the method is called as a callback for the addition event.
                 Defaults to None.
 
         Returns:
@@ -660,8 +638,8 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for substraction event.
-                Defaults to None.
+                when the method is called as a callback for the substraction
+                event. Defaults to None.
 
         Returns:
             None
@@ -674,7 +652,7 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for multiplication
+                when the method is called as a callback for the multiplication
                 event. Defaults to None.
 
         Returns:
@@ -688,7 +666,7 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for division event.
+                when the method is called as a callback for the division event.
                 Defaults to None.
 
         Returns:
@@ -698,7 +676,7 @@ class CalcOperations:
 
     def do_percent(self, event=None):
         """
-        Handle percentage calculation for the calculator.
+        Handle percentage operation for the calculator.
 
         This method calculates the percentage of the current value displayed
         on the calculator. If no previous operation has been performed, it
@@ -707,8 +685,8 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for percentage event.
-                Defaults to None.
+                when the method is called as a callback for the percentage
+                event. Defaults to None.
 
         Returns:
             None
@@ -737,7 +715,7 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for equal event.
+                when the method is called as a callback for the equal event.
                 Defaults to None.
             curr_operation (str, optional): A string representing the
                 curr_operation. Defaults to '='.
@@ -806,7 +784,7 @@ class CalcOperations:
             try:
                 self.accumulator /= self.curr_value
             except ZeroDivisionError:
-                self.pri_display_text.set(self.ERROR)
+                self.pri_display_text.set(self.error)
                 # Set secondary display in case of ZeroDivisionError occurred
                 # during series of operations like (5+8)/0+.
                 if curr_operation != '=':
@@ -828,7 +806,7 @@ class CalcOperations:
             try:
                 self.accumulator = self.accumulator / self.curr_value * 100
             except ZeroDivisionError:
-                self.pri_display_text.set(self.ERROR)
+                self.pri_display_text.set(self.error)
                 self.disable_if_error()
                 return None
 
@@ -864,7 +842,7 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for plusminus (+/-)
+                when the method is called as a callback for the plusminus (+/-)
                 event. Defaults to None.
 
         Returns:
@@ -892,11 +870,15 @@ class CalcOperations:
 
         Args:
             event (tk.Event, optional): An event parameter that can be provided
-                when the method is called as a callback for backspace event.
-                Defaults to None.
+                when the method is called as a callback for the backspace
+                event. Defaults to None.
 
-        Local Variable:
-            str_value (str): A string variable to store primary display value.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - str_value (str): A string variable to store primary display
+                  value.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None

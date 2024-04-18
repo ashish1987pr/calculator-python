@@ -1,37 +1,31 @@
 """
-Calculator Module
+calculator module
 
 This module contains the implementation of a simple calculator GUI
 application using tkinter. It provides classes and methods to create
 a calculator window with basic arithmetic operations.
 
 Classes:
-    - Calculator: A class that represent a general calculator such as standard
-      or scientific calculator.
-    - StandardCalc: A class to create a standard calculator that performs basic
-      arithmetic operations.
-    - ScientificCalc: A class to create a scientific calculator that performs
-      scientific operations.
+    Calculator: A class that represent a general calculator such as standard
+        or scientific calculator.
+    StandardCalc: A class representing a standard calculator that performs
+        basic arithmetic operations.
+    ScientificCalc: A class representing a scientific calculator that performs
+        scientific operations.
 
-Functions:
-    - None
+Imports:
+    tkinter: For creating the GUI components for the calculator application.
+    tkinter.messagebox: For creating messagebox model dialog window.
+    calc_operations: A custom module providing additional methods for
+        arithmetic operations for the calculator.
 
-Constants:
-    - None
-
-Modules Required:
-    - tkinter: For creating the GUI components of the calculator.
-    - tkinter.messagebox: For creating messagebox model dialog window.
-    - calc_operations: A custom module providing additional arithmetic
-      operations for the calculator.
+Author:
+    Ashish Kumar (ashish.bmistry@gmail.com)
 
 Example:
     >>> from calculator import Calculator
     >>> calc = Calculator()
     >>> calc.window.mainloop()
-
-Author: Ashish Kumar
-Contact: ashish.bmistry@gmail.com
 """
 
 # Importing required modules
@@ -44,16 +38,21 @@ from calc_operations import CalcOperations
 class Calculator(CalcOperations):
     """
     A class that represent a general calculator such as a standard or
-    scientific calculator.
+    scientific calculator, a sublclass of CalOperations of calc_operations
+    module.
 
-    It is responsible for performing common functionality that both standard
-    and scientific calculator has such as creating main window, creating and
-    placing display, menu, info label and buttons widget.
+    It implements common functionality that both standard and scientific
+    calculator has such as creating main window, creating and placing display,
+    menu, info label and buttons widget.
 
     Attributes:
-        self.window (tk.Tk): The main window of the calculator.
-        self.frame (tk.Frame): The frame widget which is master widget of
-            info_label and button widgets.
+        app_name (str): Application name.
+        app_ver (str): Calculator application version information.
+        app_copyright (str): Copyright information.
+        app_developer (str): Developer information.
+        window (tk.Tk): The main window of the calculator.
+        frame (tk.Frame): The frame widget which is master widget of
+            developer_label and button widgets.
         win_title_st_calc (str): Title of the standard calculator window.
         win_title_sci_calc (str): Title of scientific calculator window.
         win_padx (int): Horizontal padding of the calculator window.
@@ -62,7 +61,6 @@ class Calculator(CalcOperations):
         display_bg (str): Background color of the display area.
         pri_display_font (tuple): Font for primary display.
         sec_display_font (tuple): Font for secondary display.
-        dev_info (str): String representing developer information
         btn_bg (str): Background color of buttons.
         btn_active_bg (str): Background color of active buttons.
         btn_padx (tuple): Horizontal padding of buttons.
@@ -74,36 +72,13 @@ class Calculator(CalcOperations):
         btn_digit_font (tuple): Font for digit buttons.
         btn_operator_font (tuple): Font for operator buttons.
         stick (str): Sticky parameter for grid layout.
-        calc_type (object: StandardCalc | ScientificCalc): Stores instance of
+        calc_type (StandardCalc | ScientificCalc): Stores instance of
             either StandardCalc or ScientificCalc class.
-
-    Methods:
-        __init__(self, calc_type: StandardCalc or ScientificCalc):
-            Initialize the Calculator class.
-        create_main_window(self):
-            Create the main window of the calculator.
-        create_menu(self):
-            Create the menu for the calculator.
-        create_display(self):
-            Create the display area for the calculator.
-        create_frame(self):
-            Create the frame widget which is master widget for info_label and
-            button widgets.
-        create_info_label(self):
-            Create the information label for the calculator.
-        create_buttons(self):
-            Create buttons for the calculator.
-        calc_type_switch(self):
-            A callback designed to switch between standard and scientific
-            calculator.
-        about_app(self):
-            Show information about the developer and contact details.
-        are_you_sure(self, event=None):
-            Ask the user for confirmation before quitting the application.
 
     Note:
         - Calculator class inherits attributes and methods from its parent
-          class CalsOperations responsible for various arithmetic operations.
+          class CalcOperations responsible for various arithmetic operations.
+          This class extends CalcOperations class's behaviour.
         - Calculator class is also composed of either StandardCalc or
           ScientificCalc instances. It enables Calculator class to equip
           itself with additional attributes and methods of component class.
@@ -117,12 +92,17 @@ class Calculator(CalcOperations):
         to create the calculator.
 
         Args:
-            calc_types (StandardCalc | ScientificCalc): Instance of either
+            calc_types (StandardCalc | ScientificCalc): An instance of either
                 StandardCalc or ScientificCalc class.
 
         Returns:
             None
         """
+        self.app_name = 'Calculator'
+        self.app_ver = 1.0
+        self.app_copyright = 'Copyright 2024 © Ashish Kumar'
+        self.app_developer = 'Ashish Kumar\nashish.bmistry@gmail.com'
+
         self.win_title_st_calc = 'Standard Calculator'
         self.win_title_sci_calc = 'Scientific Calculator'
         self.win_padx = 20
@@ -140,9 +120,6 @@ class Calculator(CalcOperations):
         self.display_bg = '#FFFFFF'
         self.pri_display_font = ('Courier New', '28', 'bold')
         self.sec_display_font = ('Courier New', '13', 'bold')
-
-        self.dev_info = 'Developer Email:\nashish.bmistry@gmail.com'
-
         self.btn_bg = '#FCFDFF'
         self.btn_active_bg = '#EAEEFC'
         self.btn_padx = (1, 1)
@@ -157,11 +134,11 @@ class Calculator(CalcOperations):
 
         # Calling create_display create the calculator display.
         self.create_display()
-        # Calling create_frame to create a frame for info_label and buttons
-        # placement.
+        # Calling create_frame to create a frame for developer_label and
+        # buttons placement.
         self.create_frame()
-        # Calling create_info_label create the infomation label.
-        self.create_info_label()
+        # Calling create_developer_label create the developer_label.
+        self.create_developer_label()
 
         # calc_type stores object of either StandardCalc or ScientificCalc
         # class. By default, it stores StandardCalc class object as it is
@@ -207,17 +184,24 @@ class Calculator(CalcOperations):
         This method adds menu options to the main menu bar of the calculator
         window.
 
-        Callback Binds:
-            - under_maintenace (function):
-                Callback function for the 'Scientific calculator' menu option.
-            - are_you_sure (function):
-                Callback function for the 'Quit' menu option.
-            - about_app (function):
-                Callback function for the 'About' menu option.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - main_menu (tk.Menu): The main menu bar of the calculator
+                  window.
+                - sub_menu_file (tk.Menu): The submenu under the 'File' menu.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
-        Local Variables:
-            main_menu (tk.Menu): The main menu bar of the calculator window.
-            sub_menu_file (tk.Menu): The submenu under the 'File' menu.
+        Note:
+            - This method implements callback binding for the following
+              callbacks:
+                - calc_type_switch(self, symbol):
+                    Callback function to switch between Standard and Scientific
+                    calculator.
+                - are_you_sure(self, event=None):
+                    Callback function for the 'Quit' menu option.
+                - about_app(self):
+                    Callback function for the 'About' menu option.
 
         Returns:
             None
@@ -252,13 +236,18 @@ class Calculator(CalcOperations):
 
     def create_display(self):
         """
-        Create the display area for the calculator.
+        Create the primary and secondary display for the calculator.
 
         This method creates labels for primary and secondary displays.
 
-        Local Variables:
-            primary_display (tk.Label): The primary display of the menu.
-            secondary_display (tk.Label): The secondary display of the menu.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - primary_display (tk.Label): The primary display of the
+                  calculator.
+                - secondary_display (tk.Label): The secondary display of the
+                  calculator.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -282,7 +271,7 @@ class Calculator(CalcOperations):
 
     def create_frame(self):
         """
-        Create frame widget for info_label and button widgets placement.
+        Create frame widget for developer_label and button widgets placement.
 
         Returns:
             None
@@ -294,70 +283,91 @@ class Calculator(CalcOperations):
                         columnspan=1,
                         sticky=self.stick)
 
-    def create_info_label(self):
+    def create_developer_label(self):
         """
-        Create the information label for the calculator.
+        Create the developer label for the calculator.
 
         Creates a label at the bottom of the display for additional
-        information such as developer's email.
+        information to be shown about developer.
 
-        Local Variables:
-            info_label (tk.Label): The label displaying developer's email.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - developer_label (tk.Label): The label displaying information
+                  about developer.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
         """
-        info_label = tk.Label(master=self.frame,
-                              text=self.dev_info,
-                              font=('Arial', '8', ''),
-                              bg=self.win_bg_color,
-                              anchor='sw',
-                              justify=tk.LEFT)
+        developer_label = tk.Label(master=self.frame,
+                                   text=f'Developer: {self.app_developer}',
+                                   font=('Arial', '8', ''),
+                                   bg=self.win_bg_color,
+                                   anchor='sw',
+                                   justify=tk.LEFT)
 
-        info_label.grid(row=0, column=0, columnspan=3,
-                        sticky=self.stick, pady=(29, 5))
+        developer_label.grid(row=0, column=0, columnspan=3,
+                             sticky=self.stick, pady=(29, 5))
 
     def create_buttons(self):
         """
-        Create buttons for the calculator.
+        Create button widgets for the calculator.
 
         This method creates buttons for digits and operators, and binds them
         to respective callback functions.
 
         Each button is created with specific attributes and configured with
         appropriate commands and bindings. After creating each button, it is
-        added to the `buttons_dict` dictionary for later access.
+        added to the `buttons_dict` dictionary to access them later.
 
-        Local Variable:
-            btn_bg_color (str: self.btn_bg | self.btn_operator_bg): background
-                color for buttons.
-            btn_font (tuple: self.btn_digit_font | self.btn_operator_font):
-                Font for buttons.
-            btn (tk.Button): Button widget object.
-            btn_text (str): A string representing button's text from
-                self.btn_callbacks dictionary.
-            callback (callback function): Name reference to the callback
-                function for each button respectively. It is accessed from
-                self.btn_callbacks dictionary.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - btn_bg_color (str): background color for buttons.
+                - btn_font (tuple): Font for buttons.
+                - btn (tk.Button): Button widget object.
+                - btn_text (str): A string representing button's text accessed
+                  from btn_callbacks dictionary inherited from CalcOperations
+                  class of calc_operations module.
+                - callback (str): Name reference to the callback function for
+                  each button respectively. It is accessed from btn_callbacks
+                  dictionary inherited from CalcOperations class of
+                  calc_operations module.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
-        Callbacks Binds:
-            - do_backspace (function): Handle Backspace button press event.
-            - do_clear (function): Handle Clear (C) button press event.
-            - do_clear_entry (function): Handle Clear Entry (CE) button press
-              event.
-            - do_percent (function): Handle Percentage (%) button press event.
-            - do_divd (function): Handle Division (/) button press event.
-            - do_multi (function): Handle Multiplication (x) button press
-              event.
-            - do_minus (function): Handle the Subtraction (-) button press
-              event.
-            - do_plus (function): Handle Addition (+) button press event.
-            - do_equal (function): Handle Equal (=) button press event.
-            - do_dot (function): Handle Dot (.) button press event.
-            - do_digit_0 (function): Handle Digit 0 (0) button press event.
-            - do_plusminus (function): Handle Plus/Minus (+/-) button press
-              event.
-            - do_digit_x (function): Handle Digit buttons (1-9) press event.
+        Note:
+            - This method implements callback binding for the following
+              callbacks implemented in CalcOperations class of module
+              calc_operations:
+                - do_backspace(self, event=None): Handle Backspace button
+                  press event.
+                - do_clear(self, event=None): Handle Clear (C) button press
+                  event.
+                - do_clear_entry(self, event=None): Handle Clear Entry (CE)
+                  button press event.
+                - do_percent(self, event=None): Handle Percentage (%) button
+                  press event.
+                - do_divd(self, event=None): Handle Division (/) button press
+                  event.
+                - do_multi(self, event=None): Handle Multiplication (x) button
+                  press event.
+                - do_minus(self, event=None): Handle the Subtraction (-)
+                  button press event.
+                - do_plus(self, event=None): Handle Addition (+) button press
+                  event.
+                - do_equal(self, event=None, curr_operation='='): Handle Equal
+                  (=) button press event.
+                - do_dot(self, event=None): Handle Dot (.) button press event.
+                - do_digit_0(self, event=None): Handle Digit 0 (0) button
+                  press event.
+                - do_plusminus(self, event=None): Handle Plus/Minus (+/-)
+                  button press event.
+                - do_digit_x(self, event=None): Handle Digit buttons (1-9)
+                  press event.
+
+        Returns:
+            None
         """
         # Each time create_buttons() is called to create buttons for standard
         # or scientific calculator, it set buttons_dict to empty dictionary.
@@ -406,28 +416,34 @@ class Calculator(CalcOperations):
 
     def calc_type_switch(self, symbol):
         """
-        A callback designed to switch between standard and scientific
+        A callback designed to switch between Standard and Scientific
         calculator.
 
         Args:
-            symbol (str: stand_calc | sci_calc): A string representing type of
-                calculator.
+            symbol (str): A string representing type of calculator. The strings
+                that represent type of calculator are either 'stand_calc' or
+                'sci_calc'.
 
-        Functionality:
-        - Set title of the main window depending selected type of calculator
-          from menu options.
-        - Depending on the type of instance stored inside self.calc_type
-          attribute, it reset the calculator's state to its initial state.
-        - It destroys the self.frame widget which holds info_label and button
-          widgets, then create a new self.frame widget object. By destroying
-          frame, it also recursively destroys all the button and info_label
-          widget, which ensures that resources are freed up with help python
-          garbadge collector.
-        - Create new info_label for the calculator.
-        - Set the self.calc_type to the instance of either StandardCalc or
-          ScientificCalc class depending on the selected calculator type.
-        - Create new buttons for the specific type calculator.
-        - Places the info_label and button widgets to the self.frame widget.
+        Note:
+            - This method performs following functionality.
+                - Set title of the main window depending on selected type of
+                  calculator from the menu options.
+                - Depending on type of instance stored inside calc_type
+                  attribute, it resets the calculator's state to its initial
+                  state.
+                - It destroys the frame widget which is master widget for
+                  developer_label and button widgets, then create a new frame
+                  widget object. By destroying frame, it also recursively
+                  destroys all the button and developer_label widget, which
+                  ensures that resources are freed up with the help python
+                  garbadge collector.
+                - Create new developer_label for the calculator.
+                - Set calc_type to the instance of either StandardCalc or
+                  ScientificCalc class depending on the selected calculator
+                  type.
+                - Create new buttons for the specific type calculator.
+                - Places the developer_label and button widgets to the frame
+                  widget.
 
         Returns:
             None
@@ -438,7 +454,7 @@ class Calculator(CalcOperations):
             self.do_clear()
             self.frame.destroy()
             self.create_frame()
-            self.create_info_label()
+            self.create_developer_label()
             self.calc_type = StandardCalc()
             self.create_buttons()
             self.calc_type.place_buttons(self)
@@ -448,7 +464,7 @@ class Calculator(CalcOperations):
             self.do_clear()
             self.frame.destroy()
             self.create_frame()
-            self.create_info_label()
+            self.create_developer_label()
             self.calc_type = ScientificCalc()
             self.create_buttons()
             self.calc_type.place_buttons(self)
@@ -457,16 +473,17 @@ class Calculator(CalcOperations):
         """
         Display information about the application.
 
-        It displays information about the developer, including their name,
-        email, and contact number.
+        It displays information about the application such as name, version,
+        copyright and developer.
 
         Returns:
             None
         """
-        messagebox.showinfo('About us',
-                            'Developed by Ashish Kumar\n'
-                            + 'Email: ashish.bmistry@gmail.com\n'
-                            + 'Contact: +91 8502025686')
+        messagebox.showinfo('About',
+                            f'{self.app_name}\n'
+                            + f'Version: {self.app_ver}\n\n'
+                            + f'{self.app_copyright}\n\n'
+                            + f'Developer: {self.app_developer}')
 
     def are_you_sure(self, event=None):
         """
@@ -492,18 +509,15 @@ class Calculator(CalcOperations):
 
 class StandardCalc():
     """
-    A class to create a Standard calculator that performs basic calculation
+    A class representing a standard calculator that performs basic arithmetic
     operations.
+
+    This class defines additional methods required execlusively for Standard
+    calculator not defined in Calculator class.
 
     Attributes:
         rows (int): Represent row counter for button placement.
         cols (int): Represent column counter for button placement.
-
-    Methods:
-        __init__(self):
-            Initialize the StandardCalc class.
-        place_buttons(self, calc: Calculator):
-            Place buttons into main window.
     """
 
     def __init__(self):
@@ -519,18 +533,22 @@ class StandardCalc():
 
     def place_buttons(self, calc):
         """
-        Places buttons into main window.
+        Places buttons into frame widget of main window.
 
-        It uses self.button_dict to access button widget object and grid
-        geomatry to place buttons into main window.
+        It utilizes button_dict of Calculator class to access button widget
+        object and grid geomatry to place buttons into frame widget of main
+        window.
 
         Args:
             calc (Calcualator): An instance of Calculator class.
 
-        Local Variable:
-            btn_text (str): A string representing button's text from
-                buttons_dict dictionary of Calculator class.
-            btn (tk.Button): Button widget object.
+        Note:
+            - This method utilizes the following locally declared variables:
+                - btn_text (str): A string representing button's text from
+                  buttons_dict dictionary of Calculator class.
+                - btn (tk.Button): Button widget object.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
 
         Returns:
             None
@@ -550,23 +568,21 @@ class StandardCalc():
 
 class ScientificCalc():
     """
-     ScientificCalc class is under development.
+    A class representing a scientific calculator that performs scientific
+    operations.
 
-     A class to create a scientific calculator that performs scientific
-     calculation operations.
+    This class defines additional methods required execlusively for Scientific
+    calculator not defined in Calculator class.
 
     Attributes:
         rows (int): Represent row counter for button placement.
         cols (int): Represent column counter for button placement.
 
-    Methods:
-        __init__(self):
-            Initialize the ScientificCalc class.
-        create_buttons(self, calc: Calculator):
-            Create additional buttons for scientific calculator which are not
-            part of the standard calculator.
-        place_buttons(self, calc: Calculator):
-            Place buttons into main window.s
+    Todo:
+        - Implemention of functionality for Scientific calculator.
+
+    Note:
+        - ScientificCalc class is under development.
     """
 
     def __init__(self):
@@ -599,21 +615,30 @@ class ScientificCalc():
 
     def place_buttons(self, calc):
         """
-        Places buttons into main window.
+        Places buttons into frame widget of main window.
 
-        It uses Calc.button_dict to access button widget object. Uses grid
-        geomatry to place buttons into main window.
-
-        Temporarily a message 'Scientific calculator is under development' is
-        displayed on the screen until it is fully developed.
+        It utilizes button_dict of Calculator class to access button widget
+        object and grid geomatry to place buttons into frame widget of main
+        window.
 
         Args:
-            calc (Calcualator): An instance of Calculator class.
+            calc (Calculator): An instance of Calculator class.
 
-        Temporary Local Variable:
-            under_develop (tk.Label): Temporary tk.Label widget representing
-                text that 'Scientific calculator is under development'. It is
-                placed inside the frame widget of Calculator class.
+        Note:
+            - This method utilizes the following locally declared temporary
+              variables:
+                - under_develop (tk.Label): Temporary tk.Label widget
+                  representing text that 'Scientific calculator is under
+                  development'. It is placed inside the frame widget of
+                  Calculator class.
+            - These variables are used internally within the method and are
+              not exposed to the method's caller.
+
+        Note:
+            - "As the ScientificCalc class is under development, a temporary
+              message 'Scientific calculator is under development' is
+              displayed on the screen when the user selects the Scientific
+              calculator option from the menu."
 
         Returns:
             None
