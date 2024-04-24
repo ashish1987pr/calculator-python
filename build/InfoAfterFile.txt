@@ -1,0 +1,17 @@
+Thank you for installing the Calculator Application!
+
+Installation Details:
+---------------------
+- The Calculator Application has been successfully installed on your computer.
+- By default the application is installed in the following directory: C:\Program Files (x86)\Calculator
+
+Getting Started:
+----------------
+- To launch the Calculator Application, navigate to the installation directory and run the `Calculator.exe` executable.
+- You can also find shortcuts to the application on your desktop and in the Start Menu.
+
+Additional Information:
+-----------------------
+- For help and support, please contact: ashish.bmistry@gmail.com
+
+Enjoy using the Calculator Application!
