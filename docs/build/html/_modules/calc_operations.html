@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calc_operations &mdash; Calculator Application 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Calculator Application
+              <img src="../_static/calc_fevicon.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../calculator.html">calculator module documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_operations.html">calc_operations module documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Calculator Application</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">calc_operations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for calc_operations</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">calc_operations module</span>
+
+<span class="sd">This module contains the CalcOperations class and its methods for calculator</span>
+<span class="sd">operations.</span>
+
+<span class="sd">This module provides the CalcOperations class, which implements methods for</span>
+<span class="sd">Standard and Scientifc calculator operations such as addition, subtraction,</span>
+<span class="sd">multiplication, division, percentage calculations, and more.</span>
+
+<span class="sd">The CalcOperations class handle internal logic of the calculator, including</span>
+<span class="sd">parsing user input, performing calculations, handling errors, and updating</span>
+<span class="sd">the calculator&#39;s display.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    CalcOperations: A class containing methods for calculator operations.</span>
+
+<span class="sd">Imports:</span>
+<span class="sd">    tkinter: For creating the GUI components of the calculator.</span>
+<span class="sd">    decimal: This module provides functionality for precise arithmetic</span>
+<span class="sd">      operations using the Decimal data type from the decimal module.</span>
+
+<span class="sd">Author:</span>
+<span class="sd">    Ashish Kumar (ashish.bmistry@gmail.com)</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Importing required modules</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">from</span> <span class="nn">decimal</span> <span class="kn">import</span> <span class="n">Decimal</span>
+
+
+<div class="viewcode-block" id="CalcOperations">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations">[docs]</a>
+<span class="k">class</span> <span class="nc">CalcOperations</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class to perform Standard &amp; Scientific calculator operations.</span>
+
+<span class="sd">    This class defines methods for various arithmetic operations such as</span>
+<span class="sd">    addition, subtraction, multiplication, and division. It also include</span>
+<span class="sd">    methods for handling user input and error conditions. In future</span>
+<span class="sd">    development, it will also have methods for scientific calculation</span>
+<span class="sd">    operations.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        pri_display_text (tk.StringVar): String var for primary display.</span>
+<span class="sd">        sec_display_text (tk.StringVar): String var for secondary display.</span>
+<span class="sd">        pri_display_width (int): Width of primary display.</span>
+<span class="sd">        sec_display_width (int): Width of secondary display.</span>
+<span class="sd">        btn_disabled_bg (str): Background color of disabled buttons.</span>
+<span class="sd">        btn_operator_bg (str): Background color of operator buttons.</span>
+<span class="sd">        btn_equal_bg (str): Background color of equal button.</span>
+<span class="sd">        btn_equal_fg (str): Foreground color of equal button.</span>
+<span class="sd">        buttons_dict (dict): A dictionary to store button objects with their</span>
+<span class="sd">            respective text as keys.</span>
+<span class="sd">        btn_key_events (dict): A dictionary representing button&#39;s text and</span>
+<span class="sd">            their respective keyboard event name.</span>
+<span class="sd">        btn_callbacks (dict): A dictionary representing button&#39;s text and</span>
+<span class="sd">            reference to their respective callback.</span>
+<span class="sd">        disabled_btn_texts (list): A list of text of buttons which are to be</span>
+<span class="sd">            disabled when error message is present in the display.</span>
+<span class="sd">        btn_state (str): Represents certain button widgets state which changes</span>
+<span class="sd">            when error message is present in the display.</span>
+<span class="sd">        last_operation (str): String to store the last operation performed.</span>
+<span class="sd">        accumulator (float): Accumulator to store temporary results.</span>
+<span class="sd">        switch (boolean): A switch variable to track the state of operator</span>
+<span class="sd">            buttons. By default, the switch is set to False. When a user</span>
+<span class="sd">            presses an operator button (e.g., +, -, x, /), the switch</span>
+<span class="sd">            transitions to True. Once in the True state, subsequent presses</span>
+<span class="sd">            of operator buttons merely switch the operator sign without</span>
+<span class="sd">            executing additional code associated with the operation (e.g., the</span>
+<span class="sd">            do_plus method). This design ensures seamless handling of</span>
+<span class="sd">            consecutive operator inputs while maintaining the expected</span>
+<span class="sd">            functionality of the calculator. Defaults to False.</span>
+<span class="sd">        last_oper_eq_state (boolean): A boolean variable to track whether the</span>
+<span class="sd">            last operation performed was the equals (=) operation. This is</span>
+<span class="sd">            used to control the behavior of the calculator after the equals</span>
+<span class="sd">            operation, ensuring that subsequent numerical inputs after</span>
+<span class="sd">            pressing equals don&#39;t append to the previous result. Defaults to</span>
+<span class="sd">            False.</span>
+<span class="sd">        curr_value (float): Represent the current value displayed on the</span>
+<span class="sd">            primary display.</span>
+<span class="sd">        error (str): Error message for division by zero.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - This class defines methods that can be bound as callbacks with</span>
+<span class="sd">          widgets created in its subclass named Calculator of calculator</span>
+<span class="sd">          module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the CalcOperations class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">StringVar</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_width</span> <span class="o">=</span> <span class="mi">34</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_disabled_bg</span> <span class="o">=</span> <span class="s1">&#39;#F1F1F1&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_bg</span> <span class="o">=</span> <span class="s1">&#39;#F3FAFE&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_equal_bg</span> <span class="o">=</span> <span class="s1">&#39;#7DB8FF&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_equal_fg</span> <span class="o">=</span> <span class="s1">&#39;#FFFFFF&#39;</span>
+        <span class="c1"># Empty dictionary to store buttons object.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="c1"># A dictionary containing all button&#39;s text and their respective</span>
+        <span class="c1"># keyboard event name. Order of items in the dictionary decides the</span>
+        <span class="c1"># way buttons are placed inside the window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_key_events</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Back&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;BackSpace&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;Escape&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;CE&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;Delete&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;%&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-percent&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;/&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-/&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-7&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;8&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-8&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-9&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-asterisk&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-4&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-5&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;6&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-6&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-minus&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-1&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-2&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-3&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;+&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-plus&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;+/-&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;F9&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-0&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-period&gt;&#39;</span><span class="p">,</span>
+                               <span class="s1">&#39;=&#39;</span><span class="p">:</span> <span class="s1">&#39;&lt;KeyPress-equal&gt;&#39;</span><span class="p">}</span>
+        <span class="c1"># A dictionary containing all button&#39;s text and reference to their</span>
+        <span class="c1"># respective callback. Order of items in the dictionary decides the</span>
+        <span class="c1"># way buttons are bound to the callbacks.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_callbacks</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Back&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_backspace</span><span class="p">,</span>
+                              <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_clear</span><span class="p">,</span>
+                              <span class="s1">&#39;CE&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_clear_entry</span><span class="p">,</span>
+                              <span class="s1">&#39;%&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_percent</span><span class="p">,</span>
+                              <span class="s1">&#39;/&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_divd</span><span class="p">,</span>
+                              <span class="s1">&#39;7&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;8&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;9&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_multi</span><span class="p">,</span>
+                              <span class="s1">&#39;4&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;5&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;6&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;-&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_minus</span><span class="p">,</span>
+                              <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;2&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;3&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_x</span><span class="p">,</span>
+                              <span class="s1">&#39;+&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_plus</span><span class="p">,</span>
+                              <span class="s1">&#39;+/-&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_plusminus</span><span class="p">,</span>
+                              <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_digit_0</span><span class="p">,</span>
+                              <span class="s1">&#39;.&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_dot</span><span class="p">,</span>
+                              <span class="s1">&#39;=&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_equal</span><span class="p">}</span>
+        <span class="c1"># A list containing text of buttons that are to be disabled when error</span>
+        <span class="c1"># message is present in the display.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disabled_btn_texts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;%&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="s1">&#39;+/-&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_state</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="s1">&#39;Div. by 0 Error!&#39;</span>
+
+<div class="viewcode-block" id="CalcOperations.str_to_float">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.str_to_float">[docs]</a>
+    <span class="k">def</span> <span class="nf">str_to_float</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">str_value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a string to a floating-point number.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            str_value (str): The string value to convert.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: If the input parameters are not valid.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - num_value (float): Stores the converted float value.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            float or None: The converted floating-point number if successful,</span>
+<span class="sd">            None otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">num_value</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">num_value</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.float_to_str">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.float_to_str">[docs]</a>
+    <span class="k">def</span> <span class="nf">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert a floating-point number to a string.</span>
+
+<span class="sd">        Depending on length of the num_value, and presence of &#39;E&#39; &amp; &#39;.&#39;, it</span>
+<span class="sd">        convert the floating-point number to a string. Depending on the</span>
+<span class="sd">        context, It also converts the floating-point number to a string</span>
+<span class="sd">        representing scientific notation.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num_value (float): The number to convert.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): The converted string value.</span>
+<span class="sd">                - sci_notation_len (int): The desired length of the scientific</span>
+<span class="sd">                  notation string representation. The resulting string length</span>
+<span class="sd">                  may vary depending on whether the number is negative or</span>
+<span class="sd">                  positive, as the representation includes a sign for</span>
+<span class="sd">                  negative numbers.</span>
+<span class="sd">                - int_part (str): String representing integer part of the</span>
+<span class="sd">                  str_value when lenght of the str_value is greater than</span>
+<span class="sd">                  primary display width and &#39;.&#39; is present.</span>
+<span class="sd">                - n_digits (int): Remaining number of digits after duducting</span>
+<span class="sd">                  (lenght of int_part + 1 for dot) from primary display width.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: The converted string representation of the number.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">str_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_value</span><span class="p">)</span>
+
+        <span class="c1"># Sometimes, in the % operations, when digits after decimal point</span>
+        <span class="c1"># are more than 6 in the accumulator, python converts it to the</span>
+        <span class="c1"># scientific notation (like 0.00000008 becomes 8E-8), but since we</span>
+        <span class="c1"># want to convert only when length of the whole value becomes more</span>
+        <span class="c1"># than primary display width, so we check the presence of &#39;E&#39; in the</span>
+        <span class="c1"># num_value and format it to the regular decimal number. After</span>
+        <span class="c1"># converting it back to the regular decimal number, if length of the</span>
+        <span class="c1"># value becomes greater than the primary display size, futher</span>
+        <span class="c1"># operations are performed below.</span>
+        <span class="k">if</span> <span class="s1">&#39;E&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_value</span><span class="p">):</span>
+            <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">num_value</span><span class="si">:</span><span class="s1">f</span><span class="si">}</span><span class="s1">&#39;</span>
+
+        <span class="c1"># Remove all trailing zero when &#39;.&#39; is present in the string str_value.</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">str_value</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">str_value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                <span class="n">str_value</span> <span class="o">=</span> <span class="n">str_value</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># Remove &#39;.&#39; from the string str_value when it is not followed by any</span>
+        <span class="c1"># digit.</span>
+        <span class="k">if</span> <span class="n">str_value</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+            <span class="n">str_value</span> <span class="o">=</span> <span class="n">str_value</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># If length of str_value is greater than primary display width.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span><span class="p">:</span>
+            <span class="n">sci_notation_len</span> <span class="o">=</span> <span class="mi">9</span> <span class="k">if</span> <span class="s1">&#39;-&#39;</span> <span class="ow">in</span> <span class="n">str_value</span> <span class="k">else</span> <span class="mi">10</span>
+
+            <span class="c1"># If &#39;.&#39; is present in the str_value, split the str_value into</span>
+            <span class="c1"># integer and decimal part.</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">str_value</span><span class="p">:</span>
+                <span class="c1"># Split the string into two part and storing integer part</span>
+                <span class="c1"># into int_part variable.</span>
+                <span class="n">int_part</span> <span class="o">=</span> <span class="n">str_value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">str_value</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span>
+
+                <span class="c1"># If integer part is equal to the zero then convert the</span>
+                <span class="c1"># str_value to the scientific notation.</span>
+                <span class="k">if</span> <span class="n">int_part</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+                    <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">str_value</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">sci_notation_len</span><span class="si">}</span><span class="s2">E</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="c1"># If lenght of integer part is greater than primary display</span>
+                <span class="c1"># width, convert the str_value into scientific notation.</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">int_part</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span><span class="p">:</span>
+                    <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">str_value</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">sci_notation_len</span><span class="si">}</span><span class="s2">E</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># If length of integer parts is less than or equal to</span>
+                    <span class="c1"># primary display width, round off the str_value upto</span>
+                    <span class="c1"># n_digits.</span>
+                    <span class="c1"># Subtract 1 for the dicimal point in n_digits expresssion.</span>
+                    <span class="n">n_digits</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">int_part</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                    <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">str_value</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">n_digits</span><span class="p">)</span><span class="si">}</span><span class="s2">f</span><span class="si">}</span><span class="s2">&quot;</span>
+
+                    <span class="c1"># If rounded off str_value become longer than primary</span>
+                    <span class="c1"># display width (eg. 9999999999999999.8 becomes</span>
+                    <span class="c1"># 10000000000000000), which may not fit into primary</span>
+                    <span class="c1"># display, so convert it into scientific notation.</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span><span class="p">:</span>
+                        <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">Decimal</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">sci_notation_len</span><span class="si">}</span><span class="s2">E</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">str_value</span> <span class="o">=</span> <span class="n">Decimal</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span>
+                <span class="c1"># When lenght of str_value is greater than primary display</span>
+                <span class="c1"># width and &#39;.&#39; is not present into str_value then directly</span>
+                <span class="c1"># convert it into scientific notation.</span>
+                <span class="n">str_value</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">str_value</span><span class="si">:</span><span class="s2">.</span><span class="si">{</span><span class="n">sci_notation_len</span><span class="si">}</span><span class="s2">E</span><span class="si">}</span><span class="s2">&quot;</span>
+
+        <span class="k">return</span> <span class="n">str_value</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.clear_if_error">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.clear_if_error">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_if_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the display if an error message is present in the display.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): The current string retrieved from primary</span>
+<span class="sd">                  display.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">str_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">str_value</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">do_clear</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.clear_if_last_oper_equal">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.clear_if_last_oper_equal">[docs]</a>
+    <span class="k">def</span> <span class="nf">clear_if_last_oper_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reset the calculator state if the last operation performed was the</span>
+<span class="sd">        equals (=) operation and subsequent numerical key is pressed.</span>
+
+<span class="sd">        This method checks if the last operation performed was the equals</span>
+<span class="sd">        operation (=) (Note: last_operation is always equal when = button is</span>
+<span class="sd">        pressed or % operation is performed). It is used to control the</span>
+<span class="sd">        behavior of the calculator after the equals operation, ensuring that</span>
+<span class="sd">        subsequent numerical inputs after pressing equals don&#39;t append to the</span>
+<span class="sd">        previous result.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">do_clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.disable_if_error">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.disable_if_error">[docs]</a>
+    <span class="k">def</span> <span class="nf">disable_if_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Disable certain calculator buttons(operator buttons) if an error</span>
+<span class="sd">        message is present in the display.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method relies on the &#39;buttons_dict&#39; attribute of the</span>
+<span class="sd">              this class to access the buttons.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - btn_texts(str): A string representing button text from</span>
+<span class="sd">                  disabled_btn_texts list.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Set certain buttons state to DISABLED and unbind the callback</span>
+        <span class="c1"># assigned for mouse and keyboard event for DISABLED button.</span>
+        <span class="k">for</span> <span class="n">btn_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled_btn_texts</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="p">[</span><span class="n">btn_text</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">,</span>
+                                               <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_disabled_bg</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="p">[</span><span class="n">btn_text</span><span class="p">]</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_key_events</span><span class="p">[</span><span class="n">btn_text</span><span class="p">])</span>
+
+        <span class="c1"># Unbind the callback (self.do_equal()) assigned for Enter key.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">unbind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">)</span>
+
+        <span class="c1"># btn_state changes when certain buttons are set to disabled due to</span>
+        <span class="c1"># error message present in the display.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_state</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_clear">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_clear">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the calculator display and reset internal state.</span>
+
+<span class="sd">        This method clears primary and secondary displays of the calculator,</span>
+<span class="sd">        resetting them to &#39;0&#39;. Additionally, it resets the internal state of</span>
+<span class="sd">        the calculator by initializing the &#39;last_operation&#39; to an empty string,</span>
+<span class="sd">        resetting the &#39;accumulator&#39; to 0, and setting the &#39;switch&#39; and</span>
+<span class="sd">        &#39;last_oper_eq_state&#39; to False.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event(tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the clear display</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method affects the appearance and behavior of certain</span>
+<span class="sd">              calculator buttons, such as resetting their state and background</span>
+<span class="sd">              color to default values.</span>
+<span class="sd">            - It relies on the &#39;buttons_dict&#39;, &#39;last_operation&#39;, &#39;accumulator&#39;,</span>
+<span class="sd">              &#39;switch&#39;, &#39;pri_display_text&#39;, and &#39;sec_display_text&#39; attributes</span>
+<span class="sd">              of the CalcOperations class to perform its operation.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - btn_texts (str): A string representing button text from</span>
+<span class="sd">                  disabled_btn_texts list.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_state</span> <span class="o">==</span> <span class="n">tk</span><span class="o">.</span><span class="n">DISABLED</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">btn_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled_btn_texts</span><span class="p">:</span>
+                <span class="c1"># Below conditional check ensures that equal button get its</span>
+                <span class="c1"># original color when returning to its normal state.</span>
+                <span class="k">if</span> <span class="n">btn_text</span> <span class="o">!=</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="p">[</span><span class="n">btn_text</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">,</span>
+                                                       <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_bg</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="p">[</span><span class="n">btn_text</span><span class="p">]</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span><span class="p">,</span>
+                                                       <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_equal_bg</span><span class="p">)</span>
+
+                <span class="c1"># Bind callback to mouse left click event.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="p">[</span><span class="n">btn_text</span><span class="p">]</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">btn_callbacks</span><span class="p">[</span><span class="n">btn_text</span><span class="p">])</span>
+
+                <span class="c1"># Bind callback to keyboard event.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_key_events</span><span class="p">[</span><span class="n">btn_text</span><span class="p">],</span>
+                                 <span class="bp">self</span><span class="o">.</span><span class="n">btn_callbacks</span><span class="p">[</span><span class="n">btn_text</span><span class="p">])</span>
+
+            <span class="c1"># Bind callback for Enter key additionally which is already</span>
+            <span class="c1"># assigned for &lt;KeyPress-equal&gt; event.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_equal</span><span class="p">)</span>
+
+            <span class="c1"># Set btn_state to tk.NORMAL once disabled buttons&#39; state are set</span>
+            <span class="c1"># to tk.NORMAL.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">btn_state</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">NORMAL</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_clear_entry">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_clear_entry">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_clear_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clear the current entry on the calculator display.</span>
+
+<span class="sd">        It clears the current entry on the display if no error message is</span>
+<span class="sd">        present in the dipslay otherwise reset the calculator&#39;s internal state</span>
+<span class="sd">        to initial state.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the clear entry</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - It also reset the calculator state if error is present in the</span>
+<span class="sd">              primary display or the last_operation is = (equal)</span>
+<span class="sd">              (last_operation is always equal when =  button is pressed or %</span>
+<span class="sd">              operation is performed).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display or last performed operation was</span>
+        <span class="c1"># equal (=), reset the caculator&#39;s state and do nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_digit_x">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_digit_x">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_digit_x</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle digit inputs for the calculator.</span>
+
+<span class="sd">        This method handles digit inputs for the calculator, updating the</span>
+<span class="sd">        display accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the digit input</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): The current value displayed on the</span>
+<span class="sd">                  calculator.</span>
+<span class="sd">                - digit (str): The pressed (by mouse or keyboard) numerical</span>
+<span class="sd">                  button&#39;s text (0 to 9).</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">()</span>
+
+        <span class="n">str_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;4&#39;</span><span class="p">:</span>   <span class="c1"># If mouse click event is triggerred.</span>
+            <span class="n">digit</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">cget</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;2&#39;</span><span class="p">:</span>    <span class="c1"># If keyboard event is triggerred.</span>
+            <span class="n">digit</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">keysym</span>
+
+        <span class="c1"># Set the input value to the display.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">str_value</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">digit</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">str_value</span> <span class="o">+</span> <span class="n">digit</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_dot">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_dot">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_dot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle decimal point input for the calculator.</span>
+
+<span class="sd">        This method handles decimal point input for the calculator, updating</span>
+<span class="sd">        the display accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the decimal point</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): The current value displayed on the</span>
+<span class="sd">                  calculator.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># switch (boolean): A variable that ensures that code inside the</span>
+        <span class="c1"># operation functions like &#39;do_plus&#39; works only if there is input in</span>
+        <span class="c1"># the screen.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">()</span>
+
+        <span class="n">str_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span> <span class="ow">and</span> <span class="s1">&#39;.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">str_value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">str_value</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_digit_0">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_digit_0">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_digit_0</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle zero digit input for the calculator.</span>
+
+<span class="sd">        This method handles zero digit (&#39;0&#39;) input for the calculator,</span>
+<span class="sd">        updating the display accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the zero digit</span>
+<span class="sd">                input event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): The current value displayed on the</span>
+<span class="sd">                  calculator.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">()</span>
+
+        <span class="n">str_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span> <span class="ow">and</span> <span class="n">str_value</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">str_value</span> <span class="o">+</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_operation">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_operation">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">curr_operation</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle addition, subtraction, multiplication and division operation</span>
+<span class="sd">        for the calculator.</span>
+
+<span class="sd">        This method handles the addition, subtraction, multiplication and</span>
+<span class="sd">        division operation for the calculator, updating the display and</span>
+<span class="sd">        internal state accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            curr_operation (str): A string representing current operation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display, reset the calculator state and do</span>
+        <span class="c1"># nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># Ensures that pressing + or - or x or / button subsequently has no</span>
+        <span class="c1"># effect as switch is set to True once any of the above mentioned</span>
+        <span class="c1"># button is clicked. It only helps to replace current operation to be</span>
+        <span class="c1"># performed.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">str_to_float</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+                <span class="c1"># Current operation becomes the last operation for any</span>
+                <span class="c1"># subsequent operation.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="n">curr_operation</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">do_equal</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="n">curr_operation</span><span class="p">)</span>
+                <span class="c1"># Current operation becomes the last operation for any</span>
+                <span class="c1"># subsequent operation.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="n">curr_operation</span>
+
+        <span class="c1"># This condition sets last_operation when user switch operations</span>
+        <span class="c1"># (eg. from + to x, etc) without any current value as input.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="n">curr_operation</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_plus">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_plus">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_plus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle addition operation for the calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the addition event.</span>
+<span class="sd">                Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_operation</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_minus">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_minus">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_minus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle subtraction operation for the calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the substraction</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_operation</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_multi">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_multi">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_multi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle multiplication operation for the calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the multiplication</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_operation</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_divd">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_divd">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_divd</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle division operation for the calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the division event.</span>
+<span class="sd">                Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_operation</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;/&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_percent">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_percent">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_percent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle percentage operation for the calculator.</span>
+
+<span class="sd">        This method calculates the percentage of the current value displayed</span>
+<span class="sd">        on the calculator. If no previous operation has been performed, it</span>
+<span class="sd">        calculates the percentage of the current value relative to zero. It</span>
+<span class="sd">        then updates the display and internal state accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the percentage</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display, reset the calculator state and do</span>
+        <span class="c1"># nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">str_to_float</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_equal</span><span class="p">(</span><span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;%&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_equal">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_equal">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_equal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">curr_operation</span><span class="o">=</span><span class="s1">&#39;=&#39;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Handle the equal sign button press to perform arithmetic calculations.</span>
+
+<span class="sd">        This method performs arithmetic calculations based on the last</span>
+<span class="sd">        operation and the current value displayed on the calculator. It</span>
+<span class="sd">        updates the secondary display with the operation and operand, performs</span>
+<span class="sd">        the calculation, updates the primary display with the result, and</span>
+<span class="sd">        resets the internal state accordingly.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the equal event.</span>
+<span class="sd">                Defaults to None.</span>
+<span class="sd">            curr_operation (str, optional): A string representing the</span>
+<span class="sd">                curr_operation. Defaults to &#39;=&#39;.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ZeroDivisionError: If division by zero occur during division and</span>
+<span class="sd">                percentage operation.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display, reset the calculator state and do</span>
+        <span class="c1"># nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="c1"># If last_operaton is set to &#39;&#39; and curr_operation is not set to &#39;%&#39;,</span>
+        <span class="c1"># then do nothing. It also works when there is an error in the display</span>
+        <span class="c1"># which is reset by clear_if_error() as the same has been called above.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">str_to_float</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">switch</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Set secondary display for three different conditions i.e. 5+8=, 5%,</span>
+        <span class="c1"># and 100*5% or 100/5% or 100-5% or 100+5%.</span>
+
+        <span class="c1"># Set the last_oper_eq_state to True if the last operation performed</span>
+        <span class="c1"># was the equals operation(=) (last_operation is always equal when =</span>
+        <span class="c1"># button is pressed or % operation is performed). It is used to</span>
+        <span class="c1"># control the behavior of the calculator after the equals operation,</span>
+        <span class="c1"># ensuring that subsequent numerical inputs after pressing equals don&#39;t</span>
+        <span class="c1"># append to the previous result.</span>
+        <span class="k">if</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span>
+                                      <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span>
+                                      <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="p">)</span>
+                                      <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span>
+                                      <span class="o">+</span> <span class="n">curr_operation</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span>
+                                      <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span>
+                                      <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="p">)</span>
+                                      <span class="o">+</span> <span class="n">curr_operation</span>
+                                      <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_oper_eq_state</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Below code perform calculation based on last_operation &amp;</span>
+        <span class="c1"># curr_operation.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;*&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s2">&quot;-&quot;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s2">&quot;+&quot;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s2">&quot;/&quot;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Handle ZeroDivsionError that may occur during division operation.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span>
+            <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+                <span class="c1"># Set secondary display in case of ZeroDivisionError occurred</span>
+                <span class="c1"># during series of operations like (5+8)/0+.</span>
+                <span class="k">if</span> <span class="n">curr_operation</span> <span class="o">!=</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span>
+                                              <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span>
+                                              <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="p">)</span>
+                                              <span class="o">+</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">disable_if_error</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">/=</span> <span class="mi">100</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;*&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;/&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+
+            <span class="c1"># Handle ZeroDivsionError that may occur during percentage</span>
+            <span class="c1"># operation.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">disable_if_error</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;+&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">+=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="o">/</span><span class="mi">100</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span> <span class="ow">and</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">-=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">curr_value</span><span class="o">/</span><span class="mi">100</span><span class="p">))</span>
+
+        <span class="c1"># Set primary display.</span>
+        <span class="c1"># Excecuted when user presses equal (=) button.</span>
+        <span class="k">if</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">last_operation</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># Set primary display when curr_operation is %.</span>
+        <span class="k">elif</span> <span class="n">curr_operation</span> <span class="o">==</span> <span class="s1">&#39;%&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Executed when user want to calculated series of operations such</span>
+            <span class="c1"># as 10 + 20 + 30 - 23 * 4 etc.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accumulator</span><span class="p">)</span><span class="o">+</span><span class="n">curr_operation</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_plusminus">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_plusminus">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_plusminus</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggle the sign of the number displayed on the calculator.</span>
+
+<span class="sd">        It changes the sign of the number displayed on the calculator&#39;s</span>
+<span class="sd">        primary display. If the number is positive, it becomes negative, and</span>
+<span class="sd">        vice versa.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the plusminus (+/-)</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display we need to clear the error and do</span>
+        <span class="c1"># nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">float_to_str</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">str_to_float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">())))</span></div>
+
+
+<div class="viewcode-block" id="CalcOperations.do_backspace">
+<a class="viewcode-back" href="../calc_operations.html#calc_operations.CalcOperations.do_backspace">[docs]</a>
+    <span class="k">def</span> <span class="nf">do_backspace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Perform backspace operation on the calculator display.</span>
+
+<span class="sd">        This method removes the last character from the number displayed on</span>
+<span class="sd">        the calculator&#39;s primary display. If the displayed number has only one</span>
+<span class="sd">        digit after backspacing, it sets the display to &#39;0&#39;.</span>
+
+<span class="sd">        Note: It also reset the calculator state if error is present in the</span>
+<span class="sd">        primary display or the last_operation is = (equal) (last_operation is</span>
+<span class="sd">        always equal when =  button is pressed or % operation is performed).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for the backspace</span>
+<span class="sd">                event. Defaults to None.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - str_value (str): A string variable to store primary display</span>
+<span class="sd">                  value.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If here is an error in the display or last performed operation was</span>
+        <span class="c1"># equal (=), reset the caculator&#39;s state and do nothing.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_error</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_if_last_oper_equal</span><span class="p">()</span>
+
+        <span class="n">str_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">str_value</span> <span class="o">!=</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">str_value</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_value</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Ashish Kumar (ashish.bmistry@gmail.com).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

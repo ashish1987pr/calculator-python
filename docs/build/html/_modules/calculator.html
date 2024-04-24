@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calculator &mdash; Calculator Application 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=8d563738"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Calculator Application
+              <img src="../_static/calc_fevicon.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../calculator.html">calculator module documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../calc_operations.html">calc_operations module documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Calculator Application</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Module code</a></li>
+      <li class="breadcrumb-item active">calculator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for calculator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">calculator module</span>
+
+<span class="sd">This module contains the implementation of a simple calculator GUI</span>
+<span class="sd">application using tkinter. It provides classes and methods to create</span>
+<span class="sd">a calculator window with basic arithmetic operations.</span>
+
+<span class="sd">Classes:</span>
+<span class="sd">    Calculator: A class that represent a general calculator such as standard</span>
+<span class="sd">        or scientific calculator.</span>
+<span class="sd">    StandardCalc: A class representing a standard calculator that performs</span>
+<span class="sd">        basic arithmetic operations.</span>
+<span class="sd">    ScientificCalc: A class representing a scientific calculator that performs</span>
+<span class="sd">        scientific operations.</span>
+
+<span class="sd">Imports:</span>
+<span class="sd">    tkinter: For creating the GUI components for the calculator application.</span>
+<span class="sd">    tkinter.messagebox: For creating messagebox model dialog window.</span>
+<span class="sd">    calc_operations: A custom module providing additional methods for</span>
+<span class="sd">        arithmetic operations for the calculator.</span>
+
+<span class="sd">Author:</span>
+<span class="sd">    Ashish Kumar (ashish.bmistry@gmail.com)</span>
+
+<span class="sd">Example:</span>
+<span class="sd">    &gt;&gt;&gt; from calculator import Calculator</span>
+<span class="sd">    &gt;&gt;&gt; calc = Calculator()</span>
+<span class="sd">    &gt;&gt;&gt; calc.window.mainloop()</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># Importing required modules</span>
+<span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">messagebox</span>
+
+<span class="kn">from</span> <span class="nn">calc_operations</span> <span class="kn">import</span> <span class="n">CalcOperations</span>
+
+
+<div class="viewcode-block" id="Calculator">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator">[docs]</a>
+<span class="k">class</span> <span class="nc">Calculator</span><span class="p">(</span><span class="n">CalcOperations</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class that represent a general calculator such as a standard or</span>
+<span class="sd">    scientific calculator, a sublclass of CalOperations of calc_operations</span>
+<span class="sd">    module.</span>
+
+<span class="sd">    It implements common functionality that both standard and scientific</span>
+<span class="sd">    calculator has such as creating main window, creating and placing display,</span>
+<span class="sd">    menu, info label and buttons widget.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        app_name (str): Application name.</span>
+<span class="sd">        app_ver (str): Calculator application version information.</span>
+<span class="sd">        app_copyright (str): Copyright information.</span>
+<span class="sd">        app_developer (str): Developer information.</span>
+<span class="sd">        window (tk.Tk): The main window of the calculator.</span>
+<span class="sd">        frame (tk.Frame): The frame widget which is master widget of</span>
+<span class="sd">            developer_label and button widgets.</span>
+<span class="sd">        win_title_st_calc (str): Title of the standard calculator window.</span>
+<span class="sd">        win_title_sci_calc (str): Title of scientific calculator window.</span>
+<span class="sd">        win_padx (int): Horizontal padding of the calculator window.</span>
+<span class="sd">        win_pady (int): Vertical padding of the calculator window.</span>
+<span class="sd">        win_bg_color (str): Background color of the calculator</span>
+<span class="sd">        display_bg (str): Background color of the display area.</span>
+<span class="sd">        pri_display_font (tuple): Font for primary display.</span>
+<span class="sd">        sec_display_font (tuple): Font for secondary display.</span>
+<span class="sd">        btn_bg (str): Background color of buttons.</span>
+<span class="sd">        btn_active_bg (str): Background color of active buttons.</span>
+<span class="sd">        btn_padx (tuple): Horizontal padding of buttons.</span>
+<span class="sd">        btn_pady (tuple): Vertical padding of buttons.</span>
+<span class="sd">        btn_back_pady (tuple): Padding for the &#39;Back&#39; button.</span>
+<span class="sd">        btn_borderwidth (int): Border width of buttons.</span>
+<span class="sd">        btn_height (int): Height of buttons.</span>
+<span class="sd">        btn_width (int): Width of buttons.</span>
+<span class="sd">        btn_digit_font (tuple): Font for digit buttons.</span>
+<span class="sd">        btn_operator_font (tuple): Font for operator buttons.</span>
+<span class="sd">        stick (str): Sticky parameter for grid layout.</span>
+<span class="sd">        calc_type (StandardCalc | ScientificCalc): Stores instance of</span>
+<span class="sd">            either StandardCalc or ScientificCalc class.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - Calculator class inherits attributes and methods from its parent</span>
+<span class="sd">          class CalcOperations responsible for various arithmetic operations.</span>
+<span class="sd">          This class extends CalcOperations class&#39;s behaviour.</span>
+<span class="sd">        - Calculator class is also composed of either StandardCalc or</span>
+<span class="sd">          ScientificCalc instances. It enables Calculator class to equip</span>
+<span class="sd">          itself with additional attributes and methods of component class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc_type</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Calculator class.</span>
+
+<span class="sd">        Initialize the Calculator class along with necessary method calls</span>
+<span class="sd">        to create the calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            calc_types (StandardCalc | ScientificCalc): An instance of either</span>
+<span class="sd">                StandardCalc or ScientificCalc class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;Calculator&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_ver</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_copyright</span> <span class="o">=</span> <span class="s1">&#39;Copyright 2024 © Ashish Kumar&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_developer</span> <span class="o">=</span> <span class="s1">&#39;Ashish Kumar</span><span class="se">\n</span><span class="s1">ashish.bmistry@gmail.com&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_title_st_calc</span> <span class="o">=</span> <span class="s1">&#39;Standard Calculator&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_title_sci_calc</span> <span class="o">=</span> <span class="s1">&#39;Scientific Calculator&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_padx</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_pady</span> <span class="o">=</span> <span class="mi">20</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">win_bg_color</span> <span class="o">=</span> <span class="s1">&#39;#ECEFFB&#39;</span>
+
+        <span class="c1"># Calling create_main_window create the main window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_main_window</span><span class="p">()</span>
+        <span class="c1"># Calling create_menu create the menu.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_menu</span><span class="p">()</span>
+
+        <span class="c1"># Calling CalcOperations&#39;s __init__() to inherit its properties.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_bg</span> <span class="o">=</span> <span class="s1">&#39;#FFFFFF&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pri_display_font</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Courier New&#39;</span><span class="p">,</span> <span class="s1">&#39;28&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sec_display_font</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Courier New&#39;</span><span class="p">,</span> <span class="s1">&#39;13&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_bg</span> <span class="o">=</span> <span class="s1">&#39;#FCFDFF&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_active_bg</span> <span class="o">=</span> <span class="s1">&#39;#EAEEFC&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_padx</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_pady</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_back_pady</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_borderwidth</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_height</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_width</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_digit_font</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_font</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;14&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stick</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">N</span> <span class="o">+</span> <span class="n">tk</span><span class="o">.</span><span class="n">S</span> <span class="o">+</span> <span class="n">tk</span><span class="o">.</span><span class="n">E</span> <span class="o">+</span> <span class="n">tk</span><span class="o">.</span><span class="n">W</span>
+
+        <span class="c1"># Calling create_display create the calculator display.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_display</span><span class="p">()</span>
+        <span class="c1"># Calling create_frame to create a frame for developer_label and</span>
+        <span class="c1"># buttons placement.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_frame</span><span class="p">()</span>
+        <span class="c1"># Calling create_developer_label create the developer_label.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_developer_label</span><span class="p">()</span>
+
+        <span class="c1"># calc_type stores object of either StandardCalc or ScientificCalc</span>
+        <span class="c1"># class. By default, it stores StandardCalc class object as it is</span>
+        <span class="c1"># the default calculator when the application start. If user selects</span>
+        <span class="c1"># Scientific Calculator option from File menu, value of calc_type</span>
+        <span class="c1"># will be replaced by ScientificCalc class object.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span> <span class="o">=</span> <span class="n">calc_type</span><span class="p">()</span>
+        <span class="c1"># Calling create_button create calculator buttons.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_buttons</span><span class="p">()</span>
+        <span class="c1"># Both standard and scientific calculator has differnt types of buttons</span>
+        <span class="c1"># and buttons layout, so button placement is done by place_buttons</span>
+        <span class="c1"># method of respective class. Note: self (reference to Calculator</span>
+        <span class="c1"># instance) argument passed into place_buttons() definition is to</span>
+        <span class="c1"># access its attributes inside place_buttons() method of eight</span>
+        <span class="c1"># StandardCalc or ScientificCalc class.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="o">.</span><span class="n">place_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Calculator.create_main_window">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_main_window">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_main_window</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the main window of the calculator.</span>
+
+<span class="sd">        This method initializes the main window of the calculator with</span>
+<span class="sd">        specified attributes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Tk</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_title_st_calc</span><span class="p">)</span>
+        <span class="c1"># Make the window stiff.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">resizable</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">padx</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win_padx</span><span class="p">,</span>
+                           <span class="n">pady</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win_padx</span><span class="p">,</span>
+                           <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win_bg_color</span><span class="p">)</span>
+        <span class="c1"># Set non-default icon to the window.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">tk</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s1">&#39;wm&#39;</span><span class="p">,</span> <span class="s1">&#39;iconphoto&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">_w</span><span class="p">,</span>
+                            <span class="n">tk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="s1">&#39;..</span><span class="se">\\</span><span class="s1">calc_fevicon.png&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Calculator.create_menu">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_menu">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the menu for the calculator.</span>
+
+<span class="sd">        This method adds menu options to the main menu bar of the calculator</span>
+<span class="sd">        window.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - main_menu (tk.Menu): The main menu bar of the calculator</span>
+<span class="sd">                  window.</span>
+<span class="sd">                - sub_menu_file (tk.Menu): The submenu under the &#39;File&#39; menu.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method implements callback binding for the following</span>
+<span class="sd">              callbacks:</span>
+<span class="sd">                - calc_type_switch(self, symbol):</span>
+<span class="sd">                    Callback function to switch between Standard and Scientific</span>
+<span class="sd">                    calculator.</span>
+<span class="sd">                - are_you_sure(self, event=None):</span>
+<span class="sd">                    Callback function for the &#39;Quit&#39; menu option.</span>
+<span class="sd">                - about_app(self):</span>
+<span class="sd">                    Callback function for the &#39;About&#39; menu option.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Adding main menu to the main self.window.</span>
+        <span class="n">main_menu</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">menu</span><span class="o">=</span><span class="n">main_menu</span><span class="p">)</span>
+
+        <span class="c1"># Adding options to the main menu bar with empty sub_menu.</span>
+        <span class="n">sub_menu_file</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Menu</span><span class="p">(</span><span class="n">main_menu</span><span class="p">,</span> <span class="n">tearoff</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">main_menu</span><span class="o">.</span><span class="n">add_cascade</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;File&#39;</span><span class="p">,</span> <span class="n">menu</span><span class="o">=</span><span class="n">sub_menu_file</span><span class="p">,</span> <span class="n">underline</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="c1"># Adding items to the file menu.</span>
+        <span class="n">sub_menu_file</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Standard calculator&#39;</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_type_switch</span><span class="p">(</span><span class="s2">&quot;stand_calc&quot;</span><span class="p">))</span>
+        <span class="n">sub_menu_file</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span>
+            <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Scientific calculator&#39;</span><span class="p">,</span>
+            <span class="n">command</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calc_type_switch</span><span class="p">(</span><span class="s2">&quot;sci_calc&quot;</span><span class="p">))</span>
+        <span class="n">sub_menu_file</span><span class="o">.</span><span class="n">add_separator</span><span class="p">()</span>    <span class="c1"># Add line separator.</span>
+        <span class="n">sub_menu_file</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Quit&#39;</span><span class="p">,</span>
+                                  <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">are_you_sure</span><span class="p">,</span>
+                                  <span class="n">underline</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                  <span class="n">accelerator</span><span class="o">=</span><span class="s1">&#39;Ctrl-Q&#39;</span><span class="p">)</span>
+        <span class="c1"># Bind Ctr-Q and Ctr-q event to the specified callback.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Control-Q&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">are_you_sure</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Control-q&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">are_you_sure</span><span class="p">)</span>
+
+        <span class="c1"># Adding options to the main menu bar with callback.</span>
+        <span class="n">main_menu</span><span class="o">.</span><span class="n">add_command</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;About&#39;</span><span class="p">,</span>
+                              <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">about_app</span><span class="p">,</span>
+                              <span class="n">underline</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.create_display">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_display">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_display</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the primary and secondary display for the calculator.</span>
+
+<span class="sd">        This method creates labels for primary and secondary displays.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - primary_display (tk.Label): The primary display of the</span>
+<span class="sd">                  calculator.</span>
+<span class="sd">                - secondary_display (tk.Label): The secondary display of the</span>
+<span class="sd">                  calculator.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">secondary_display</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span>
+                                     <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sec_display_width</span><span class="p">,</span>
+                                     <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sec_display_font</span><span class="p">,</span>
+                                     <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">sec_display_text</span><span class="p">,</span>
+                                     <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;e&#39;</span><span class="p">,</span>
+                                     <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">display_bg</span><span class="p">,</span>
+                                     <span class="n">padx</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">primary_display</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span>
+                                   <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pri_display_width</span><span class="p">,</span>
+                                   <span class="n">font</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pri_display_font</span><span class="p">,</span>
+                                   <span class="n">textvariable</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pri_display_text</span><span class="p">,</span>
+                                   <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;e&#39;</span><span class="p">,</span>
+                                   <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">display_bg</span><span class="p">)</span>
+
+        <span class="n">secondary_display</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stick</span><span class="p">)</span>
+        <span class="n">primary_display</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stick</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.create_frame">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create frame widget for developer_label and button widgets placement.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">,</span>
+                              <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win_bg_color</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                        <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="n">columnspan</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="n">sticky</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stick</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.create_developer_label">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_developer_label">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_developer_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create the developer label for the calculator.</span>
+
+<span class="sd">        Creates a label at the bottom of the display for additional</span>
+<span class="sd">        information to be shown about developer.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - developer_label (tk.Label): The label displaying information</span>
+<span class="sd">                  about developer.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">developer_label</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span>
+                                   <span class="n">text</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Developer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app_developer</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                   <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;Arial&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
+                                   <span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">win_bg_color</span><span class="p">,</span>
+                                   <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;sw&#39;</span><span class="p">,</span>
+                                   <span class="n">justify</span><span class="o">=</span><span class="n">tk</span><span class="o">.</span><span class="n">LEFT</span><span class="p">)</span>
+
+        <span class="n">developer_label</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columnspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                             <span class="n">sticky</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">stick</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">29</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Calculator.create_buttons">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.create_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create button widgets for the calculator.</span>
+
+<span class="sd">        This method creates buttons for digits and operators, and binds them</span>
+<span class="sd">        to respective callback functions.</span>
+
+<span class="sd">        Each button is created with specific attributes and configured with</span>
+<span class="sd">        appropriate commands and bindings. After creating each button, it is</span>
+<span class="sd">        added to the `buttons_dict` dictionary to access them later.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - btn_bg_color (str): background color for buttons.</span>
+<span class="sd">                - btn_font (tuple): Font for buttons.</span>
+<span class="sd">                - btn (tk.Button): Button widget object.</span>
+<span class="sd">                - btn_text (str): A string representing button&#39;s text accessed</span>
+<span class="sd">                  from btn_callbacks dictionary inherited from CalcOperations</span>
+<span class="sd">                  class of calc_operations module.</span>
+<span class="sd">                - callback (str): Name reference to the callback function for</span>
+<span class="sd">                  each button respectively. It is accessed from btn_callbacks</span>
+<span class="sd">                  dictionary inherited from CalcOperations class of</span>
+<span class="sd">                  calc_operations module.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method implements callback binding for the following</span>
+<span class="sd">              callbacks implemented in CalcOperations class of module</span>
+<span class="sd">              calc_operations:</span>
+<span class="sd">                - do_backspace(self, event=None): Handle Backspace button</span>
+<span class="sd">                  press event.</span>
+<span class="sd">                - do_clear(self, event=None): Handle Clear (C) button press</span>
+<span class="sd">                  event.</span>
+<span class="sd">                - do_clear_entry(self, event=None): Handle Clear Entry (CE)</span>
+<span class="sd">                  button press event.</span>
+<span class="sd">                - do_percent(self, event=None): Handle Percentage (%) button</span>
+<span class="sd">                  press event.</span>
+<span class="sd">                - do_divd(self, event=None): Handle Division (/) button press</span>
+<span class="sd">                  event.</span>
+<span class="sd">                - do_multi(self, event=None): Handle Multiplication (x) button</span>
+<span class="sd">                  press event.</span>
+<span class="sd">                - do_minus(self, event=None): Handle the Subtraction (-)</span>
+<span class="sd">                  button press event.</span>
+<span class="sd">                - do_plus(self, event=None): Handle Addition (+) button press</span>
+<span class="sd">                  event.</span>
+<span class="sd">                - do_equal(self, event=None, curr_operation=&#39;=&#39;): Handle Equal</span>
+<span class="sd">                  (=) button press event.</span>
+<span class="sd">                - do_dot(self, event=None): Handle Dot (.) button press event.</span>
+<span class="sd">                - do_digit_0(self, event=None): Handle Digit 0 (0) button</span>
+<span class="sd">                  press event.</span>
+<span class="sd">                - do_plusminus(self, event=None): Handle Plus/Minus (+/-)</span>
+<span class="sd">                  button press event.</span>
+<span class="sd">                - do_digit_x(self, event=None): Handle Digit buttons (1-9)</span>
+<span class="sd">                  press event.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Each time create_buttons() is called to create buttons for standard</span>
+        <span class="c1"># or scientific calculator, it set buttons_dict to empty dictionary.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Creating button objects with specified properties.</span>
+        <span class="k">for</span> <span class="n">btn_text</span><span class="p">,</span> <span class="n">callback</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">btn_text</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="s1">&#39;5&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;6&#39;</span><span class="p">,</span> <span class="s1">&#39;7&#39;</span><span class="p">,</span> <span class="s1">&#39;8&#39;</span><span class="p">,</span> <span class="s1">&#39;9&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">]:</span>
+                <span class="n">btn_bg_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_bg</span>
+                <span class="n">btn_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_digit_font</span>
+            <span class="k">elif</span> <span class="n">btn_text</span> <span class="o">==</span> <span class="s1">&#39;.&#39;</span><span class="p">:</span>
+                <span class="n">btn_bg_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_bg</span>
+                <span class="n">btn_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_digit_font</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">btn_bg_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_bg</span>
+                <span class="n">btn_font</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">btn_operator_font</span>
+
+            <span class="n">btn</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span>
+                            <span class="n">text</span><span class="o">=</span><span class="n">btn_text</span><span class="p">,</span>
+                            <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_height</span><span class="p">,</span>
+                            <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_width</span><span class="p">,</span>
+                            <span class="n">bg</span><span class="o">=</span><span class="n">btn_bg_color</span><span class="p">,</span>
+                            <span class="n">activebackground</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_active_bg</span><span class="p">,</span>
+                            <span class="n">font</span><span class="o">=</span><span class="n">btn_font</span><span class="p">,</span>
+                            <span class="n">borderwidth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_borderwidth</span><span class="p">)</span>
+            <span class="c1"># Bind callback to mouse left click event.</span>
+            <span class="n">btn</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Button-1&gt;&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="c1"># Bind callback to keyboard event.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_key_events</span><span class="p">[</span><span class="n">btn_text</span><span class="p">],</span> <span class="n">callback</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">btn_text</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
+                <span class="n">btn</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">bg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_equal_bg</span><span class="p">,</span>
+                           <span class="n">fg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">btn_equal_fg</span><span class="p">)</span>
+                <span class="c1"># Bind callback for Enter key additionally which is already</span>
+                <span class="c1"># assigned for &lt;KeyPress-equal&gt; event.</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s1">&#39;&lt;Return&gt;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">do_equal</span><span class="p">)</span>
+
+            <span class="c1"># Store each button object to the dictionary to access them later.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttons_dict</span><span class="o">.</span><span class="n">update</span><span class="p">([(</span><span class="n">btn_text</span><span class="p">,</span> <span class="n">btn</span><span class="p">)])</span>
+
+        <span class="c1"># If type of calculator is Scientific, then create additional buttons</span>
+        <span class="c1"># by calling create_buttons() of ScientificCalc class.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="p">,</span> <span class="n">ScientificCalc</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="o">.</span><span class="n">create_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.calc_type_switch">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.calc_type_switch">[docs]</a>
+    <span class="k">def</span> <span class="nf">calc_type_switch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A callback designed to switch between Standard and Scientific</span>
+<span class="sd">        calculator.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            symbol (str): A string representing type of calculator. The strings</span>
+<span class="sd">                that represent type of calculator are either &#39;stand_calc&#39; or</span>
+<span class="sd">                &#39;sci_calc&#39;.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method performs following functionality.</span>
+<span class="sd">                - Set title of the main window depending on selected type of</span>
+<span class="sd">                  calculator from the menu options.</span>
+<span class="sd">                - Depending on type of instance stored inside calc_type</span>
+<span class="sd">                  attribute, it resets the calculator&#39;s state to its initial</span>
+<span class="sd">                  state.</span>
+<span class="sd">                - It destroys the frame widget which is master widget for</span>
+<span class="sd">                  developer_label and button widgets, then create a new frame</span>
+<span class="sd">                  widget object. By destroying frame, it also recursively</span>
+<span class="sd">                  destroys all the button and developer_label widget, which</span>
+<span class="sd">                  ensures that resources are freed up with the help python</span>
+<span class="sd">                  garbadge collector.</span>
+<span class="sd">                - Create new developer_label for the calculator.</span>
+<span class="sd">                - Set calc_type to the instance of either StandardCalc or</span>
+<span class="sd">                  ScientificCalc class depending on the selected calculator</span>
+<span class="sd">                  type.</span>
+<span class="sd">                - Create new buttons for the specific type calculator.</span>
+<span class="sd">                - Places the developer_label and button widgets to the frame</span>
+<span class="sd">                  widget.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="p">,</span>
+                          <span class="n">StandardCalc</span><span class="p">)</span> <span class="ow">and</span> <span class="n">symbol</span> <span class="o">==</span> <span class="s1">&#39;stand_calc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_title_st_calc</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">do_clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_frame</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_developer_label</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span> <span class="o">=</span> <span class="n">StandardCalc</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_buttons</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="o">.</span><span class="n">place_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="p">,</span>
+                            <span class="n">ScientificCalc</span><span class="p">)</span> <span class="ow">and</span> <span class="n">symbol</span> <span class="o">==</span> <span class="s1">&#39;sci_calc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">win_title_sci_calc</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">do_clear</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_frame</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_developer_label</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span> <span class="o">=</span> <span class="n">ScientificCalc</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">create_buttons</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">calc_type</span><span class="o">.</span><span class="n">place_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.about_app">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.about_app">[docs]</a>
+    <span class="k">def</span> <span class="nf">about_app</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Display information about the application.</span>
+
+<span class="sd">        It displays information about the application such as name, version,</span>
+<span class="sd">        copyright and developer.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">messagebox</span><span class="o">.</span><span class="n">showinfo</span><span class="p">(</span><span class="s1">&#39;About&#39;</span><span class="p">,</span>
+                            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app_name</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+                            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;Version: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app_ver</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+                            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app_copyright</span><span class="si">}</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+                            <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39;Developer: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">app_developer</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Calculator.are_you_sure">
+<a class="viewcode-back" href="../calculator.html#calculator.Calculator.are_you_sure">[docs]</a>
+    <span class="k">def</span> <span class="nf">are_you_sure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prompt the user to confirm quitting the application.</span>
+
+<span class="sd">        It displays a message box asking the user if they are sure they want</span>
+<span class="sd">        to quit the application. If the user confirms, the application window</span>
+<span class="sd">        is destroyed.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            event (tk.Event, optional): An event parameter that can be provided</span>
+<span class="sd">                when the method is called as a callback for quit event.</span>
+<span class="sd">                Defaults to None.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">reply</span> <span class="o">=</span> <span class="n">messagebox</span><span class="o">.</span><span class="n">askyesno</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Quit?&#39;</span><span class="p">,</span>
+                                    <span class="n">message</span><span class="o">=</span><span class="s1">&#39;Are you sure you want to quit?&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reply</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="StandardCalc">
+<a class="viewcode-back" href="../calculator.html#calculator.StandardCalc">[docs]</a>
+<span class="k">class</span> <span class="nc">StandardCalc</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a standard calculator that performs basic arithmetic</span>
+<span class="sd">    operations.</span>
+
+<span class="sd">    This class defines additional methods required execlusively for Standard</span>
+<span class="sd">    calculator not defined in Calculator class.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        rows (int): Represent row counter for button placement.</span>
+<span class="sd">        cols (int): Represent column counter for button placement.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the StandardCalc class along with necessary method calls</span>
+<span class="sd">        to creating calculator.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows</span> <span class="o">=</span> <span class="mi">3</span>    <span class="c1"># Row counter for button placement initialization.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">=</span> <span class="mi">3</span>    <span class="c1"># Column counter for button placement initialization.</span>
+
+<div class="viewcode-block" id="StandardCalc.place_buttons">
+<a class="viewcode-back" href="../calculator.html#calculator.StandardCalc.place_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">place_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Places buttons into frame widget of main window.</span>
+
+<span class="sd">        It utilizes button_dict of Calculator class to access button widget</span>
+<span class="sd">        object and grid geomatry to place buttons into frame widget of main</span>
+<span class="sd">        window.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            calc (Calcualator): An instance of Calculator class.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared variables:</span>
+<span class="sd">                - btn_text (str): A string representing button&#39;s text from</span>
+<span class="sd">                  buttons_dict dictionary of Calculator class.</span>
+<span class="sd">                - btn (tk.Button): Button widget object.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># buttons_dict attribute of Calculator class is used to place buttons</span>
+        <span class="c1"># inside the main window using grid geomatry manager.</span>
+        <span class="k">for</span> <span class="n">btn_text</span><span class="p">,</span> <span class="n">btn</span> <span class="ow">in</span> <span class="n">calc</span><span class="o">.</span><span class="n">buttons_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Placing the buttons into the main window.</span>
+            <span class="n">btn</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">rows</span><span class="o">//</span><span class="mi">4</span><span class="p">),</span>
+                     <span class="n">column</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">%</span> <span class="mi">4</span><span class="p">,</span>
+                     <span class="n">sticky</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">stick</span><span class="p">,</span>
+                     <span class="n">pady</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">btn_back_pady</span> <span class="k">if</span> <span class="n">btn_text</span> <span class="o">==</span> <span class="s1">&#39;Back&#39;</span> <span class="k">else</span> <span class="n">calc</span><span class="o">.</span><span class="n">btn_pady</span><span class="p">,</span>
+                     <span class="n">padx</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">btn_padx</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rows</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="ScientificCalc">
+<a class="viewcode-back" href="../calculator.html#calculator.ScientificCalc">[docs]</a>
+<span class="k">class</span> <span class="nc">ScientificCalc</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a scientific calculator that performs scientific</span>
+<span class="sd">    operations.</span>
+
+<span class="sd">    This class defines additional methods required execlusively for Scientific</span>
+<span class="sd">    calculator not defined in Calculator class.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        rows (int): Represent row counter for button placement.</span>
+<span class="sd">        cols (int): Represent column counter for button placement.</span>
+
+<span class="sd">    Todo:</span>
+<span class="sd">        - Implemention of functionality for Scientific calculator.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        - ScientificCalc class is under development.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the ScientificCalc class.</span>
+
+<span class="sd">        Initialize the ScientificCalc class along with necessary method calls</span>
+<span class="sd">        to creating calculator.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rows</span> <span class="o">=</span> <span class="mi">3</span>    <span class="c1"># Row counter for button placement.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cols</span> <span class="o">=</span> <span class="mi">3</span>    <span class="c1"># Column counter for button placement.</span>
+
+<div class="viewcode-block" id="ScientificCalc.create_buttons">
+<a class="viewcode-back" href="../calculator.html#calculator.ScientificCalc.create_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create additional buttons for scientific calculator which are not part</span>
+<span class="sd">        of the standard calculator.</span>
+
+<span class="sd">        It use calc (instance of Calculator class) to access Calculator class&#39;s</span>
+<span class="sd">        attributes to create additional buttons.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            calc (Calculator): An instance of Calculator class.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ScientificCalc.place_buttons">
+<a class="viewcode-back" href="../calculator.html#calculator.ScientificCalc.place_buttons">[docs]</a>
+    <span class="k">def</span> <span class="nf">place_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">calc</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Places buttons into frame widget of main window.</span>
+
+<span class="sd">        It utilizes button_dict of Calculator class to access button widget</span>
+<span class="sd">        object and grid geomatry to place buttons into frame widget of main</span>
+<span class="sd">        window.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            calc (Calculator): An instance of Calculator class.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - This method utilizes the following locally declared temporary</span>
+<span class="sd">              variables:</span>
+<span class="sd">                - under_develop (tk.Label): Temporary tk.Label widget</span>
+<span class="sd">                  representing text that &#39;Scientific calculator is under</span>
+<span class="sd">                  development&#39;. It is placed inside the frame widget of</span>
+<span class="sd">                  Calculator class.</span>
+<span class="sd">            - These variables are used internally within the method and are</span>
+<span class="sd">              not exposed to the method&#39;s caller.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            - &quot;As the ScientificCalc class is under development, a temporary</span>
+<span class="sd">              message &#39;Scientific calculator is under development&#39; is</span>
+<span class="sd">              displayed on the screen when the user selects the Scientific</span>
+<span class="sd">              calculator option from the menu.&quot;</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">under_develop</span> <span class="o">=</span> <span class="n">tk</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">frame</span><span class="p">,</span>
+                                 <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Scientific calculator</span><span class="se">\n</span><span class="s1">&#39;</span>
+                                 <span class="o">+</span> <span class="s1">&#39;is under development.&#39;</span><span class="p">,</span>
+                                 <span class="n">bg</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">win_bg_color</span><span class="p">,</span>
+                                 <span class="n">font</span><span class="o">=</span><span class="n">calc</span><span class="o">.</span><span class="n">btn_digit_font</span><span class="p">,</span>
+                                 <span class="n">width</span><span class="o">=</span><span class="mi">29</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+        <span class="n">under_develop</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pady</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
+</div>
+
+
+
+<span class="n">calc</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">(</span><span class="n">StandardCalc</span><span class="p">)</span>
+<span class="n">calc</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Ashish Kumar (ashish.bmistry@gmail.com).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calc_operations module documentation &mdash; Calculator Application 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="calculator module documentation" href="calculator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Calculator Application
+              <img src="_static/calc_fevicon.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="calculator.html">calculator module documentation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">calc_operations module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calc_operations.CalcOperations"><code class="docutils literal notranslate"><span class="pre">CalcOperations</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.pri_display_text"><code class="docutils literal notranslate"><span class="pre">CalcOperations.pri_display_text</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.sec_display_text"><code class="docutils literal notranslate"><span class="pre">CalcOperations.sec_display_text</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.pri_display_width"><code class="docutils literal notranslate"><span class="pre">CalcOperations.pri_display_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.sec_display_width"><code class="docutils literal notranslate"><span class="pre">CalcOperations.sec_display_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_disabled_bg"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_disabled_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_operator_bg"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_operator_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_equal_bg"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_equal_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_equal_fg"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_equal_fg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.buttons_dict"><code class="docutils literal notranslate"><span class="pre">CalcOperations.buttons_dict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_key_events"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_key_events</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_callbacks"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_callbacks</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.disabled_btn_texts"><code class="docutils literal notranslate"><span class="pre">CalcOperations.disabled_btn_texts</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.btn_state"><code class="docutils literal notranslate"><span class="pre">CalcOperations.btn_state</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.last_operation"><code class="docutils literal notranslate"><span class="pre">CalcOperations.last_operation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.accumulator"><code class="docutils literal notranslate"><span class="pre">CalcOperations.accumulator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.switch"><code class="docutils literal notranslate"><span class="pre">CalcOperations.switch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.last_oper_eq_state"><code class="docutils literal notranslate"><span class="pre">CalcOperations.last_oper_eq_state</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.curr_value"><code class="docutils literal notranslate"><span class="pre">CalcOperations.curr_value</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.error"><code class="docutils literal notranslate"><span class="pre">CalcOperations.error</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.clear_if_error"><code class="docutils literal notranslate"><span class="pre">CalcOperations.clear_if_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.clear_if_last_oper_equal"><code class="docutils literal notranslate"><span class="pre">CalcOperations.clear_if_last_oper_equal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.disable_if_error"><code class="docutils literal notranslate"><span class="pre">CalcOperations.disable_if_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_backspace"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_backspace()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_clear"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_clear_entry"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_clear_entry()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_digit_0"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_digit_0()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_digit_x"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_digit_x()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_divd"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_divd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_dot"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_dot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_equal"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_equal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_minus"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_minus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_multi"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_multi()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_operation"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_operation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_percent"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_percent()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_plus"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_plus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.do_plusminus"><code class="docutils literal notranslate"><span class="pre">CalcOperations.do_plusminus()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.float_to_str"><code class="docutils literal notranslate"><span class="pre">CalcOperations.float_to_str()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calc_operations.CalcOperations.str_to_float"><code class="docutils literal notranslate"><span class="pre">CalcOperations.str_to_float()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Calculator Application</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">calc_operations module documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/calc_operations.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-calc_operations">
+<span id="calc-operations-module-documentation"></span><h1>calc_operations module documentation<a class="headerlink" href="#module-calc_operations" title="Link to this heading"></a></h1>
+<p>calc_operations module</p>
+<p>This module contains the CalcOperations class and its methods for calculator
+operations.</p>
+<p>This module provides the CalcOperations class, which implements methods for
+Standard and Scientifc calculator operations such as addition, subtraction,
+multiplication, division, percentage calculations, and more.</p>
+<p>The CalcOperations class handle internal logic of the calculator, including
+parsing user input, performing calculations, handling errors, and updating
+the calculator’s display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Classes<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>CalcOperations</strong> – A class containing methods for calculator operations.</p>
+</dd>
+<dt class="field-even">Imports<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tkinter</strong> – For creating the GUI components of the calculator.</p></li>
+<li><p><strong>decimal</strong> – This module provides functionality for precise arithmetic
+operations using the Decimal data type from the decimal module.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Ashish Kumar</strong> (<em>ashish.bmistry&#64;gmail.com</em>)</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calc_operations.</span></span><span class="sig-name descname"><span class="pre">CalcOperations</span></span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class to perform Standard &amp; Scientific calculator operations.</p>
+<p>This class defines methods for various arithmetic operations such as
+addition, subtraction, multiplication, and division. It also include
+methods for handling user input and error conditions. In future
+development, it will also have methods for scientific calculation
+operations.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.pri_display_text">
+<span class="sig-name descname"><span class="pre">pri_display_text</span></span><a class="headerlink" href="#calc_operations.CalcOperations.pri_display_text" title="Link to this definition"></a></dt>
+<dd><p>String var for primary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tk.StringVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.sec_display_text">
+<span class="sig-name descname"><span class="pre">sec_display_text</span></span><a class="headerlink" href="#calc_operations.CalcOperations.sec_display_text" title="Link to this definition"></a></dt>
+<dd><p>String var for secondary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tk.StringVar</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.pri_display_width">
+<span class="sig-name descname"><span class="pre">pri_display_width</span></span><a class="headerlink" href="#calc_operations.CalcOperations.pri_display_width" title="Link to this definition"></a></dt>
+<dd><p>Width of primary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.sec_display_width">
+<span class="sig-name descname"><span class="pre">sec_display_width</span></span><a class="headerlink" href="#calc_operations.CalcOperations.sec_display_width" title="Link to this definition"></a></dt>
+<dd><p>Width of secondary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_disabled_bg">
+<span class="sig-name descname"><span class="pre">btn_disabled_bg</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_disabled_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of disabled buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_operator_bg">
+<span class="sig-name descname"><span class="pre">btn_operator_bg</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_operator_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of operator buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_equal_bg">
+<span class="sig-name descname"><span class="pre">btn_equal_bg</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_equal_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of equal button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_equal_fg">
+<span class="sig-name descname"><span class="pre">btn_equal_fg</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_equal_fg" title="Link to this definition"></a></dt>
+<dd><p>Foreground color of equal button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.buttons_dict">
+<span class="sig-name descname"><span class="pre">buttons_dict</span></span><a class="headerlink" href="#calc_operations.CalcOperations.buttons_dict" title="Link to this definition"></a></dt>
+<dd><p>A dictionary to store button objects with their
+respective text as keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_key_events">
+<span class="sig-name descname"><span class="pre">btn_key_events</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_key_events" title="Link to this definition"></a></dt>
+<dd><p>A dictionary representing button’s text and
+their respective keyboard event name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_callbacks">
+<span class="sig-name descname"><span class="pre">btn_callbacks</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_callbacks" title="Link to this definition"></a></dt>
+<dd><p>A dictionary representing button’s text and
+reference to their respective callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.disabled_btn_texts">
+<span class="sig-name descname"><span class="pre">disabled_btn_texts</span></span><a class="headerlink" href="#calc_operations.CalcOperations.disabled_btn_texts" title="Link to this definition"></a></dt>
+<dd><p>A list of text of buttons which are to be
+disabled when error message is present in the display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.btn_state">
+<span class="sig-name descname"><span class="pre">btn_state</span></span><a class="headerlink" href="#calc_operations.CalcOperations.btn_state" title="Link to this definition"></a></dt>
+<dd><p>Represents certain button widgets state which changes
+when error message is present in the display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.last_operation">
+<span class="sig-name descname"><span class="pre">last_operation</span></span><a class="headerlink" href="#calc_operations.CalcOperations.last_operation" title="Link to this definition"></a></dt>
+<dd><p>String to store the last operation performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.accumulator">
+<span class="sig-name descname"><span class="pre">accumulator</span></span><a class="headerlink" href="#calc_operations.CalcOperations.accumulator" title="Link to this definition"></a></dt>
+<dd><p>Accumulator to store temporary results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.switch">
+<span class="sig-name descname"><span class="pre">switch</span></span><a class="headerlink" href="#calc_operations.CalcOperations.switch" title="Link to this definition"></a></dt>
+<dd><p>A switch variable to track the state of operator
+buttons. By default, the switch is set to False. When a user
+presses an operator button (e.g., +, -, x, /), the switch
+transitions to True. Once in the True state, subsequent presses
+of operator buttons merely switch the operator sign without
+executing additional code associated with the operation (e.g., the
+do_plus method). This design ensures seamless handling of
+consecutive operator inputs while maintaining the expected
+functionality of the calculator. Defaults to False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.last_oper_eq_state">
+<span class="sig-name descname"><span class="pre">last_oper_eq_state</span></span><a class="headerlink" href="#calc_operations.CalcOperations.last_oper_eq_state" title="Link to this definition"></a></dt>
+<dd><p>A boolean variable to track whether the
+last operation performed was the equals (=) operation. This is
+used to control the behavior of the calculator after the equals
+operation, ensuring that subsequent numerical inputs after
+pressing equals don’t append to the previous result. Defaults to
+False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boolean</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.curr_value">
+<span class="sig-name descname"><span class="pre">curr_value</span></span><a class="headerlink" href="#calc_operations.CalcOperations.curr_value" title="Link to this definition"></a></dt>
+<dd><p>Represent the current value displayed on the
+primary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.error">
+<span class="sig-name descname"><span class="pre">error</span></span><a class="headerlink" href="#calc_operations.CalcOperations.error" title="Link to this definition"></a></dt>
+<dd><p>Error message for division by zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This class defines methods that can be bound as callbacks with
+widgets created in its subclass named Calculator of calculator
+module.</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.clear_if_error">
+<span class="sig-name descname"><span class="pre">clear_if_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.clear_if_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.clear_if_error" title="Link to this definition"></a></dt>
+<dd><p>Clear the display if an error message is present in the display.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): The current string retrieved from primary
+display.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.clear_if_last_oper_equal">
+<span class="sig-name descname"><span class="pre">clear_if_last_oper_equal</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.clear_if_last_oper_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.clear_if_last_oper_equal" title="Link to this definition"></a></dt>
+<dd><p>Reset the calculator state if the last operation performed was the
+equals (=) operation and subsequent numerical key is pressed.</p>
+<p>This method checks if the last operation performed was the equals
+operation (=) (Note: last_operation is always equal when = button is
+pressed or % operation is performed). It is used to control the
+behavior of the calculator after the equals operation, ensuring that
+subsequent numerical inputs after pressing equals don’t append to the
+previous result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.disable_if_error">
+<span class="sig-name descname"><span class="pre">disable_if_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.disable_if_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.disable_if_error" title="Link to this definition"></a></dt>
+<dd><p>Disable certain calculator buttons(operator buttons) if an error
+message is present in the display.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This method relies on the ‘buttons_dict’ attribute of the
+this class to access the buttons.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>btn_texts(str): A string representing button text from
+disabled_btn_texts list.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_backspace">
+<span class="sig-name descname"><span class="pre">do_backspace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_backspace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_backspace" title="Link to this definition"></a></dt>
+<dd><p>Perform backspace operation on the calculator display.</p>
+<p>This method removes the last character from the number displayed on
+the calculator’s primary display. If the displayed number has only one
+digit after backspacing, it sets the display to ‘0’.</p>
+<p>Note: It also reset the calculator state if error is present in the
+primary display or the last_operation is = (equal) (last_operation is
+always equal when =  button is pressed or % operation is performed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the backspace
+event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): A string variable to store primary display
+value.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_clear">
+<span class="sig-name descname"><span class="pre">do_clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_clear" title="Link to this definition"></a></dt>
+<dd><p>Clear the calculator display and reset internal state.</p>
+<p>This method clears primary and secondary displays of the calculator,
+resetting them to ‘0’. Additionally, it resets the internal state of
+the calculator by initializing the ‘last_operation’ to an empty string,
+resetting the ‘accumulator’ to 0, and setting the ‘switch’ and
+‘last_oper_eq_state’ to False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the clear display
+event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>This method affects the appearance and behavior of certain
+calculator buttons, such as resetting their state and background
+color to default values.</p></li>
+<li><p>It relies on the ‘buttons_dict’, ‘last_operation’, ‘accumulator’,
+‘switch’, ‘pri_display_text’, and ‘sec_display_text’ attributes
+of the CalcOperations class to perform its operation.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>btn_texts (str): A string representing button text from
+disabled_btn_texts list.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_clear_entry">
+<span class="sig-name descname"><span class="pre">do_clear_entry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_clear_entry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_clear_entry" title="Link to this definition"></a></dt>
+<dd><p>Clear the current entry on the calculator display.</p>
+<p>It clears the current entry on the display if no error message is
+present in the dipslay otherwise reset the calculator’s internal state
+to initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the clear entry
+event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>It also reset the calculator state if error is present in the
+primary display or the last_operation is = (equal)
+(last_operation is always equal when =  button is pressed or %
+operation is performed).</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_digit_0">
+<span class="sig-name descname"><span class="pre">do_digit_0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_digit_0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_digit_0" title="Link to this definition"></a></dt>
+<dd><p>Handle zero digit input for the calculator.</p>
+<p>This method handles zero digit (‘0’) input for the calculator,
+updating the display accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the zero digit
+input event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): The current value displayed on the
+calculator.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_digit_x">
+<span class="sig-name descname"><span class="pre">do_digit_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_digit_x"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_digit_x" title="Link to this definition"></a></dt>
+<dd><p>Handle digit inputs for the calculator.</p>
+<p>This method handles digit inputs for the calculator, updating the
+display accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the digit input
+event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): The current value displayed on the
+calculator.</p></li>
+<li><p>digit (str): The pressed (by mouse or keyboard) numerical
+button’s text (0 to 9).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_divd">
+<span class="sig-name descname"><span class="pre">do_divd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_divd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_divd" title="Link to this definition"></a></dt>
+<dd><p>Handle division operation for the calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the division event.
+Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_dot">
+<span class="sig-name descname"><span class="pre">do_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_dot" title="Link to this definition"></a></dt>
+<dd><p>Handle decimal point input for the calculator.</p>
+<p>This method handles decimal point input for the calculator, updating
+the display accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the decimal point
+event. Defaults to None.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): The current value displayed on the
+calculator.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_equal">
+<span class="sig-name descname"><span class="pre">do_equal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">curr_operation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'='</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_equal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_equal" title="Link to this definition"></a></dt>
+<dd><p>Handle the equal sign button press to perform arithmetic calculations.</p>
+<p>This method performs arithmetic calculations based on the last
+operation and the current value displayed on the calculator. It
+updates the secondary display with the operation and operand, performs
+the calculation, updates the primary display with the result, and
+resets the internal state accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the equal event.
+Defaults to None.</p></li>
+<li><p><strong>curr_operation</strong> (<em>str</em><em>, </em><em>optional</em>) – A string representing the
+curr_operation. Defaults to ‘=’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ZeroDivisionError</strong> – If division by zero occur during division and
+    percentage operation.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_minus">
+<span class="sig-name descname"><span class="pre">do_minus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_minus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_minus" title="Link to this definition"></a></dt>
+<dd><p>Handle subtraction operation for the calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the substraction
+event. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_multi">
+<span class="sig-name descname"><span class="pre">do_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_multi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_multi" title="Link to this definition"></a></dt>
+<dd><p>Handle multiplication operation for the calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the multiplication
+event. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_operation">
+<span class="sig-name descname"><span class="pre">do_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">curr_operation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_operation" title="Link to this definition"></a></dt>
+<dd><p>Handle addition, subtraction, multiplication and division operation
+for the calculator.</p>
+<p>This method handles the addition, subtraction, multiplication and
+division operation for the calculator, updating the display and
+internal state accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>curr_operation</strong> (<em>str</em>) – A string representing current operation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_percent">
+<span class="sig-name descname"><span class="pre">do_percent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_percent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_percent" title="Link to this definition"></a></dt>
+<dd><p>Handle percentage operation for the calculator.</p>
+<p>This method calculates the percentage of the current value displayed
+on the calculator. If no previous operation has been performed, it
+calculates the percentage of the current value relative to zero. It
+then updates the display and internal state accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the percentage
+event. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_plus">
+<span class="sig-name descname"><span class="pre">do_plus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_plus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_plus" title="Link to this definition"></a></dt>
+<dd><p>Handle addition operation for the calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the addition event.
+Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.do_plusminus">
+<span class="sig-name descname"><span class="pre">do_plusminus</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.do_plusminus"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.do_plusminus" title="Link to this definition"></a></dt>
+<dd><p>Toggle the sign of the number displayed on the calculator.</p>
+<p>It changes the sign of the number displayed on the calculator’s
+primary display. If the number is positive, it becomes negative, and
+vice versa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for the plusminus (+/-)
+event. Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.float_to_str">
+<span class="sig-name descname"><span class="pre">float_to_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.float_to_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.float_to_str" title="Link to this definition"></a></dt>
+<dd><p>Convert a floating-point number to a string.</p>
+<p>Depending on length of the num_value, and presence of ‘E’ &amp; ‘.’, it
+convert the floating-point number to a string. Depending on the
+context, It also converts the floating-point number to a string
+representing scientific notation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>num_value</strong> (<em>float</em>) – The number to convert.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>str_value (str): The converted string value.</p></li>
+<li><p>sci_notation_len (int): The desired length of the scientific
+notation string representation. The resulting string length
+may vary depending on whether the number is negative or
+positive, as the representation includes a sign for
+negative numbers.</p></li>
+<li><p>int_part (str): String representing integer part of the
+str_value when lenght of the str_value is greater than
+primary display width and ‘.’ is present.</p></li>
+<li><p>n_digits (int): Remaining number of digits after duducting
+(lenght of int_part + 1 for dot) from primary display width.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The converted string representation of the number.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calc_operations.CalcOperations.str_to_float">
+<span class="sig-name descname"><span class="pre">str_to_float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calc_operations.html#CalcOperations.str_to_float"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calc_operations.CalcOperations.str_to_float" title="Link to this definition"></a></dt>
+<dd><p>Convert a string to a floating-point number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str_value</strong> (<em>str</em>) – The string value to convert.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the input parameters are not valid.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>num_value (float): Stores the converted float value.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The converted floating-point number if successful,
+None otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float or None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="calculator.html" class="btn btn-neutral float-left" title="calculator module documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Ashish Kumar (ashish.bmistry@gmail.com).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

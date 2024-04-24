@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>calculator module documentation &mdash; Calculator Application 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=8d563738"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="calc_operations module documentation" href="calc_operations.html" />
+    <link rel="prev" title="Welcome to Calculator Application’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Calculator Application
+              <img src="_static/calc_fevicon.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">calculator module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calculator.Calculator"><code class="docutils literal notranslate"><span class="pre">Calculator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.app_name"><code class="docutils literal notranslate"><span class="pre">Calculator.app_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.app_ver"><code class="docutils literal notranslate"><span class="pre">Calculator.app_ver</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.app_copyright"><code class="docutils literal notranslate"><span class="pre">Calculator.app_copyright</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.app_developer"><code class="docutils literal notranslate"><span class="pre">Calculator.app_developer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.window"><code class="docutils literal notranslate"><span class="pre">Calculator.window</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.frame"><code class="docutils literal notranslate"><span class="pre">Calculator.frame</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.win_title_st_calc"><code class="docutils literal notranslate"><span class="pre">Calculator.win_title_st_calc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.win_title_sci_calc"><code class="docutils literal notranslate"><span class="pre">Calculator.win_title_sci_calc</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.win_padx"><code class="docutils literal notranslate"><span class="pre">Calculator.win_padx</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.win_pady"><code class="docutils literal notranslate"><span class="pre">Calculator.win_pady</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.win_bg_color"><code class="docutils literal notranslate"><span class="pre">Calculator.win_bg_color</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.display_bg"><code class="docutils literal notranslate"><span class="pre">Calculator.display_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.pri_display_font"><code class="docutils literal notranslate"><span class="pre">Calculator.pri_display_font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.sec_display_font"><code class="docutils literal notranslate"><span class="pre">Calculator.sec_display_font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_bg"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_active_bg"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_active_bg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_padx"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_padx</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_pady"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_pady</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_back_pady"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_back_pady</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_borderwidth"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_borderwidth</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_height"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_height</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_width"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_width</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_digit_font"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_digit_font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.btn_operator_font"><code class="docutils literal notranslate"><span class="pre">Calculator.btn_operator_font</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.stick"><code class="docutils literal notranslate"><span class="pre">Calculator.stick</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.calc_type"><code class="docutils literal notranslate"><span class="pre">Calculator.calc_type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.about_app"><code class="docutils literal notranslate"><span class="pre">Calculator.about_app()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.are_you_sure"><code class="docutils literal notranslate"><span class="pre">Calculator.are_you_sure()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.calc_type_switch"><code class="docutils literal notranslate"><span class="pre">Calculator.calc_type_switch()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_buttons"><code class="docutils literal notranslate"><span class="pre">Calculator.create_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_developer_label"><code class="docutils literal notranslate"><span class="pre">Calculator.create_developer_label()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_display"><code class="docutils literal notranslate"><span class="pre">Calculator.create_display()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_frame"><code class="docutils literal notranslate"><span class="pre">Calculator.create_frame()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_main_window"><code class="docutils literal notranslate"><span class="pre">Calculator.create_main_window()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.Calculator.create_menu"><code class="docutils literal notranslate"><span class="pre">Calculator.create_menu()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#calculator.ScientificCalc"><code class="docutils literal notranslate"><span class="pre">ScientificCalc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.ScientificCalc.rows"><code class="docutils literal notranslate"><span class="pre">ScientificCalc.rows</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.ScientificCalc.cols"><code class="docutils literal notranslate"><span class="pre">ScientificCalc.cols</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.ScientificCalc.create_buttons"><code class="docutils literal notranslate"><span class="pre">ScientificCalc.create_buttons()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.ScientificCalc.place_buttons"><code class="docutils literal notranslate"><span class="pre">ScientificCalc.place_buttons()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#calculator.StandardCalc"><code class="docutils literal notranslate"><span class="pre">StandardCalc</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.StandardCalc.rows"><code class="docutils literal notranslate"><span class="pre">StandardCalc.rows</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.StandardCalc.cols"><code class="docutils literal notranslate"><span class="pre">StandardCalc.cols</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#calculator.StandardCalc.place_buttons"><code class="docutils literal notranslate"><span class="pre">StandardCalc.place_buttons()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="calc_operations.html">calc_operations module documentation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Calculator Application</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">calculator module documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/calculator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-calculator">
+<span id="calculator-module-documentation"></span><h1>calculator module documentation<a class="headerlink" href="#module-calculator" title="Link to this heading"></a></h1>
+<p>calculator module</p>
+<p>This module contains the implementation of a simple calculator GUI
+application using tkinter. It provides classes and methods to create
+a calculator window with basic arithmetic operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Classes<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Calculator</strong> – A class that represent a general calculator such as standard
+or scientific calculator.</p></li>
+<li><p><strong>StandardCalc</strong> – A class representing a standard calculator that performs
+basic arithmetic operations.</p></li>
+<li><p><strong>ScientificCalc</strong> – A class representing a scientific calculator that performs
+scientific operations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Imports<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>tkinter</strong> – For creating the GUI components for the calculator application.</p></li>
+<li><p><strong>tkinter.messagebox</strong> – For creating messagebox model dialog window.</p></li>
+<li><p><strong>calc_operations</strong> – A custom module providing additional methods for
+arithmetic operations for the calculator.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Ashish Kumar</strong> (<em>ashish.bmistry&#64;gmail.com</em>)</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">calculator</span> <span class="kn">import</span> <span class="n">Calculator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calc</span> <span class="o">=</span> <span class="n">Calculator</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calc</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt class="sig sig-object py" id="calculator.Calculator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calculator.</span></span><span class="sig-name descname"><span class="pre">Calculator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="calc_operations.html#calc_operations.CalcOperations" title="calc_operations.CalcOperations"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalcOperations</span></code></a></p>
+<p>A class that represent a general calculator such as a standard or
+scientific calculator, a sublclass of CalOperations of calc_operations
+module.</p>
+<p>It implements common functionality that both standard and scientific
+calculator has such as creating main window, creating and placing display,
+menu, info label and buttons widget.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.app_name">
+<span class="sig-name descname"><span class="pre">app_name</span></span><a class="headerlink" href="#calculator.Calculator.app_name" title="Link to this definition"></a></dt>
+<dd><p>Application name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.app_ver">
+<span class="sig-name descname"><span class="pre">app_ver</span></span><a class="headerlink" href="#calculator.Calculator.app_ver" title="Link to this definition"></a></dt>
+<dd><p>Calculator application version information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.app_copyright">
+<span class="sig-name descname"><span class="pre">app_copyright</span></span><a class="headerlink" href="#calculator.Calculator.app_copyright" title="Link to this definition"></a></dt>
+<dd><p>Copyright information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.app_developer">
+<span class="sig-name descname"><span class="pre">app_developer</span></span><a class="headerlink" href="#calculator.Calculator.app_developer" title="Link to this definition"></a></dt>
+<dd><p>Developer information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.window">
+<span class="sig-name descname"><span class="pre">window</span></span><a class="headerlink" href="#calculator.Calculator.window" title="Link to this definition"></a></dt>
+<dd><p>The main window of the calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tk.Tk</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.frame">
+<span class="sig-name descname"><span class="pre">frame</span></span><a class="headerlink" href="#calculator.Calculator.frame" title="Link to this definition"></a></dt>
+<dd><p>The frame widget which is master widget of
+developer_label and button widgets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tk.Frame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.win_title_st_calc">
+<span class="sig-name descname"><span class="pre">win_title_st_calc</span></span><a class="headerlink" href="#calculator.Calculator.win_title_st_calc" title="Link to this definition"></a></dt>
+<dd><p>Title of the standard calculator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.win_title_sci_calc">
+<span class="sig-name descname"><span class="pre">win_title_sci_calc</span></span><a class="headerlink" href="#calculator.Calculator.win_title_sci_calc" title="Link to this definition"></a></dt>
+<dd><p>Title of scientific calculator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.win_padx">
+<span class="sig-name descname"><span class="pre">win_padx</span></span><a class="headerlink" href="#calculator.Calculator.win_padx" title="Link to this definition"></a></dt>
+<dd><p>Horizontal padding of the calculator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.win_pady">
+<span class="sig-name descname"><span class="pre">win_pady</span></span><a class="headerlink" href="#calculator.Calculator.win_pady" title="Link to this definition"></a></dt>
+<dd><p>Vertical padding of the calculator window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.win_bg_color">
+<span class="sig-name descname"><span class="pre">win_bg_color</span></span><a class="headerlink" href="#calculator.Calculator.win_bg_color" title="Link to this definition"></a></dt>
+<dd><p>Background color of the calculator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.display_bg">
+<span class="sig-name descname"><span class="pre">display_bg</span></span><a class="headerlink" href="#calculator.Calculator.display_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of the display area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.pri_display_font">
+<span class="sig-name descname"><span class="pre">pri_display_font</span></span><a class="headerlink" href="#calculator.Calculator.pri_display_font" title="Link to this definition"></a></dt>
+<dd><p>Font for primary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.sec_display_font">
+<span class="sig-name descname"><span class="pre">sec_display_font</span></span><a class="headerlink" href="#calculator.Calculator.sec_display_font" title="Link to this definition"></a></dt>
+<dd><p>Font for secondary display.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_bg">
+<span class="sig-name descname"><span class="pre">btn_bg</span></span><a class="headerlink" href="#calculator.Calculator.btn_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_active_bg">
+<span class="sig-name descname"><span class="pre">btn_active_bg</span></span><a class="headerlink" href="#calculator.Calculator.btn_active_bg" title="Link to this definition"></a></dt>
+<dd><p>Background color of active buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_padx">
+<span class="sig-name descname"><span class="pre">btn_padx</span></span><a class="headerlink" href="#calculator.Calculator.btn_padx" title="Link to this definition"></a></dt>
+<dd><p>Horizontal padding of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_pady">
+<span class="sig-name descname"><span class="pre">btn_pady</span></span><a class="headerlink" href="#calculator.Calculator.btn_pady" title="Link to this definition"></a></dt>
+<dd><p>Vertical padding of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_back_pady">
+<span class="sig-name descname"><span class="pre">btn_back_pady</span></span><a class="headerlink" href="#calculator.Calculator.btn_back_pady" title="Link to this definition"></a></dt>
+<dd><p>Padding for the ‘Back’ button.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_borderwidth">
+<span class="sig-name descname"><span class="pre">btn_borderwidth</span></span><a class="headerlink" href="#calculator.Calculator.btn_borderwidth" title="Link to this definition"></a></dt>
+<dd><p>Border width of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_height">
+<span class="sig-name descname"><span class="pre">btn_height</span></span><a class="headerlink" href="#calculator.Calculator.btn_height" title="Link to this definition"></a></dt>
+<dd><p>Height of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_width">
+<span class="sig-name descname"><span class="pre">btn_width</span></span><a class="headerlink" href="#calculator.Calculator.btn_width" title="Link to this definition"></a></dt>
+<dd><p>Width of buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_digit_font">
+<span class="sig-name descname"><span class="pre">btn_digit_font</span></span><a class="headerlink" href="#calculator.Calculator.btn_digit_font" title="Link to this definition"></a></dt>
+<dd><p>Font for digit buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.btn_operator_font">
+<span class="sig-name descname"><span class="pre">btn_operator_font</span></span><a class="headerlink" href="#calculator.Calculator.btn_operator_font" title="Link to this definition"></a></dt>
+<dd><p>Font for operator buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.stick">
+<span class="sig-name descname"><span class="pre">stick</span></span><a class="headerlink" href="#calculator.Calculator.stick" title="Link to this definition"></a></dt>
+<dd><p>Sticky parameter for grid layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.Calculator.calc_type">
+<span class="sig-name descname"><span class="pre">calc_type</span></span><a class="headerlink" href="#calculator.Calculator.calc_type" title="Link to this definition"></a></dt>
+<dd><p>Stores instance of
+either StandardCalc or ScientificCalc class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#calculator.StandardCalc" title="calculator.StandardCalc">StandardCalc</a> | <a class="reference internal" href="#calculator.ScientificCalc" title="calculator.ScientificCalc">ScientificCalc</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Calculator class inherits attributes and methods from its parent
+class CalcOperations responsible for various arithmetic operations.
+This class extends CalcOperations class’s behaviour.</p></li>
+<li><p>Calculator class is also composed of either StandardCalc or
+ScientificCalc instances. It enables Calculator class to equip
+itself with additional attributes and methods of component class.</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.about_app">
+<span class="sig-name descname"><span class="pre">about_app</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.about_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.about_app" title="Link to this definition"></a></dt>
+<dd><p>Display information about the application.</p>
+<p>It displays information about the application such as name, version,
+copyright and developer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.are_you_sure">
+<span class="sig-name descname"><span class="pre">are_you_sure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.are_you_sure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.are_you_sure" title="Link to this definition"></a></dt>
+<dd><p>Prompt the user to confirm quitting the application.</p>
+<p>It displays a message box asking the user if they are sure they want
+to quit the application. If the user confirms, the application window
+is destroyed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>event</strong> (<em>tk.Event</em><em>, </em><em>optional</em>) – An event parameter that can be provided
+when the method is called as a callback for quit event.
+Defaults to None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.calc_type_switch">
+<span class="sig-name descname"><span class="pre">calc_type_switch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbol</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.calc_type_switch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.calc_type_switch" title="Link to this definition"></a></dt>
+<dd><p>A callback designed to switch between Standard and Scientific
+calculator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>symbol</strong> (<em>str</em>) – A string representing type of calculator. The strings
+that represent type of calculator are either ‘stand_calc’ or
+‘sci_calc’.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method performs following functionality.</dt><dd><ul>
+<li><p>Set title of the main window depending on selected type of
+calculator from the menu options.</p></li>
+<li><p>Depending on type of instance stored inside calc_type
+attribute, it resets the calculator’s state to its initial
+state.</p></li>
+<li><p>It destroys the frame widget which is master widget for
+developer_label and button widgets, then create a new frame
+widget object. By destroying frame, it also recursively
+destroys all the button and developer_label widget, which
+ensures that resources are freed up with the help python
+garbadge collector.</p></li>
+<li><p>Create new developer_label for the calculator.</p></li>
+<li><p>Set calc_type to the instance of either StandardCalc or
+ScientificCalc class depending on the selected calculator
+type.</p></li>
+<li><p>Create new buttons for the specific type calculator.</p></li>
+<li><p>Places the developer_label and button widgets to the frame
+widget.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_buttons">
+<span class="sig-name descname"><span class="pre">create_buttons</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_buttons" title="Link to this definition"></a></dt>
+<dd><p>Create button widgets for the calculator.</p>
+<p>This method creates buttons for digits and operators, and binds them
+to respective callback functions.</p>
+<p>Each button is created with specific attributes and configured with
+appropriate commands and bindings. After creating each button, it is
+added to the <cite>buttons_dict</cite> dictionary to access them later.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>btn_bg_color (str): background color for buttons.</p></li>
+<li><p>btn_font (tuple): Font for buttons.</p></li>
+<li><p>btn (tk.Button): Button widget object.</p></li>
+<li><p>btn_text (str): A string representing button’s text accessed
+from btn_callbacks dictionary inherited from CalcOperations
+class of calc_operations module.</p></li>
+<li><p>callback (str): Name reference to the callback function for
+each button respectively. It is accessed from btn_callbacks
+dictionary inherited from CalcOperations class of
+calc_operations module.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><p>This method implements callback binding for the following
+callbacks implemented in CalcOperations class of module
+calc_operations:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>do_backspace(self, event=None): Handle Backspace button
+press event.</p></li>
+<li><p>do_clear(self, event=None): Handle Clear (C) button press
+event.</p></li>
+<li><p>do_clear_entry(self, event=None): Handle Clear Entry (CE)
+button press event.</p></li>
+<li><p>do_percent(self, event=None): Handle Percentage (%) button
+press event.</p></li>
+<li><p>do_divd(self, event=None): Handle Division (/) button press
+event.</p></li>
+<li><p>do_multi(self, event=None): Handle Multiplication (x) button
+press event.</p></li>
+<li><p>do_minus(self, event=None): Handle the Subtraction (-)
+button press event.</p></li>
+<li><p>do_plus(self, event=None): Handle Addition (+) button press
+event.</p></li>
+<li><p>do_equal(self, event=None, curr_operation=’=’): Handle Equal
+(=) button press event.</p></li>
+<li><p>do_dot(self, event=None): Handle Dot (.) button press event.</p></li>
+<li><p>do_digit_0(self, event=None): Handle Digit 0 (0) button
+press event.</p></li>
+<li><p>do_plusminus(self, event=None): Handle Plus/Minus (+/-)
+button press event.</p></li>
+<li><p>do_digit_x(self, event=None): Handle Digit buttons (1-9)
+press event.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_developer_label">
+<span class="sig-name descname"><span class="pre">create_developer_label</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_developer_label"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_developer_label" title="Link to this definition"></a></dt>
+<dd><p>Create the developer label for the calculator.</p>
+<p>Creates a label at the bottom of the display for additional
+information to be shown about developer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>developer_label (tk.Label): The label displaying information
+about developer.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_display">
+<span class="sig-name descname"><span class="pre">create_display</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_display"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_display" title="Link to this definition"></a></dt>
+<dd><p>Create the primary and secondary display for the calculator.</p>
+<p>This method creates labels for primary and secondary displays.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>primary_display (tk.Label): The primary display of the
+calculator.</p></li>
+<li><p>secondary_display (tk.Label): The secondary display of the
+calculator.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_frame">
+<span class="sig-name descname"><span class="pre">create_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_frame" title="Link to this definition"></a></dt>
+<dd><p>Create frame widget for developer_label and button widgets placement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_main_window">
+<span class="sig-name descname"><span class="pre">create_main_window</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_main_window"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_main_window" title="Link to this definition"></a></dt>
+<dd><p>Create the main window of the calculator.</p>
+<p>This method initializes the main window of the calculator with
+specified attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.Calculator.create_menu">
+<span class="sig-name descname"><span class="pre">create_menu</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#Calculator.create_menu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.Calculator.create_menu" title="Link to this definition"></a></dt>
+<dd><p>Create the menu for the calculator.</p>
+<p>This method adds menu options to the main menu bar of the calculator
+window.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>main_menu (tk.Menu): The main menu bar of the calculator
+window.</p></li>
+<li><p>sub_menu_file (tk.Menu): The submenu under the ‘File’ menu.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><p>This method implements callback binding for the following
+callbacks:</p>
+<blockquote>
+<div><ul class="simple">
+<li><dl class="simple">
+<dt>calc_type_switch(self, symbol):</dt><dd><p>Callback function to switch between Standard and Scientific
+calculator.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>are_you_sure(self, event=None):</dt><dd><p>Callback function for the ‘Quit’ menu option.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>about_app(self):</dt><dd><p>Callback function for the ‘About’ menu option.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="calculator.ScientificCalc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calculator.</span></span><span class="sig-name descname"><span class="pre">ScientificCalc</span></span><a class="reference internal" href="_modules/calculator.html#ScientificCalc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.ScientificCalc" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a scientific calculator that performs scientific
+operations.</p>
+<p>This class defines additional methods required execlusively for Scientific
+calculator not defined in Calculator class.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.ScientificCalc.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><a class="headerlink" href="#calculator.ScientificCalc.rows" title="Link to this definition"></a></dt>
+<dd><p>Represent row counter for button placement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.ScientificCalc.cols">
+<span class="sig-name descname"><span class="pre">cols</span></span><a class="headerlink" href="#calculator.ScientificCalc.cols" title="Link to this definition"></a></dt>
+<dd><p>Represent column counter for button placement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>ScientificCalc class is under development.</p></li>
+</ul>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.ScientificCalc.create_buttons">
+<span class="sig-name descname"><span class="pre">create_buttons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#ScientificCalc.create_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.ScientificCalc.create_buttons" title="Link to this definition"></a></dt>
+<dd><p>Create additional buttons for scientific calculator which are not part
+of the standard calculator.</p>
+<p>It use calc (instance of Calculator class) to access Calculator class’s
+attributes to create additional buttons.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>calc</strong> (<a class="reference internal" href="#calculator.Calculator" title="calculator.Calculator"><em>Calculator</em></a>) – An instance of Calculator class.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.ScientificCalc.place_buttons">
+<span class="sig-name descname"><span class="pre">place_buttons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#ScientificCalc.place_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.ScientificCalc.place_buttons" title="Link to this definition"></a></dt>
+<dd><p>Places buttons into frame widget of main window.</p>
+<p>It utilizes button_dict of Calculator class to access button widget
+object and grid geomatry to place buttons into frame widget of main
+window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>calc</strong> (<a class="reference internal" href="#calculator.Calculator" title="calculator.Calculator"><em>Calculator</em></a>) – An instance of Calculator class.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><p>This method utilizes the following locally declared temporary
+variables:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>under_develop (tk.Label): Temporary tk.Label widget
+representing text that ‘Scientific calculator is under
+development’. It is placed inside the frame widget of
+Calculator class.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>“As the ScientificCalc class is under development, a temporary
+message ‘Scientific calculator is under development’ is
+displayed on the screen when the user selects the Scientific
+calculator option from the menu.”</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="calculator.StandardCalc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">calculator.</span></span><span class="sig-name descname"><span class="pre">StandardCalc</span></span><a class="reference internal" href="_modules/calculator.html#StandardCalc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.StandardCalc" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class representing a standard calculator that performs basic arithmetic
+operations.</p>
+<p>This class defines additional methods required execlusively for Standard
+calculator not defined in Calculator class.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.StandardCalc.rows">
+<span class="sig-name descname"><span class="pre">rows</span></span><a class="headerlink" href="#calculator.StandardCalc.rows" title="Link to this definition"></a></dt>
+<dd><p>Represent row counter for button placement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="calculator.StandardCalc.cols">
+<span class="sig-name descname"><span class="pre">cols</span></span><a class="headerlink" href="#calculator.StandardCalc.cols" title="Link to this definition"></a></dt>
+<dd><p>Represent column counter for button placement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="calculator.StandardCalc.place_buttons">
+<span class="sig-name descname"><span class="pre">place_buttons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calc</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/calculator.html#StandardCalc.place_buttons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#calculator.StandardCalc.place_buttons" title="Link to this definition"></a></dt>
+<dd><p>Places buttons into frame widget of main window.</p>
+<p>It utilizes button_dict of Calculator class to access button widget
+object and grid geomatry to place buttons into frame widget of main
+window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>calc</strong> (<em>Calcualator</em>) – An instance of Calculator class.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>This method utilizes the following locally declared variables:</dt><dd><ul>
+<li><p>btn_text (str): A string representing button’s text from
+buttons_dict dictionary of Calculator class.</p></li>
+<li><p>btn (tk.Button): Button widget object.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>These variables are used internally within the method and are
+not exposed to the method’s caller.</p></li>
+</ul>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Calculator Application’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="calc_operations.html" class="btn btn-neutral float-right" title="calc_operations module documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Ashish Kumar (ashish.bmistry@gmail.com).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
