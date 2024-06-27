@@ -160,7 +160,7 @@ class Calculator(CalcOperations):
         """
         Create the main window of the calculator.
 
-        This method initializes main window of the calculator with
+        This method initializes the main window of the calculator with
         specified attributes.
 
         Returns:
